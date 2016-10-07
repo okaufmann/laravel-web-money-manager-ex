@@ -28,15 +28,11 @@ security::redirect_if_not_loggedin();
         <div class="container text_align_center">
             <h2><strong>Money Manager EX</strong></h2>
             <br />
-            <img src="res/mmex.png" alt="Money Manager EX Logo" height="150" width="150"/>
+            <a href="new_transaction.php" class="btn btn-lg btn-success btn-block">Neue Bewegung</a>
             <br />
+            <a href="show.php" class="btn btn-lg btn-success btn-block">Bewegungen</a>
             <br />
-            <br />
-            <a href="new_transaction.php" class="btn btn-lg btn-success btn-block">New transaction</a>
-            <br />
-            <a href="show.php" class="btn btn-lg btn-success btn-block">Show transaction</a>
-            <br />
-            <a href="settings.php" class="btn btn-lg btn-success btn-block">Edit settings</a>
+            <a href="settings.php" class="btn btn-lg btn-success btn-block">Einstellungen</a>
             <br />
             <a href="guide.php" class="btn btn-lg btn-success btn-block">Guide</a>
             <br />

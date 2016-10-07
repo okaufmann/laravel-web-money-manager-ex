@@ -13,7 +13,7 @@ class design
     public static function input_date ($TrDateDefault)
         {
             echo "<div class='form-group'>";
-                echo "<label for='Date'>Date</label>";
+                echo "<label for='Date'>Datum</label>";
                 echo "<input id = 'Date' type='date' name='Date' class='form-control'   value = '${TrDateDefault}'/>";
                 echo "<span class='help-block'></span>";
             echo "</div>\n";
@@ -24,7 +24,7 @@ class design
     //Create status input element
     public static function input_status ($TrStatusDefault)
         {
-            $StatusArrayDesc = array ("None", "Reconciled", "Void", "Follow Up", "Duplicate");
+            $StatusArrayDesc = array ("Keine Auswahl", "Überprüft", "Ungültig", "Beobachten", "Duplizieren");
             $StatusArrayDB = array ("", "R", "V", "F", "D");
             
             echo "<div class='form-group'>";
@@ -46,11 +46,11 @@ class design
     //Create type input element
     public static function input_type ($TrTypeDefault)
         {
-            $TypeArrayDesc = array ("Withdrawal", "Deposit", "Transfer");
+            $TypeArrayDesc = array ("Zahlung", "Gutschrift", "Übertrag");
             
             echo "<div class='form-group'>";
                 echo "<label for='Type'>Type</label>";
-                echo "<select id ='Type' name='Type' class='form-control' onchange='enable_element(\"ToAccount\",\"Type\",\"Transfer\"); disable_element(\"Payee\",\"Type\",\"Transfer\")'>";
+                echo "<select id ='Type' name='Type' class='form-control' onchange='enable_element(\"ToAccount\",\"Type\",\"Übertrag\"); disable_element(\"Payee\",\"Type\",\"Übertrag\")'>";
                 for ($i = 0; $i < sizeof($TypeArrayDesc); $i++)
                 {
                     if ($TypeArrayDesc[$i] == $TrTypeDefault)
@@ -69,10 +69,10 @@ class design
         {
             $AccountArrayDesc = db_function::bankaccount_select_all();
             if (sizeof($AccountArrayDesc) == 0)
-                {$AccountArrayDesc[0] = "None";}
+                {$AccountArrayDesc[0] = "Keine Auswahl";}
             
             echo "<div class='form-group'>";
-                echo "<label for='Account'>Account</label>";
+                echo "<label for='Account'>Konto</label>";
                 echo "<select id ='Account' name='Account' class='form-control'>";
                 for ($i = 0; $i < sizeof($AccountArrayDesc); $i++)
                 {
@@ -91,10 +91,10 @@ class design
     public static function input_toaccount ($TrToAccountDefault)
         {
             $ToAccountArrayDesc = db_function::bankaccount_select_all();
-            array_unshift($ToAccountArrayDesc,"None");
+            array_unshift($ToAccountArrayDesc,"Keine Auswahl");
 
             echo "<div class='form-group'>";
-                echo "<label for='ToAccount'>To Account</label>";
+                echo "<label for='ToAccount'>Auf Konto</label>";
                 echo "<select id ='ToAccount' name='ToAccount' class='form-control'>";
                 for ($i = 0; $i < sizeof($ToAccountArrayDesc); $i++)
                 {
@@ -113,10 +113,10 @@ class design
     public static function input_payee ($TrPayeeDefault)
         {
             $PayeeArrayDesc = db_function::payee_select_all_name();
-            array_unshift($PayeeArrayDesc,"None");
+            array_unshift($PayeeArrayDesc,"Keine Auswahl");
 
             echo "<div class='form-group'>";
-                echo "<label for='Payee'>Payee</label>";
+                echo "<label for='Payee'>Zahlungsempfänger</label>";
                 echo "<input id='Payee' type='text' name='Payee' class='form-control' placeholder='Choose a payee' autocomplete = 'off' required />";
                 echo "<span class='help-block'></span>";
             echo "</div>\n";
@@ -134,10 +134,10 @@ class design
     public static function input_category ($TrCategoryDefault)
         {
             $CategoryArrayDesc = db_function::category_select_distinct();
-            array_unshift($CategoryArrayDesc,"None");
+            array_unshift($CategoryArrayDesc,"Keine Auswahl");
 
             echo "<div class='form-group'>";
-                echo "<label for='Category'>Category</label>";
+                echo "<label for='Category'>Kategorie</label>";
                 echo "<input id='Category' type='text' name='Category' class='form-control' placeholder='Choose a category' autocomplete = 'off' required />";
                 echo "<span class='help-block'></span>";
             echo "</div>\n";
@@ -155,7 +155,7 @@ class design
     public static function input_subcategory ($TrSubCategoryDefault)
         {
             echo "<div class='form-group'>";
-                echo "<label for='SubCategory'>SubCategory</label>";
+                echo "<label for='SubCategory'>Unterkategorie</label>";
                 echo "<input id='SubCategory' type='text' name='SubCategory' class='form-control' placeholder='Choose a subcategory' autocomplete='off' required />";
                 echo "<span class='help-block'></span>";
             echo "</div>\n";
@@ -171,7 +171,7 @@ class design
     public static function input_amount ($TrAmountDefault)
         {
             echo "<div class='form-group'>";
-                echo "<label for='Amount'>Amount</label>";
+                echo "<label for='Amount'>Betrag</label>";
                 if ($TrAmountDefault <> 0)
                     {
                         echo "<input id='Amount' type='number' name='Amount' class='form-control' placeholder='New transaction amount' min='0.01' step ='0.01' value='${TrAmountDefault}' required />";
@@ -190,7 +190,7 @@ class design
     public static function input_notes ($TrNotesDefault)
         {
             echo "<div class='form-group'>";
-                echo "<label for='Notes'>Notes</label>";
+                echo "<label for='Notes'>Notizen</label>";
                 if ($TrNotesDefault <> "Empty")
                     {
                         echo "<textarea id='Notes' name='Notes' class='form-control' rows='5' placeholder='New transaction notes'>${TrNotesDefault}</textarea>";
@@ -276,7 +276,7 @@ class design
         {
             $AccountArrayDesc = db_function::bankaccount_select_all();
             if (sizeof($AccountArrayDesc) == 0)
-                {$AccountArrayDesc[0] = "None";}
+                {$AccountArrayDesc[0] = "Keine Auswahl";}
             
             echo "<div class='form-group'>";
                 echo "<label for='Default_Account'> Default Account</label>";
@@ -926,7 +926,7 @@ class db_upgrade
             
             $db->exec   ("ALTER TABLE New_Transaction RENAME TO New_Transaction_Old");
             db_function::db_create();
-            $db->exec   ("INSERT INTO New_Transaction (Date, Status, Type, Account, ToAccount, Payee, Amount, Notes) SELECT Date, Status, Type, Account, ToAccount, 'None', Amount, Notes FROM New_Transaction_Old");
+            $db->exec   ("INSERT INTO New_Transaction (Date, Status, Type, Account, ToAccount, Payee, Amount, Notes) SELECT Date, Status, Type, Account, ToAccount, 'Keine Auswahl', Amount, Notes FROM New_Transaction_Old");
             $db->exec   ("DROP TABLE New_Transaction_Old");
             $db->exec   ("UPDATE Parameters SET Value = '0.9.3' WHERE Parameter = 'Version';");           
             $db = null;
@@ -952,7 +952,7 @@ class db_upgrade
             $db->exec   ("ALTER TABLE New_Transaction RENAME TO New_Transaction_Old");
             db_function::db_create();
             $db->exec   ("INSERT INTO New_Transaction (Date, Status, Type, Account, ToAccount, Payee, Category, SubCategory, Amount, Notes)
-                            SELECT Date, Status, Type, Account, ToAccount, Payee, 'None', 'None', Amount, Notes FROM New_Transaction_Old");
+                            SELECT Date, Status, Type, Account, ToAccount, Payee, 'Keine Auswahl', 'Keine Auswahl', Amount, Notes FROM New_Transaction_Old");
             $db->exec   ("DROP TABLE New_Transaction_Old");
             $db->exec   ("UPDATE Parameters SET Value = '0.9.7' WHERE Parameter = 'Version';");           
             $db = null;
@@ -976,8 +976,8 @@ class db_upgrade
             $db = new PDO("sqlite:${const_dbpath}");
             $db->exec   ("ALTER TABLE Payee_List ADD DefCateg TEXT");
             $db->exec   ("ALTER TABLE Payee_List ADD DefSubCateg TEXT");
-            $db->exec   ("UPDATE Payee_List SET DefCateg = 'None', DefSubCateg = 'None'");
-            $db->exec   ("UPDATE New_Transaction SET Category = 'None', SubCategory = 'None'");
+            $db->exec   ("UPDATE Payee_List SET DefCateg = 'Keine Auswahl', DefSubCateg = 'Keine Auswahl'");
+            $db->exec   ("UPDATE New_Transaction SET Category = 'Keine Auswahl', SubCategory = 'Keine Auswahl'");
             $db->exec   ("UPDATE Parameters SET Value = '0.9.9' WHERE Parameter = 'Version';");           
             $db = null;
         }
@@ -1004,7 +1004,7 @@ class various
         {
             echo "<script src='res/app/functions-1.0.4.js' type='text/javascript'></script>";
             echo "<script language='javascript'>";
-            if ($AlertRedirect <> "None")
+            if ($AlertRedirect <> "Keine Auswahl")
                 {echo "send_alert_and_redirect ('${AlertMessage}','${AlertRedirect}')";}
             echo "</script>";
         }

@@ -56,7 +56,7 @@ security::redirect_if_not_loggedin();
             $TransactionStatus = costant::transaction_default_status();
             $TransactionType = costant::transaction_default_type();
             $TransactionAccount = costant::transaction_default_account();
-            $TransactionToAccount = "None";
+            $TransactionToAccount = "Keine Auswahl";
             $TransactionPayee = "";
             $TransactionCategory = "";
             $TransactionSubCategory = "";
@@ -100,7 +100,7 @@ security::redirect_if_not_loggedin();
                         }
                     else
                         {
-                            design::input_hidden("Payee","None");
+                            design::input_hidden("Payee","Keine Auswahl");
                         }
                     if (costant::disable_category() !== True)
                         {
@@ -109,14 +109,14 @@ security::redirect_if_not_loggedin();
                         }
                     else
                         {
-                            design::input_hidden("Category","None");
-                            design::input_hidden("SubCategory","None");
+                            design::input_hidden("Category","Keine Auswahl");
+                            design::input_hidden("SubCategory","Keine Auswahl");
                         }
                     design::input_amount($TransactionAmount);
                     design::input_notes($TransactionNotes);
                     
                     echo "<div class='form-group'>";
-                        echo "<label for='fileToUpload'>Take a picture or upload attachments</label><br />";
+                        echo "<label for='fileToUpload'>Bilder oder Datei anfügen</label><br />";
                         echo "<input type='file' name='fileToUpload' id='fileToUpload' onchange='attachment_uploadFile(${TrEditNr});' />";
                         echo "<span class='help-block'></span>";
                     echo "</div>\n";

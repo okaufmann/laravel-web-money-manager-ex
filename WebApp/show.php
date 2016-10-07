@@ -11,11 +11,11 @@ security::redirect_if_not_loggedin();
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="MMEX">
 	<meta name="apple-mobile-web-app-capable" content="yes" />
-	
+
     <title>Show Transaction</title>
     <link rel="icon" href="res/favicon.ico" />
     <link rel="apple-touch-icon" href="res/mmex.png" />
-    
+
     <link rel="stylesheet" type="text/css" href="res/bootstrap-3.3.6.min.css" />
     <link rel="stylesheet" type="text/css" href="res/bootstrap-theme-3.3.6.min.css" />
     <link rel="stylesheet" type="text/css" href="res/style_global-0.9.9.css" />
@@ -56,7 +56,7 @@ if ($recordmaxid > 0 )
                             echo "<th class = 'text_align_center'>Edit</th>";
                         echo "</tr>";
                     echo "</thead>";
-                    
+
                     echo "<tbody>";
                     for ($i = 0; $i <= $recordmaxid; $i++)
                         {
@@ -65,20 +65,15 @@ if ($recordmaxid > 0 )
                                     echo "<tr>";
                                         //TRANSACTION ID
                                         $lineid = $resultarray[$i]["ID"];
-                                        
+
                                         //DATE
                                         $TrDateShow = $resultarray[$i]["Date"];
                                         design::table_cell($TrDateShow,"");
-                                        
+
                                         //TYPE
                                         $TrStatusShow = $resultarray[$i]["Status"];
                                         $TrTypeShow = $resultarray[$i]["Type"];
-                                            if ($TrTypeShow == "Withdrawal")
-                                                $TrTypeShowFormatted = "With.";
-                                            if ($TrTypeShow == "Deposit")
-                                                $TrTypeShowFormatted = "Dep.";
-                                            if ($TrTypeShow == "Transfer")
-                                                $TrTypeShowFormatted = "Tran.";
+                                        $TrTypeShowFormatted = $TrTypeShow;
                                         design::table_cell("${TrStatusShow} - ${TrTypeShowFormatted}","");
                                         
                                         //ACCOUNT
