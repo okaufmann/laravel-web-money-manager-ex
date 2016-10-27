@@ -17,7 +17,7 @@ class MmexEnsureGuid
     public function handle($request, Closure $next)
     {
         $data = $request->all();
-        if(isset($data["guid"]) && $data["guid"] == "{D6A33C24-DE43-D62C-A609-EF5138F33F27}") {
+        if(isset($data["guid"]) && $data["guid"] == config('services.mmex.guid')) {
             return $next($request);
         }
 

@@ -35,4 +35,8 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'mmex' => [
+        'guid' => env('MMEX_GUID')
+    ]
+
 ];
