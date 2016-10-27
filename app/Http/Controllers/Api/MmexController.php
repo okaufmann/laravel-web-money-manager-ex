@@ -38,6 +38,11 @@ class MmexController extends Controller
 
         if (isset($data['MMEX_Post'])) {
             $postData = json_decode($data['MMEX_Post']);
+        } else if (isset($data['postData'])) {
+            $postData = json_decode($data['postData']);
+        }
+
+        if ($postData) {
             Log::debug('MmexController, $postData', [$postData]);
         }
 
@@ -146,6 +151,12 @@ class MmexController extends Controller
         }
         if (isset($data[MmexFunctions::ImportPayees])) {
             return MmexFunctions::ImportPayees;
+        }
+        if (isset($data[MmexFunctions::DeleteCategories])) {
+            return MmexFunctions::DeleteCategories;
+        }
+        if (isset($data[MmexFunctions::ImportCategories])) {
+            return MmexFunctions::ImportCategories;
         }
 
         throw new \Exception('No valid function request!');
