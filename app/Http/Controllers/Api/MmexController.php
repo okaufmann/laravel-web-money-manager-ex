@@ -45,6 +45,7 @@ class MmexController extends Controller
 
         $function = $this->getFunction($data);
 
+        // TODO: Write Tests
         if ($function == MmexFunctions::CheckGuid) {
             return $this->returnText(Constants::$operation_succeded);
         }
@@ -53,17 +54,45 @@ class MmexController extends Controller
             return $this->returnText(Constants::$api_version);
         }
 
+        // TODO: remove dummy data
+        // TODO: Write Tests
         if ($function == MmexFunctions::DownloadTransactions) {
             return $this->returnText($this->mmexService->getTransactions());
         }
 
+        // TODO: Write Tests
         if ($function == MmexFunctions::DeleteBankAccounts) {
             $this->mmexService->deleteAccounts();
             return $this->returnText(Constants::$operation_succeded);
         }
 
+        // TODO: Write Tests
         if ($function == MmexFunctions::ImportBankAccounts) {
             $this->mmexService->importBankAccounts($postData);
+            return $this->returnText(Constants::$operation_succeded);
+        }
+
+        // TODO: Write Tests
+        if ($function == MmexFunctions::DeletePayees) {
+            $this->mmexService->deletePayees();
+            return $this->returnText(Constants::$operation_succeded);
+        }
+
+        // TODO: Write Tests
+        if ($function == MmexFunctions::ImportPayees) {
+            $this->mmexService->importPayees($postData);
+            return $this->returnText(Constants::$operation_succeded);
+        }
+
+        // TODO: Write Tests
+        if ($function == MmexFunctions::DeleteCategories) {
+            $this->mmexService->deleteCategories();
+            return $this->returnText(Constants::$operation_succeded);
+        }
+
+        // TODO: Write Tests
+        if ($function == MmexFunctions::ImportCategories) {
+            $this->mmexService->importCategories($postData);
             return $this->returnText(Constants::$operation_succeded);
         }
 
@@ -114,5 +143,7 @@ class MmexController extends Controller
         if (isset($data[MmexFunctions::ImportPayees])) {
             return MmexFunctions::ImportPayees;
         }
+
+        throw new \Exception("No valid function request!");
     }
 }
