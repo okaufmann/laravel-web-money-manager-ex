@@ -15,12 +15,12 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('account_id')->unsigned();
-            $table->integer('to_account_id')->unsigned();
             $table->integer('status_id')->unsigned();
             $table->integer('type_id')->unsigned();
-            $table->integer('payee_id')->unsigned();
-            $table->integer('category_id')->unsigned();
+            $table->string('account_name'); // should not be linked through a FK since a account can be deleted anytime
+            $table->string('to_account_name'); // "
+            $table->string('payee_name'); // "
+            $table->string('category_name'); // "
             $table->decimal('amount');
             $table->text('notes');
             $table->softDeletes();
@@ -28,12 +28,8 @@ class CreateTransactionsTable extends Migration
         });
 
         Schema::table('transactions', function (Blueprint $table) {
-            $table->foreign('account_id')->references('id')->on('accounts');
-            $table->foreign('to_account_id')->references('id')->on('accounts');
             $table->foreign('status_id')->references('id')->on('transaction_status');
             $table->foreign('type_id')->references('id')->on('transaction_types');
-            $table->foreign('payee_id')->references('id')->on('payees');
-            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 
