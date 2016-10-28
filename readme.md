@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/okaufmann/laravel-web-money-manager-ex.svg?branch=master)](https://travis-ci.org/okaufmann/laravel-web-money-manager-ex)
 [![StyleCI](https://styleci.io/repos/70249420/shield?branch=master)](https://styleci.io/repos/70249420)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/okaufmann/laravel-web-money-manager-ex/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/okaufmann/laravel-web-money-manager-ex/?branch=master)
-[![Total Downloads](https://poser.pugx.org/okaufmann/laravel-web-money-manager-ex/d/total.svg)](https://packagist.org/okaufmann/okaufmann/laravel-web-money-manager-ex)
+[![Total Downloads](https://poser.pugx.org/okaufmann/laravel-web-money-manager-ex/d/total.svg)](https://packagist.org/okaufmann/laravel-web-money-manager-ex)
 [![Latest Stable Version](https://poser.pugx.org/okaufmann/laravel-web-money-manager-ex/v/stable.svg)](https://packagist.org/packages/okaufmann/laravel-web-money-manager-ex)
 [![Latest Unstable Version](https://poser.pugx.org/okaufmann/laravel-web-money-manager-ex/v/unstable.svg)](https://packagist.org/packages/okaufmann/laravel-web-money-manager-ex)
 [![License](https://poser.pugx.org/okaufmann/laravel-web-money-manager-ex/license.svg)](https://packagist.org/packages/okaufmann/laravel-web-money-manager-ex)
