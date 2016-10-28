@@ -1,18 +1,14 @@
 <?php
-require_once "functions.php";
+require_once 'functions.php';
 $error = db_function::db_create();
-if ($error !== "ok")
-    {
-        echo $error;
+if ($error !== 'ok') {
+    echo $error;
+} else {
+    $upgrade_result = db_upgrade::upgrade_db();
+    if ($upgrade_result == 'update_done') {
+        various::send_alert_and_redirect('Database succesfully updated to version '.costant::app_version(), 'index.php');
     }
-else
-    {
-        $upgrade_result = db_upgrade::upgrade_db();
-        if ($upgrade_result == "update_done")
-            {
-                various::send_alert_and_redirect("Database succesfully updated to version ".costant::app_version(),"index.php");
-            }
-    }
+}
 $username = null;
 $password = null;
 
@@ -20,45 +16,32 @@ $const_username = costant::login_username();
 $const_password = costant::login_password();
 $const_disable_authentication = costant::disable_authentication();
 
-if ($const_disable_authentication == "True")
-    {
-        header("Location: landing.php");
-    }
-       
-if ($const_disable_authentication !== "True" && (!isset($const_username) OR !isset($const_password)))
-    {
-        header("Location: settings.php");
-    }
+if ($const_disable_authentication == 'True') {
+    header('Location: landing.php');
+}
 
-if ($_SERVER["REQUEST_METHOD"] == "POST")
-    {
-        if(!empty($_POST["Username"]) && !empty($_POST["Password"]))
-        {
-            $username = $_POST["Username"];
-            $password = hash("sha512", $_POST["Password"]);
-            
-            if($username == $const_username && $password == $const_password)
-            {
-                session_start();
-                $user_browser = $_SERVER['HTTP_USER_AGENT'];
-                $_SESSION["username"] = $username;
-                $_SESSION["login_string"] = hash("sha512", $password . $user_browser);
-                header("Location: landing.php");
-                
-            }
-            else
-            {
-                header("Location: index.php");
-            }
-        
+if ($const_disable_authentication !== 'True' && (!isset($const_username) or !isset($const_password))) {
+    header('Location: settings.php');
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (!empty($_POST['Username']) && !empty($_POST['Password'])) {
+        $username = $_POST['Username'];
+        $password = hash('sha512', $_POST['Password']);
+
+        if ($username == $const_username && $password == $const_password) {
+            session_start();
+            $user_browser = $_SERVER['HTTP_USER_AGENT'];
+            $_SESSION['username'] = $username;
+            $_SESSION['login_string'] = hash('sha512', $password.$user_browser);
+            header('Location: landing.php');
+        } else {
+            header('Location: index.php');
         }
-        else
-        {
-            header("Location: index.php");
-        }
+    } else {
+        header('Location: index.php');
     }
-else
-{
+} else {
     ?>
     
 <!DOCTYPE HTML>
@@ -105,5 +88,6 @@ else
     </body>
 </html>
 <?php
+
 }
 ?>

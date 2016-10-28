@@ -1,7 +1,7 @@
 <?php
-require_once "functions.php";
-#session_start();
-#security::redirect_if_not_loggedin();
+require_once 'functions.php';
+//session_start();
+//security::redirect_if_not_loggedin();
 ?>
 
 <!DOCTYPE HTML>
@@ -29,7 +29,7 @@ require_once "functions.php";
             <br />
             <h3><strong>Internal Error</strong></h3>
             <?php
-	           echo "<h4> Version ".costant::app_version()."</h4>";
+               echo '<h4> Version '.costant::app_version().'</h4>';
             ?>
             <br />
             <h4> Please contact developer Gabriele [Gabriele-V]</h4>

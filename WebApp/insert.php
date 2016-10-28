@@ -1,5 +1,5 @@
 <?php
-require_once "functions.php";
+require_once 'functions.php';
 session_start();
 security::redirect_if_not_loggedin();
 ?>
@@ -26,53 +26,54 @@ security::redirect_if_not_loggedin();
     
     <body>
         <?php
-        
-        #Get variables
-        $TrDate = $_POST["Date"];
-        $TrStatus = $_POST["Status"];
-        $TrType = $_POST["Type"];
-        $TrAccount = $_POST["Account"];
-        if (isset($_POST["ToAccount"]))
-            {$TrToAccount = $_POST["ToAccount"];}
-            else
-            {$TrToAccount = "None";}
-        if (isset($_POST["Payee"]))
-            {$TrPayee = $_POST["Payee"];}
-            else
-            {$TrPayee = "None";}
-        if (isset($_POST["Category"]))
-            {$TrCategory = $_POST["Category"];}
-            else
-            {$TrCategory = "None";}
-        if (isset($_POST["SubCategory"]))
-            {$TrSubCategory = $_POST["SubCategory"];}
-            else
-            {$TrSubCategory = "None";}
-        $TrAmount = $_POST["Amount"];
-        $TrNotes = $_POST["Notes"];
-         
-        #Execute common insert
-        db_function::category_insert_single($TrCategory,$TrSubCategory);
-        db_function::payee_insert_single($TrPayee,$TrCategory,$TrSubCategory);
-        db_function::payee_update_single($TrPayee,$TrCategory,$TrSubCategory);
-        
-        if(isset($_POST["TrEditedNr"]))
-            {
-                $TrEditedNr = $_POST["TrEditedNr"];
-                # Update
+
+        //Get variables
+        $TrDate = $_POST['Date'];
+        $TrStatus = $_POST['Status'];
+        $TrType = $_POST['Type'];
+        $TrAccount = $_POST['Account'];
+        if (isset($_POST['ToAccount'])) {
+            $TrToAccount = $_POST['ToAccount'];
+        } else {
+                $TrToAccount = 'None';
+            }
+        if (isset($_POST['Payee'])) {
+            $TrPayee = $_POST['Payee'];
+        } else {
+                $TrPayee = 'None';
+            }
+        if (isset($_POST['Category'])) {
+            $TrCategory = $_POST['Category'];
+        } else {
+                $TrCategory = 'None';
+            }
+        if (isset($_POST['SubCategory'])) {
+            $TrSubCategory = $_POST['SubCategory'];
+        } else {
+                $TrSubCategory = 'None';
+            }
+        $TrAmount = $_POST['Amount'];
+        $TrNotes = $_POST['Notes'];
+
+        //Execute common insert
+        db_function::category_insert_single($TrCategory, $TrSubCategory);
+        db_function::payee_insert_single($TrPayee, $TrCategory, $TrSubCategory);
+        db_function::payee_update_single($TrPayee, $TrCategory, $TrSubCategory);
+
+        if (isset($_POST['TrEditedNr'])) {
+            $TrEditedNr = $_POST['TrEditedNr'];
+                // Update
                 db_function::transaction_update($TrEditedNr, $TrDate, $TrStatus, $TrType, $TrAccount, $TrToAccount, $TrPayee, $TrCategory, $TrSubCategory, $TrAmount, $TrNotes);
-                
-                echo "<script type='text/javascript'>";
-                    echo "location.href='show.php'";
-                echo "</script>";
-            }
-        else
-            {
-                $TrEditedNr = db_function::transaction_insert ($TrDate, $TrStatus, $TrType, $TrAccount, $TrToAccount, $TrPayee, $TrCategory, $TrSubCategory, $TrAmount, $TrNotes);
-            }
-        
+
+            echo "<script type='text/javascript'>";
+            echo "location.href='show.php'";
+            echo '</script>';
+        } else {
+            $TrEditedNr = db_function::transaction_insert($TrDate, $TrStatus, $TrType, $TrAccount, $TrToAccount, $TrPayee, $TrCategory, $TrSubCategory, $TrAmount, $TrNotes);
+        }
+
         attachments::rename_zero($TrEditedNr);
-        
+
         ?>
         
         <div class="container text_align_center">

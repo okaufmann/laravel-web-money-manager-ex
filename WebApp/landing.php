@@ -1,5 +1,5 @@
 <?php
-require_once "functions.php";
+require_once 'functions.php';
 session_start();
 security::redirect_if_not_loggedin();
 ?>

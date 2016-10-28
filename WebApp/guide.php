@@ -1,5 +1,5 @@
 <?php
-require_once "functions.php";
+require_once 'functions.php';
 session_start();
 security::redirect_if_not_loggedin();
 ?>
@@ -32,14 +32,14 @@ security::redirect_if_not_loggedin();
                 To start use Money Manager Ex WebApp you need to insert this data in your existing desktop installation
             </p>
             <?php
-                echo "<p>WebApp URL:</p>";
-                    $CurrentPage = str_replace("/guide.php","",costant::current_page_url());
-                echo "<p><strong>".$CurrentPage."</strong></p>";
-                echo "<br />";
-                echo "<p>Desktop GUID:</p>";
-                echo "<p><strong>".costant::desktop_guid()."</strong></p>";
-                echo "<br />";
-                echo "<br />";
+                echo '<p>WebApp URL:</p>';
+                    $CurrentPage = str_replace('/guide.php', '', costant::current_page_url());
+                echo '<p><strong>'.$CurrentPage.'</strong></p>';
+                echo '<br />';
+                echo '<p>Desktop GUID:</p>';
+                echo '<p><strong>'.costant::desktop_guid().'</strong></p>';
+                echo '<br />';
+                echo '<br />';
             ?>
             <p>
                 Please open desktop version to import bank account and start use Web version
