@@ -29,6 +29,7 @@
     </listeners>
     <php>
         <env name="APP_ENV" value="testing"/>
+        <env name="MMEX_GUID" value="{D6A33C24-DE43-D62C-A609-EF5138F33F30}"/>
         <env name="CACHE_DRIVER" value="array"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
