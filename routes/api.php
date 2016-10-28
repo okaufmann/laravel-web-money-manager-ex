@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::any('services.php', "MmexController@handle")->middleware('ensureguid');
+Route::any('services.php', 'MmexController@handle')->middleware('ensureguid');
 
 Route::group(['prefix' => 'api/v1'], function () {
     Route::get('/user', function (Request $request) {

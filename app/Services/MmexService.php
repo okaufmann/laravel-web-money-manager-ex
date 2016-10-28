@@ -3,16 +3,13 @@
  * Created by PhpStorm.
  * User: okaufmann
  * Date: 22.10.2016
- * Time: 14:53
+ * Time: 14:53.
  */
-
 namespace App\Services;
-
 
 use App\Models\Account;
 use App\Models\Category;
 use App\Models\Payee;
-use App\Models\Transaction;
 use Log;
 
 class MmexService
@@ -33,7 +30,7 @@ class MmexService
         Log::debug('MmexController.importBankAccounts(), $accounts', [$postData->Accounts]);
         foreach ($postData->Accounts as $account) {
             Account::create([
-                'name' => $account->AccountName
+                'name' => $account->AccountName,
             ]);
         }
     }
@@ -44,11 +41,12 @@ class MmexService
         Payee::where('id', '>', 0)->delete();
     }
 
-    public function importPayees($postData){
+    public function importPayees($postData)
+    {
         Log::debug('MmexController.importPayees(), $payees', [$postData->Payees]);
         foreach ($postData->Payees as $payee) {
             Payee::create([
-                'name' => $payee->PayeeName
+                'name' => $payee->PayeeName,
             ]);
         }
     }
@@ -63,11 +61,8 @@ class MmexService
     {
         $categories = collect($postData->Categories);
 
-        $grouped = $categories->groupBy("CategoryName");
+        $grouped = $categories->groupBy('CategoryName');
 
         dd($grouped);
-
     }
-
-
 }

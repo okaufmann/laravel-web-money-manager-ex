@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Constants;
+use App\Http\Controllers\Controller;
 use App\Services\MmexFunctions;
 use App\Services\MmexService;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use Log;
 
 class MmexController extends Controller
@@ -20,19 +18,19 @@ class MmexController extends Controller
 
     /**
      * MmexController constructor.
+     *
      * @param MmexService $mmexService
      */
     public function __construct(MmexService $mmexService)
     {
-
         $this->mmexService = $mmexService;
     }
 
     public function handle(Request $request)
     {
-        $debugData = ["url" => $request->fullUrl(), "data" => $request->all()];
+        $debugData = ['url' => $request->fullUrl(), 'data' => $request->all()];
 
-        Log::debug("Service Request", $debugData);
+        Log::debug('Service Request', $debugData);
 
         $data = $request->all();
 
@@ -63,36 +61,42 @@ class MmexController extends Controller
         // TODO: Write Tests
         if ($function == MmexFunctions::DeleteBankAccounts) {
             $this->mmexService->deleteAccounts();
+
             return $this->returnText(Constants::$operation_succeded);
         }
 
         // TODO: Write Tests
         if ($function == MmexFunctions::ImportBankAccounts) {
             $this->mmexService->importBankAccounts($postData);
+
             return $this->returnText(Constants::$operation_succeded);
         }
 
         // TODO: Write Tests
         if ($function == MmexFunctions::DeletePayees) {
             $this->mmexService->deletePayees();
+
             return $this->returnText(Constants::$operation_succeded);
         }
 
         // TODO: Write Tests
         if ($function == MmexFunctions::ImportPayees) {
             $this->mmexService->importPayees($postData);
+
             return $this->returnText(Constants::$operation_succeded);
         }
 
         // TODO: Write Tests
         if ($function == MmexFunctions::DeleteCategories) {
             $this->mmexService->deleteCategories();
+
             return $this->returnText(Constants::$operation_succeded);
         }
 
         // TODO: Write Tests
         if ($function == MmexFunctions::ImportCategories) {
             $this->mmexService->importCategories($postData);
+
             return $this->returnText(Constants::$operation_succeded);
         }
 
@@ -144,6 +148,6 @@ class MmexController extends Controller
             return MmexFunctions::ImportPayees;
         }
 
-        throw new \Exception("No valid function request!");
+        throw new \Exception('No valid function request!');
     }
 }
