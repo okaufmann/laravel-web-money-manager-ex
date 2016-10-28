@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreatePayeesTable extends Migration
 {
@@ -21,7 +21,7 @@ class CreatePayeesTable extends Migration
         });
 
         Schema::table('payees', function (Blueprint $table) {
-            $table->foreign("last_category_id")->references('id')->on('categories');
+            $table->foreign('last_category_id')->references('id')->on('categories');
         });
     }
 

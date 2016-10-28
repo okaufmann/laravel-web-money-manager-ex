@@ -11,7 +11,7 @@
 
 namespace App\Transformers;
 
-class UserTransformer extends Transformer
+class ExampleTransformer extends Transformer
 {
     public function transform($item)
     {
