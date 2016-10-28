@@ -22,6 +22,7 @@ class MmexEnsureGuid
             return $next($request);
         }
 
-        return response(Constants::$wrong_guid);
+        return response(Constants::$wrong_guid)
+            ->header('Content-Type', 'text/plain; charset=UTF-8');
     }
 }

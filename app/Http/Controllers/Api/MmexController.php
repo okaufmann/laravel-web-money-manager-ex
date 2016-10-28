@@ -111,7 +111,7 @@ class MmexController extends Controller
     private function returnText($text)
     {
         return response($text, 200)
-            ->header('Content-Type', 'text/plain');
+            ->header('Content-Type', 'text/plain; charset=UTF-8');
     }
 
     private function getFunction($data)
