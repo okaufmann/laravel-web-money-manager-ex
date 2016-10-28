@@ -6,7 +6,7 @@ php:
 
 before_script:
   - cp .env.testing .env
-  - touch storage/testing.sqlite
+  - touch database/testing.sqlite
   - travis_retry composer self-update
   - travis_retry composer install --no-interaction --prefer-dist
 
