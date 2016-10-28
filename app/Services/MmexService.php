@@ -3,16 +3,13 @@
  * Created by PhpStorm.
  * User: okaufmann
  * Date: 22.10.2016
- * Time: 14:53
+ * Time: 14:53.
  */
-
 namespace App\Services;
-
 
 use App\Models\Account;
 use App\Models\Category;
 use App\Models\Payee;
-use App\Models\Transaction;
 use Log;
 
 class MmexService
@@ -33,7 +30,7 @@ class MmexService
         Log::debug('MmexController.importBankAccounts(), $accounts', [$postData->Accounts]);
         foreach ($postData->Accounts as $account) {
             Account::create([
-                'name' => $account->AccountName
+                'name' => $account->AccountName,
             ]);
         }
     }
@@ -49,7 +46,7 @@ class MmexService
         Log::debug('MmexController.importPayees(), $payees', [$postData->Payees]);
         foreach ($postData->Payees as $payee) {
             Payee::create([
-                'name' => $payee->PayeeName
+                'name' => $payee->PayeeName,
             ]);
         }
     }
@@ -64,15 +61,15 @@ class MmexService
     {
         $categories = collect($postData->Categories);
 
-        $grouped = $categories->groupBy("CategoryName");
+        $grouped = $categories->groupBy('CategoryName');
 
         foreach ($grouped as $categoryName => $subCategories) {
-            echo $categoryName . PHP_EOL;
+            echo $categoryName.PHP_EOL;
 
             $category = $this->createOrGetCategory($categoryName);
 
             foreach ($subCategories as $subCategory) {
-                echo "'--" . $subCategory->SubCategoryName . PHP_EOL;
+                echo "'--".$subCategory->SubCategoryName.PHP_EOL;
                 $this->createOrGetSubCategory($category, $subCategory->SubCategoryName);
             }
         }
@@ -82,7 +79,6 @@ class MmexService
 
     private function createOrGetCategory($name)
     {
-
         $existingCategory = Category::whereName($name)->first();
 
         if ($existingCategory) {
@@ -90,7 +86,7 @@ class MmexService
         }
 
         $newCategory = Category::create([
-            'name' => $name
+            'name' => $name,
         ]);
 
         return $newCategory;
@@ -98,7 +94,6 @@ class MmexService
 
     private function createOrGetSubCategory(Category $parentCategory, $name)
     {
-
         $existingCategory = Category::whereName($name)->first();
 
         if ($existingCategory) {
@@ -106,11 +101,9 @@ class MmexService
         }
 
         $newCategory = $parentCategory->subCategories()->create([
-            'name' => $name
+            'name' => $name,
         ]);
 
         return $newCategory;
     }
-
-
 }
