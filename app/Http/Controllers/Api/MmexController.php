@@ -38,7 +38,7 @@ class MmexController extends Controller
 
         if (isset($data['MMEX_Post'])) {
             $postData = json_decode($data['MMEX_Post']);
-        } else if (isset($data['postData'])) {
+        } elseif (isset($data['postData'])) {
             $postData = json_decode($data['postData']);
         }
 

@@ -12,6 +12,7 @@ class Category extends Model
      * Scope a query to only include sub categories.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeSubCategories($query)
@@ -24,7 +25,7 @@ class Category extends Model
      */
     public function parentCategory()
     {
-        return $this->belongsTo(Category::class, 'parent_id');
+        return $this->belongsTo(self::class, 'parent_id');
     }
 
     /**
@@ -32,6 +33,6 @@ class Category extends Model
      */
     public function subCategories()
     {
-        return $this->hasMany(Category::class, 'parent_id');
+        return $this->hasMany(self::class, 'parent_id');
     }
 }
