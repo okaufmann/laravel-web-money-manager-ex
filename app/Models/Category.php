@@ -35,4 +35,8 @@ class Category extends Model
     {
         return $this->hasMany(self::class, 'parent_id');
     }
+
+    public function defaultForPayees(){
+        return $this->hasMany(Payee::class, 'last_category_id');
+    }
 }
