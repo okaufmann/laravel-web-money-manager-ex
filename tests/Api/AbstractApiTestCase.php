@@ -20,9 +20,9 @@ abstract class AbstractApiTestCase extends AbstractTestCase
 
     protected function buildUrl(string $url, array $data) : string
     {
-        $data["guid"] = $this->guid;
+        $data['guid'] = $this->guid;
         $paramString = http_build_query($data);
 
-        return $this->apiUri."?".$paramString;
+        return $this->apiUri.'?'.$paramString;
     }
 }

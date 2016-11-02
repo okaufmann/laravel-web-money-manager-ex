@@ -54,7 +54,6 @@ class MmexService
             })->first();
 
             if ($category) {
-
                 $category->defaultForPayees()->create([
                     'name' => $payee->PayeeName,
                 ]);
@@ -64,7 +63,6 @@ class MmexService
                     'name' => $payee->PayeeName,
                 ]);
             }
-
         }
     }
 

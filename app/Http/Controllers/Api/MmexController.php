@@ -28,7 +28,7 @@ class MmexController extends Controller
 
     public function handle(Request $request)
     {
-        $debugData = ['url' => $request->fullUrl(), 'data' => $request->all(), "method" => $request->method()];
+        $debugData = ['url' => $request->fullUrl(), 'data' => $request->all(), 'method' => $request->method()];
 
         Log::debug('Service Request', $debugData);
 
