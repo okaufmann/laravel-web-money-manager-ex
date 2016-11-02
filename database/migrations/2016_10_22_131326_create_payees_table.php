@@ -16,7 +16,7 @@ class CreatePayeesTable extends Migration
         Schema::create('payees', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('last_category_id')->unsigned()->nullable();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->timestamps();
         });
 
