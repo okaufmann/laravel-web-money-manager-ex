@@ -13,7 +13,7 @@ class CheckGuidTest extends AbstractApiTestCase
 {
     public function testCorrectGuidLogin()
     {
-        $this->get('/services.php?check_guid&guid=' . $this->guid)
+        $this->get('/services.php?check_guid&guid='.$this->guid)
             ->see(Constants::$operation_succeded)
             ->seeHeader('Content-Type', 'text/plain; charset=UTF-8')
             ->assertResponseOk(200);
@@ -23,7 +23,7 @@ class CheckGuidTest extends AbstractApiTestCase
     {
         $incorrectGuid = '{DE43-D62C-A609-UIFSDDFUISF}';
 
-        $this->get('/services.php?check_guid&guid=' . $incorrectGuid)
+        $this->get('/services.php?check_guid&guid='.$incorrectGuid)
             ->see(Constants::$wrong_guid)
             ->seeHeader('Content-Type', 'text/plain; charset=UTF-8')
             ->assertResponseOk(200); // need to be 200 cause client otherwise crash..
