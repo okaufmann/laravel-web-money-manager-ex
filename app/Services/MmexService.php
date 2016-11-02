@@ -44,10 +44,27 @@ class MmexService
     public function importPayees($postData)
     {
         Log::debug('MmexController.importPayees(), $payees', [$postData->Payees]);
+
         foreach ($postData->Payees as $payee) {
-            Payee::create([
-                'name' => $payee->PayeeName,
-            ]);
+            $categoryName = $payee->DefCateg;
+            $subCategoryName = $payee->DefSubCateg;
+
+            $category = Category::where('name', $subCategoryName)->whereHas('parentCategory', function ($query) use ($categoryName) {
+                $query->where('name', $categoryName);
+            })->first();
+
+            if ($category) {
+
+                $category->defaultForPayees()->create([
+                    'name' => $payee->PayeeName,
+                ]);
+            } else {
+                // ignore default/last category and just create entry
+                Payee::create([
+                    'name' => $payee->PayeeName,
+                ]);
+            }
+
         }
     }
 
@@ -64,17 +81,12 @@ class MmexService
         $grouped = $categories->groupBy('CategoryName');
 
         foreach ($grouped as $categoryName => $subCategories) {
-            echo $categoryName.PHP_EOL;
-
             $category = $this->createOrGetCategory($categoryName);
 
             foreach ($subCategories as $subCategory) {
-                echo "'--".$subCategory->SubCategoryName.PHP_EOL;
                 $this->createOrGetSubCategory($category, $subCategory->SubCategoryName);
             }
         }
-
-        dd($grouped);
     }
 
     private function createOrGetCategory($name)
