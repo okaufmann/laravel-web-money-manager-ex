@@ -11,11 +11,9 @@ use App\Constants;
 
 class CheckGuidTest extends AbstractApiTestCase
 {
-    private $guid = '{D6A33C24-DE43-D62C-A609-EF5138F33F30}';
-
     public function testCorrectGuidLogin()
     {
-        $this->get('/services.php?check_guid&guid='.$this->guid)
+        $this->get('/services.php?check_guid&guid=' . $this->guid)
             ->see(Constants::$operation_succeded)
             ->seeHeader('Content-Type', 'text/plain; charset=UTF-8')
             ->assertResponseOk(200);
@@ -25,7 +23,7 @@ class CheckGuidTest extends AbstractApiTestCase
     {
         $incorrectGuid = '{DE43-D62C-A609-UIFSDDFUISF}';
 
-        $this->get('/services.php?check_guid&guid='.$incorrectGuid)
+        $this->get('/services.php?check_guid&guid=' . $incorrectGuid)
             ->see(Constants::$wrong_guid)
             ->seeHeader('Content-Type', 'text/plain; charset=UTF-8')
             ->assertResponseOk(200); // need to be 200 cause client otherwise crash..
