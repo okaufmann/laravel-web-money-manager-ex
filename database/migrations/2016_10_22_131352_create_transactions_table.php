@@ -18,7 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('status_id')->unsigned();
             $table->integer('type_id')->unsigned();
             $table->string('account_name'); // should not be linked through a FK since a account can be deleted anytime
-            $table->string('to_account_name'); // "
+            $table->string('to_account_name')->nullable(); // "
             $table->string('payee_name'); // "
             $table->string('category_name'); // "
             $table->decimal('amount');

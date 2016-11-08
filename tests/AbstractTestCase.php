@@ -77,7 +77,7 @@ abstract class AbstractTestCase extends TestCase
     protected function setupConfig()
     {
         // load environment
-        $env = $this->app->environment();
+        //$env = $this->app->environment();
 
         // register Classes
         // $repo = $this->app->make(Repository::class);

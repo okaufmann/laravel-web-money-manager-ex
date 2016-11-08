@@ -9,6 +9,8 @@ class Transaction extends Model
 {
     use SoftDeletes;
 
+    protected $fillable = ['account_name', 'to_account_name', 'payee_name', 'category_name', 'amount', 'notes'];
+
     /**
      * The attributes that should be mutated to dates.
      *

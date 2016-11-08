@@ -16,6 +16,7 @@ class CreateTransactionStatusTable extends Migration
         Schema::create('transaction_status', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }
