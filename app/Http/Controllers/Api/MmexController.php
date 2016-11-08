@@ -48,70 +48,62 @@ class MmexController extends Controller
 
         $function = $this->getFunction($data);
 
-        // TODO: Write Tests
         if ($function == MmexFunctions::CheckGuid) {
-            return $this->returnText(Constants::$operation_succeded);
+            return $this->returnSuccess();
         }
 
         if ($function == MmexFunctions::CheckApiVersion) {
             return $this->returnText(Constants::$api_version);
         }
 
-        // TODO: remove dummy data
-        // TODO: Write Tests
         if ($function == MmexFunctions::DownloadTransactions) {
             return $this->returnText($this->mmexService->getTransactions());
         }
 
-        // TODO: Write Tests
         if ($function == MmexFunctions::DeleteBankAccounts) {
             $this->mmexService->deleteAccounts();
 
-            return $this->returnText(Constants::$operation_succeded);
+            return $this->returnSuccess();
         }
 
-        // TODO: Write Tests
         if ($function == MmexFunctions::ImportBankAccounts) {
             $this->mmexService->importBankAccounts($postData);
 
-            return $this->returnText(Constants::$operation_succeded);
+            return $this->returnSuccess();
         }
 
-        // TODO: Write Tests
         if ($function == MmexFunctions::DeletePayees) {
             $this->mmexService->deletePayees();
 
-            return $this->returnText(Constants::$operation_succeded);
+            return $this->returnSuccess();
         }
 
-        // TODO: Write Tests
         if ($function == MmexFunctions::ImportPayees) {
             $this->mmexService->importPayees($postData);
 
-            return $this->returnText(Constants::$operation_succeded);
+            return $this->returnSuccess();
         }
 
-        // TODO: Write Tests
         if ($function == MmexFunctions::DeleteCategories) {
             $this->mmexService->deleteCategories();
 
-            return $this->returnText(Constants::$operation_succeded);
+            return $this->returnSuccess();
         }
 
-        // TODO: Write Tests
         if ($function == MmexFunctions::ImportCategories) {
             $this->mmexService->importCategories($postData);
 
-            return $this->returnText(Constants::$operation_succeded);
+            return $this->returnSuccess();
+        }
+
+        if ($function == MmexFunctions::DeleteTransactions) {
+            $transactionId = $data["delete_group"];
+            $this->mmexService->deleteTransactions($transactionId);
+
+            return $this->returnSuccess();
         }
 
         return $data;
-    }
-
-    private function returnText($text)
-    {
-        return response($text, 200)
-            ->header('Content-Type', 'text/plain; charset=UTF-8');
     }
 
     private function getFunction($data)
@@ -160,5 +152,16 @@ class MmexController extends Controller
         }
 
         throw new \Exception('No valid function request!');
+    }
+
+    private function returnSuccess()
+    {
+        return $this->returnText(Constants::$operation_succeded);
+    }
+
+    private function returnText($text)
+    {
+        return response($text, 200)
+            ->header('Content-Type', 'text/plain; charset=UTF-8');
     }
 }
