@@ -1,18 +1,18 @@
 <?php
 /**
- * MmexControllerTest.php, laravel-money-manager-ex.
+ * MmexControllerTest.php, laravel-money-manager-ex
  *
  * This File belongs to to Project laravel-money-manager-ex
- *
  * @author Oliver Kaufmann <okaufmann91@gmail.com>
- *
  * @version 1.0
  */
+
 namespace App\Tests\Api;
 
 use App\Models\Account;
 use App\Models\Category;
 use App\Models\Payee;
+use App\Models\Transaction;
 
 class MmexControllerTest extends AbstractApiTestCase
 {
@@ -20,12 +20,11 @@ class MmexControllerTest extends AbstractApiTestCase
     {
         // Arrange
         $payee = factory(Payee::class)->create();
-
-        $url = $url = $this->buildUrl('', ['delete_payee' => 'true']);
+        $url = $this->buildUrl('', ['delete_payee' => 'true']);
 
         //Assert
         $this->get($url)
-            ->see($this->success)
+            ->seeSuccess()
             ->dontSeeInDatabase('payees', ['name' => $payee->name]);
     }
 
@@ -38,28 +37,28 @@ class MmexControllerTest extends AbstractApiTestCase
         $billsServices = factory(Category::class)->create(['name' => 'Services', 'parent_id' => $bills->id]);
 
         $data = ['MMEX_Post' => '{ "Payees" : [ { "PayeeName" : "Mc Donalds", "DefCateg" : "'.$food->name.'", "DefSubCateg" : "'.$foodPurchases->name.'" },'.
-            '{ "PayeeName" : "Spotify", "DefCateg" : "'.$bills->name.'", "DefSubCateg" : "'.$billsServices->name.'" } ] }', ];
+            '{ "PayeeName" : "Spotify", "DefCateg" : "'.$bills->name.'", "DefSubCateg" : "'.$billsServices->name.'" } ] }'];
 
-        $url = $this->buildUrl('', ['import_payee' => 'true']);
+        $url = $this->buildUrl("", ["import_payee" => "true"]);
 
         // Assert
         $this->postJson($url, $data)
-            ->see($this->success)
-            ->seeInDatabase('payees', ['name' => 'Mc Donalds', 'last_category_id' => $foodPurchases->id])
-            ->seeInDatabase('payees', ['name' => 'Spotify', 'last_category_id' => $billsServices->id]);
+            ->seeSuccess()
+            ->seeInDatabase('payees', ["name" => "Mc Donalds", "last_category_id" => $foodPurchases->id])
+            ->seeInDatabase('payees', ["name" => "Spotify", "last_category_id" => $billsServices->id]);
     }
 
-    public function testDeleteAllAccoutns()
+    public function testDeleteAllAccounts()
     {
         // Arrange
         $account = factory(Account::class)->create();
 
-        $url = $url = $this->buildUrl('', ['delete_bankaccount' => 'true']);
+        $url = $this->buildUrl("", ["delete_bankaccount" => "true"]);
 
         //Assert
         $this->get($url)
-            ->see($this->success)
-            ->dontSeeInDatabase('accounts', ['name' => $account->name]);
+            ->seeSuccess()
+            ->dontSeeInDatabase('accounts', ["name" => $account->name]);
     }
 
     public function testImportAccounts()
@@ -70,7 +69,7 @@ class MmexControllerTest extends AbstractApiTestCase
 
         // Assert
         $this->postJson($url, $data)
-            ->see($this->success)
+            ->seeSuccess()
             ->seeInDatabase('accounts', ['name' => 'Creditcard'])
             ->seeInDatabase('accounts', ['name' => 'Private Account']);
     }
@@ -80,11 +79,11 @@ class MmexControllerTest extends AbstractApiTestCase
         // Arrange
         $categorie = factory(Category::class)->create();
 
-        $url = $url = $this->buildUrl('', ['delete_category' => 'true']);
+        $url = $this->buildUrl('', ['delete_category' => 'true']);
 
         //Assert
         $this->get($url)
-            ->see($this->success)
+            ->seeSuccess()
             ->dontSeeInDatabase('categories', ['name' => $categorie->name]);
     }
 
@@ -96,7 +95,7 @@ class MmexControllerTest extends AbstractApiTestCase
 
         // Assert
         $this->postJson($url, $data)
-            ->see($this->success)
+            ->seeSuccess()
             ->seeInDatabase('categories', ['name' => 'Bills'])
             ->seeInDatabase('categories', ['name' => 'Telecom'])
             ->seeInDatabase('categories', ['name' => 'Water'])
@@ -116,12 +115,67 @@ class MmexControllerTest extends AbstractApiTestCase
 
         // Assert
         $this->postJson($url, $data)
-            ->see($this->success)
+            ->seeSuccess()
             ->seeInDatabase('categories', ['name' => 'Bills', 'id' => $bills->id])
             ->seeInDatabase('categories', ['name' => 'Telecom', 'parent_id' => $bills->id])
             ->seeInDatabase('categories', ['name' => 'Water', 'parent_id' => $bills->id])
             ->seeInDatabase('categories', ['name' => 'Automobile', 'id' => $automobile->id])
             ->seeInDatabase('categories', ['name' => 'Maintenance', 'parent_id' => $automobile->id])
             ->seeInDatabase('categories', ['name' => 'Parking', 'parent_id' => $automobile->id]);
+    }
+
+    public function testDeleteTransactions()
+    {
+        $transaction = factory(Transaction::class)->create();
+
+        $url = $this->buildUrl('', ['delete_group' => $transaction->id]);
+
+        //Assert
+        $this->get($url)
+            ->seeSuccess()
+            ->seeIsSoftDeletedInDatabase('transactions', ['payee_name' => $transaction->payee_name]); // must not be deleted! just soft deleted.
+    }
+
+    public function testDownloadTransactions()
+    {
+        $transaction = factory(Transaction::class)->create();
+
+        $url = $this->buildUrl('', ['download_transaction' => 'true']);
+
+        $this->get($url)
+            ->seeStatusCode(200)
+            ->seeJson(
+                [
+                    "ID" => $transaction->id,
+                    "Date" => $transaction->date,
+                    "Account" => $transaction->account_name,
+                    "ToAccount" => $transaction->to_account_name,
+                    "Status" => $transaction->status->slug,
+                    "Type" => $transaction->type->name,
+                    "Payee" => $transaction->payee_name,
+                    "Category" => $transaction->category,
+                    "SubCategory" => $transaction->sub_category_name,
+                    "Amount" => $transaction->amount,
+                    "Notes" => $transaction->notes,
+                    "Attachments" => "Transaction_1_Attach1.png;Transaction_1_Attach2.jpg"
+                ]
+            );
+
+        // Stop here and mark this test as incomplete.
+        $this->markTestIncomplete(
+            'Test not implemented yet.'
+        );
+    }
+
+    public function testDownloadAttachment()
+    {
+        // attachment file name will be provided as comma seperated list in the transaction download
+
+        $fileName = 'Transaction_1_Attach2.jpg';
+        $url = $this->buildUrl('', ['download_attachment' => $fileName]);
+
+        $this->markTestIncomplete(
+            'Test not implemented yet.'
+        );
     }
 }
