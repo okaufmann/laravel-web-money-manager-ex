@@ -10,13 +10,31 @@ namespace App\Services;
 use App\Models\Account;
 use App\Models\Category;
 use App\Models\Payee;
+use App\Models\Transaction;
 use Log;
 
 class MmexService
 {
     public function getTransactions()
     {
-        return "{    \"0\": {        \"ID\": \"1\",        \"Date\": \"2016-10-07\",        \"Account\": \"Another Account\",        \"ToAccount\": \"None\",        \"Status\": \"R\",        \"Type\": \"Zahlung\",        \"Payee\": \"Migros\",        \"Category\": \"Einkauf\",        \"SubCategory\": \"Etwas anderes\",        \"Amount\": \"123\",        \"Notes\": \"Das ist ein \r\nMeeeeehrzeiliger \r\nT\",        \"Attachments\": \"Transaction_1_Attach1.png;Transaction_1_Attach2.jpg\"    },    \"1\": {        \"ID\": \"2\",        \"Date\": \"2016-10-18\",        \"Account\": \"Creditcard\",        \"ToAccount\": \"None\",        \"Status\": \"R\",        \"Type\": \"Zahlung\",        \"Payee\": \"Migros\",        \"Category\": \"Test\",        \"SubCategory\": \"test\",        \"Amount\": \"2\",        \"Notes\": \"\",        \"Attachments\": \"\"    }}";
+
+        // example
+        return [
+            0 => [
+                "ID" => 1,
+                "Date" => "2016-10-07",
+                "Account" => "Another Account",
+                "ToAccount" => "None",
+                "Status" => "R",
+                "Type" => "Zahlung",
+                "Payee" => "Migros",
+                "Category" => "Einkauf",
+                "SubCategory" => "Etwas anderes",
+                "Amount" => "123",
+                "Notes" => "Das ist ein \r\nMeeeeehrzeiliger \r\nText",
+                "Attachments" => "Transaction_1_Attach1.png;Transaction_1_Attach2.jpg"
+            ]
+        ];
     }
 
     public function deleteAccounts()
@@ -119,5 +137,6 @@ class MmexService
 
     public function deleteTransactions($transactionId)
     {
+        Transaction::whereId($transactionId)->delete();
     }
 }
