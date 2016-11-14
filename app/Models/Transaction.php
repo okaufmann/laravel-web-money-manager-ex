@@ -17,4 +17,12 @@ class Transaction extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    public function status(){
+        return $this->belongsTo(TransactionStatus::class);
+    }
+
+    public function type(){
+        return $this->belongsTo(TransactionType::class);
+    }
 }
