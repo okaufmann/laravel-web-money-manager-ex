@@ -1,9 +1,11 @@
 <?php
 /**
- * MmexControllerTest.php, laravel-money-manager-ex
+ * MmexControllerTest.php, laravel-money-manager-ex.
  *
  * This File belongs to to Project laravel-money-manager-ex
+ *
  * @author Oliver Kaufmann <okaufmann91@gmail.com>
+ *
  * @version 1.0
  */
 
@@ -37,15 +39,15 @@ class MmexControllerTest extends AbstractApiTestCase
         $billsServices = factory(Category::class)->create(['name' => 'Services', 'parent_id' => $bills->id]);
 
         $data = ['MMEX_Post' => '{ "Payees" : [ { "PayeeName" : "Mc Donalds", "DefCateg" : "'.$food->name.'", "DefSubCateg" : "'.$foodPurchases->name.'" },'.
-            '{ "PayeeName" : "Spotify", "DefCateg" : "'.$bills->name.'", "DefSubCateg" : "'.$billsServices->name.'" } ] }'];
+            '{ "PayeeName" : "Spotify", "DefCateg" : "'.$bills->name.'", "DefSubCateg" : "'.$billsServices->name.'" } ] }', ];
 
-        $url = $this->buildUrl("", ["import_payee" => "true"]);
+        $url = $this->buildUrl('', ['import_payee' => 'true']);
 
         // Assert
         $this->postJson($url, $data)
             ->seeSuccess()
-            ->seeInDatabase('payees', ["name" => "Mc Donalds", "last_category_id" => $foodPurchases->id])
-            ->seeInDatabase('payees', ["name" => "Spotify", "last_category_id" => $billsServices->id]);
+            ->seeInDatabase('payees', ['name' => 'Mc Donalds', 'last_category_id' => $foodPurchases->id])
+            ->seeInDatabase('payees', ['name' => 'Spotify', 'last_category_id' => $billsServices->id]);
     }
 
     public function testDeleteAllAccounts()
@@ -53,12 +55,12 @@ class MmexControllerTest extends AbstractApiTestCase
         // Arrange
         $account = factory(Account::class)->create();
 
-        $url = $this->buildUrl("", ["delete_bankaccount" => "true"]);
+        $url = $this->buildUrl('', ['delete_bankaccount' => 'true']);
 
         //Assert
         $this->get($url)
             ->seeSuccess()
-            ->dontSeeInDatabase('accounts', ["name" => $account->name]);
+            ->dontSeeInDatabase('accounts', ['name' => $account->name]);
     }
 
     public function testImportAccounts()
@@ -149,18 +151,18 @@ class MmexControllerTest extends AbstractApiTestCase
             ->seeStatusCode(200)
             ->seeJson(
                 [
-                    "ID" => $transaction->id,
-                    "Date" => $transaction->date,
-                    "Account" => $transaction->account_name,
-                    "ToAccount" => $transaction->to_account_name,
-                    "Status" => $transaction->status->slug,
-                    "Type" => $transaction->type->name,
-                    "Payee" => $transaction->payee_name,
-                    "Category" => $transaction->category_name,
-                    "SubCategory" => $transaction->sub_category_name,
-                    "Amount" => $transaction->amount,
-                    "Notes" => $transaction->notes,
-                    "Attachments" => "Transaction_1_Attach1.png;Transaction_1_Attach2.jpg"
+                    'ID'          => $transaction->id,
+                    'Date'        => $transaction->date,
+                    'Account'     => $transaction->account_name,
+                    'ToAccount'   => $transaction->to_account_name,
+                    'Status'      => $transaction->status->slug,
+                    'Type'        => $transaction->type->name,
+                    'Payee'       => $transaction->payee_name,
+                    'Category'    => $transaction->category_name,
+                    'SubCategory' => $transaction->sub_category_name,
+                    'Amount'      => $transaction->amount,
+                    'Notes'       => $transaction->notes,
+                    'Attachments' => 'Transaction_1_Attach1.png;Transaction_1_Attach2.jpg',
                 ]
             );
 

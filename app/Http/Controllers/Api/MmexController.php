@@ -97,7 +97,7 @@ class MmexController extends Controller
         }
 
         if ($function == MmexFunctions::DeleteTransactions) {
-            $transactionId = $data["delete_group"];
+            $transactionId = $data['delete_group'];
             $this->mmexService->deleteTransactions($transactionId);
 
             return $this->returnSuccess();
