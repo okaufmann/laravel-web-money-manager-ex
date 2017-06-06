@@ -1,20 +1,21 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: okaufmann
- * Date: 23.10.2016
- * Time: 01:14.
- */
 
 namespace App\Transformers;
 
 use App\Models\Transaction;
+use League\Fractal\TransformerAbstract;
+use Spatie\MediaLibrary\Media;
 
-class TransactionTransformer extends Transformer
+class TransactionTransformer extends TransformerAbstract
 {
-    public function transform($item)
+    /**
+     * A Fractal transformer.
+     *
+     * @param Transaction $item
+     * @return array
+     */
+    public function transform(Transaction $item)
     {
-        /* @var Transaction $item */
         return [
             'ID'          => $item->id,
             'Date'        => $item->date,
@@ -28,8 +29,8 @@ class TransactionTransformer extends Transformer
             'Amount'      => floatval($item->amount),
             'Notes'       => $item->notes,
             'Attachments' => $item->getMedia('attachments')
-                ->map(function ($mediaItem) {
+                ->map(function (Media $mediaItem) {
                     return $mediaItem->file_name;
-                })->implode(','), ];
+                })->implode(','),];
     }
 }
