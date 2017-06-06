@@ -51,6 +51,7 @@ class MmexController extends Controller
         $function = $this->getFunction($data);
 
         if ($function == MmexFunctions::CheckGuid) {
+            // TODO
             return $this->returnSuccess();
         }
 
@@ -68,6 +69,34 @@ class MmexController extends Controller
 
             return $this->returnText($result);
         }
+
+        if ($function == MmexFunctions::DonwloadAttachment) {
+
+            // is something like: Transaction_3_test-receipt-3.png
+            $fileName = $data["download_attachment"];
+
+            // extract transaction
+            $fileNameParts = explode('_', $fileName);
+            $transactionId = $fileNameParts[1];
+            $transaction = Transaction::findOrFail($transactionId);
+
+            // get attachment of transaction
+            $media = $transaction->getMedia('attachments')->first(function ($item) use ($fileName) {
+                return $item->file_name == $fileName;
+            });
+
+            // return file as download
+            $filePath = $media->getPath();
+
+            $headers = [
+                "Content-Type"              => "",
+                "Cache-Control"             => "public",
+                "Content-Description"       => "File Transfer",
+                "Content-Disposition"       => "attachment; filename= ".$fileName,
+                "Content-Transfer-Encoding" => "binary",
+            ];
+
+            return response()->file($filePath, $headers);
         }
 
         if ($function == MmexFunctions::DeleteBankAccounts) {

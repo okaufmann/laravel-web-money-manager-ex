@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
 
-class Transaction extends Model
+class Transaction extends Model implements HasMedia
 {
     use SoftDeletes;
     use HasMediaTrait;
@@ -33,5 +34,18 @@ class Transaction extends Model
     public function type()
     {
         return $this->belongsTo(TransactionType::class);
+    }
+
+    public function addAttachment($filePath, $preventOriginal = false)
+    {
+        $fileName = basename($filePath);
+        $media = $this->addMedia($filePath)
+            ->usingFileName('Transaction_'.$this->id.'_'.$fileName);
+
+        if ($preventOriginal) {
+            $media->preservingOriginal();
+        }
+
+        $media->toCollection('attachments');
     }
 }
