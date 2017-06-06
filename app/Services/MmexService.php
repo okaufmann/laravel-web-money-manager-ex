@@ -11,13 +11,32 @@ use App\Models\Account;
 use App\Models\Category;
 use App\Models\Payee;
 use App\Models\Transaction;
+use App\Transformers\TransactionTransformer;
 use Log;
 
 class MmexService
 {
-    public function getTransactions()
+    /**
+     * @var TransactionTransformer
+     */
+    private $transactionTransformer;
+
+    /**
+     * MmexService constructor.
+     * @param TransactionTransformer $transactionTransformer
+     */
+    public function __construct(TransactionTransformer $transactionTransformer)
     {
 
+        $this->transactionTransformer = $transactionTransformer;
+    }
+
+
+    public function getTransactions()
+    {
+        $transactions = Transaction::all()->all();
+
+        return $this->transactionTransformer->transformCollection($transactions);
         // example
         return [
             0 => [

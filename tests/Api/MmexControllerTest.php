@@ -140,6 +140,9 @@ class MmexControllerTest extends AbstractApiTestCase
     {
         $transaction = factory(Transaction::class)->create();
 
+        $transaction->addMediaFromUrl('https://images.unsplash.com/photo-1459666644539-a9755287d6b0?dpr=1&auto=compress,format&fit=crop&w=376&h=227&q=80&cs=tinysrgb&crop=')
+            ->toCollection('attachments');
+
         $url = $this->buildUrl('', ['download_transaction' => 'true']);
 
         $this->get($url)
@@ -153,7 +156,7 @@ class MmexControllerTest extends AbstractApiTestCase
                     "Status" => $transaction->status->slug,
                     "Type" => $transaction->type->name,
                     "Payee" => $transaction->payee_name,
-                    "Category" => $transaction->category,
+                    "Category" => $transaction->category_name,
                     "SubCategory" => $transaction->sub_category_name,
                     "Amount" => $transaction->amount,
                     "Notes" => $transaction->notes,

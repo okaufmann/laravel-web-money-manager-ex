@@ -19,6 +19,7 @@ $factory->define(App\Models\Transaction::class, function (Faker\Generator $faker
         'to_account_name' => null,
         'payee_name' => $faker->name,
         'category_name' => $faker->words(2, true),
+        'sub_category_name' => $faker->words(2, true),
         'amount' => $faker->randomFloat(2),
         'notes' => $faker->text
     ];
