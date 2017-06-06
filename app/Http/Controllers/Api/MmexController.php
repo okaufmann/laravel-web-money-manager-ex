@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Constants;
 use App\Http\Controllers\Controller;
+use App\Models\Transaction;
 use App\Services\MmexFunctions;
 use App\Services\MmexService;
+use App\Transformers\TransactionTransformer;
 use Illuminate\Http\Request;
 use Log;
 
@@ -57,7 +59,15 @@ class MmexController extends Controller
         }
 
         if ($function == MmexFunctions::DownloadTransactions) {
-            return $this->returnText($this->mmexService->getTransactions());
+            $transactions = $this->mmexService->getTransactions();
+
+            $result = fractal()
+                ->collection($transactions)
+                ->transformWith(new TransactionTransformer())
+                ->toJson();
+
+            return $this->returnText($result);
+        }
         }
 
         if ($function == MmexFunctions::DeleteBankAccounts) {
