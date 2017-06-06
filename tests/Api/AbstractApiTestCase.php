@@ -5,6 +5,7 @@
  * Date: 28.10.2016
  * Time: 01:23.
  */
+
 namespace App\Tests\Api;
 
 use App\Tests\AbstractTestCase;
@@ -34,11 +35,12 @@ abstract class AbstractApiTestCase extends AbstractTestCase
 
     /**
      * Assert that a given where condition does not matches a soft deleted record
-     * From: http://stackoverflow.com/questions/33117746/laravel-unit-testing-how-to-seeindatabase-soft-deleted-row
+     * From: http://stackoverflow.com/questions/33117746/laravel-unit-testing-how-to-seeindatabase-soft-deleted-row.
      *
-     * @param  string $table
-     * @param  array $data
-     * @param  string $connection
+     * @param string $table
+     * @param array  $data
+     * @param string $connection
+     *
      * @return $this
      */
     protected function seeIsNotSoftDeletedInDatabase($table, array $data, $connection = null)
@@ -62,11 +64,12 @@ abstract class AbstractApiTestCase extends AbstractTestCase
 
     /**
      * Assert that a given where condition matches a soft deleted record
-     * From: http://stackoverflow.com/questions/33117746/laravel-unit-testing-how-to-seeindatabase-soft-deleted-row
+     * From: http://stackoverflow.com/questions/33117746/laravel-unit-testing-how-to-seeindatabase-soft-deleted-row.
      *
-     * @param  string $table
-     * @param  array $data
-     * @param  string $connection
+     * @param string $table
+     * @param array  $data
+     * @param string $connection
+     *
      * @return $this
      */
     protected function seeIsSoftDeletedInDatabase($table, array $data, $connection = null)

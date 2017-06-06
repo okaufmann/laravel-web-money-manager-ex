@@ -5,6 +5,7 @@
  * Date: 22.10.2016
  * Time: 14:39.
  */
+
 namespace App;
 
 class Constants

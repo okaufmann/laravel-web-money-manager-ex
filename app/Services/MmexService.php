@@ -5,6 +5,7 @@
  * Date: 22.10.2016
  * Time: 14:53.
  */
+
 namespace App\Services;
 
 use App\Models\Account;
@@ -23,14 +24,13 @@ class MmexService
 
     /**
      * MmexService constructor.
+     *
      * @param TransactionTransformer $transactionTransformer
      */
     public function __construct(TransactionTransformer $transactionTransformer)
     {
-
         $this->transactionTransformer = $transactionTransformer;
     }
-
 
     public function getTransactions()
     {
@@ -40,19 +40,19 @@ class MmexService
         // example
         return [
             0 => [
-                "ID" => 1,
-                "Date" => "2016-10-07",
-                "Account" => "Another Account",
-                "ToAccount" => "None",
-                "Status" => "R",
-                "Type" => "Zahlung",
-                "Payee" => "Migros",
-                "Category" => "Einkauf",
-                "SubCategory" => "Etwas anderes",
-                "Amount" => "123",
-                "Notes" => "Das ist ein \r\nMeeeeehrzeiliger \r\nText",
-                "Attachments" => "Transaction_1_Attach1.png;Transaction_1_Attach2.jpg"
-            ]
+                'ID'          => 1,
+                'Date'        => '2016-10-07',
+                'Account'     => 'Another Account',
+                'ToAccount'   => 'None',
+                'Status'      => 'R',
+                'Type'        => 'Zahlung',
+                'Payee'       => 'Migros',
+                'Category'    => 'Einkauf',
+                'SubCategory' => 'Etwas anderes',
+                'Amount'      => '123',
+                'Notes'       => "Das ist ein \r\nMeeeeehrzeiliger \r\nText",
+                'Attachments' => 'Transaction_1_Attach1.png;Transaction_1_Attach2.jpg',
+            ],
         ];
     }
 
