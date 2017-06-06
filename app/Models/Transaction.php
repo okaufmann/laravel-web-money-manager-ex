@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 class Transaction extends Model
 {
     use SoftDeletes;
+    use HasMediaTrait;
 
-    protected $fillable = ['account_name', 'to_account_name', 'payee_name', 'category_name', 'amount', 'notes'];
+    protected $fillable = ['account_name', 'to_account_name', 'payee_name', 'category_name', 'sub_category_name', 'amount', 'notes'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -18,11 +20,18 @@ class Transaction extends Model
      */
     protected $dates = ['deleted_at'];
 
-    public function status(){
+    public function getDateAttribute()
+    {
+        return $this->created_at->toDateString();
+    }
+
+    public function status()
+    {
         return $this->belongsTo(TransactionStatus::class);
     }
 
-    public function type(){
+    public function type()
+    {
         return $this->belongsTo(TransactionType::class);
     }
 }
