@@ -46,6 +46,6 @@ class Transaction extends Model implements HasMedia
             $media->preservingOriginal();
         }
 
-        $media->toCollection('attachments');
+        $media->toMediaCollection('attachments');
     }
 }
