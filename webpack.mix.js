@@ -11,5 +11,22 @@ let mix = require('laravel-mix');
  |
  */
 
+// setup typescript
+mix.webpackConfig({
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                loader: 'ts-loader',
+                options: {appendTsSuffixTo: [/\.vue$/]},
+                exclude: /node_modules/,
+            },
+        ],
+    },
+    resolve: {
+        extensions: ['*', '.js', '.jsx', '.vue', '.ts', '.tsx'],
+    },
+});
+
 mix.js('resources/assets/js/app.js', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css');
