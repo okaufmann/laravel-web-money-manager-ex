@@ -32,6 +32,7 @@ abstract class AbstractMmexTestCase extends TestCase
 
     /**
      * @param TestResponse $response
+     *
      * @return TestResponse
      */
     protected function seeSuccess(TestResponse $response)

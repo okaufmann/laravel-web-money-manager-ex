@@ -9,7 +9,6 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-
     /**
      * Sign in an user if it's the case.
      *
