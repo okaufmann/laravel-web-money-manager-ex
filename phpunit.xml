@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
-         beStrictAboutTestsThatDoNotTestAnything="true"
-         beStrictAboutOutputDuringTests="true"
          bootstrap="bootstrap/autoload.php"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
-         failOnRisky="true"
-         failOnWarning="true"
          processIsolation="false"
-         stopOnError="false"
-         stopOnFailure="false"
-         verbose="true">
+         stopOnFailure="false">
     <testsuites>
-        <testsuite name="Application Test Suite">
-            <directory suffix="Test.php">./tests</directory>
+        <testsuite name="Feature">
+            <directory suffix="Test.php">./tests/Feature</directory>
+        </testsuite>
+
+        <testsuite name="Unit">
+            <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
     </testsuites>
     <filter>
@@ -24,12 +22,8 @@
             <directory suffix=".php">./app</directory>
         </whitelist>
     </filter>
-    <listeners>
-        <listener class="App\Tests\TestListener" file="./tests/TestListener.php" />
-    </listeners>
     <php>
         <env name="APP_ENV" value="testing"/>
-        <env name="MMEX_GUID" value="{D6A33C24-DE43-D62C-A609-EF5138F33F30}"/>
         <env name="CACHE_DRIVER" value="array"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
