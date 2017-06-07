@@ -76,7 +76,7 @@ class MmexArraySerializer extends SerializerAbstract
      */
     public function meta(array $meta)
     {
-        return ['meta' => null];
+        return [];
     }
 
     /**

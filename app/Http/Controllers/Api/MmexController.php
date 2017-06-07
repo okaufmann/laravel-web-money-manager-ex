@@ -70,9 +70,12 @@ class MmexController extends Controller
                 ->collection($transactions)
                 ->serializeWith(new MmexArraySerializer())
                 ->transformWith(new TransactionTransformer())
-                ->toJson();
+                ->toArray();
 
-            return $this->returnText($result);
+            // encodes the array as it its (with it keys "0"=> {}, as needed by client)
+            $json = json_encode($result, JSON_FORCE_OBJECT);
+
+            return $this->returnText($json);
         }
 
         if ($function == MmexFunctions::DonwloadAttachment) {
@@ -205,9 +208,6 @@ class MmexController extends Controller
 
     private function returnText($text)
     {
-        // TODO: Really dirty hack to force key => value format for outputs via fractal serializer
-        $text = str_replace(',"meta":null', '', $text);
-
         return response($text, 200)
             ->header('Content-Type', 'text/plain; charset=UTF-8');
     }
