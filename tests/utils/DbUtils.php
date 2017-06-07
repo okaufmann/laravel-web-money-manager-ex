@@ -10,16 +10,14 @@
 
 namespace Tests\utils;
 
-
 trait DbUtils
 {
-
     /**
      * Assert that a given where condition does not matches a soft deleted record
      * From: http://stackoverflow.com/questions/33117746/laravel-unit-testing-how-to-seeindatabase-soft-deleted-row.
      *
      * @param string $table
-     * @param array $data
+     * @param array  $data
      * @param string $connection
      *
      * @return $this
@@ -48,7 +46,7 @@ trait DbUtils
      * From: http://stackoverflow.com/questions/33117746/laravel-unit-testing-how-to-seeindatabase-soft-deleted-row.
      *
      * @param string $table
-     * @param array $data
+     * @param array  $data
      * @param string $connection
      *
      * @return $this

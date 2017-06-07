@@ -31,7 +31,7 @@ class PayeeTest extends AbstractMmexTestCase
         $billsServices = factory(Category::class)->create(['name' => 'Services', 'parent_id' => $bills->id]);
 
         $data = ['MMEX_Post' => '{ "Payees" : [ { "PayeeName" : "Mc Donalds", "DefCateg" : "'.$food->name.'", "DefSubCateg" : "'.$foodPurchases->name.'" },'.
-            '{ "PayeeName" : "Spotify", "DefCateg" : "'.$bills->name.'", "DefSubCateg" : "'.$billsServices->name.'" } ] }',];
+            '{ "PayeeName" : "Spotify", "DefCateg" : "'.$bills->name.'", "DefSubCateg" : "'.$billsServices->name.'" } ] }', ];
 
         $url = $this->buildUrl('', ['import_payee' => 'true']);
 
