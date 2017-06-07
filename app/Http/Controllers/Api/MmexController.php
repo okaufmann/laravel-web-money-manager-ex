@@ -14,7 +14,6 @@ use Log;
 
 /**
  * API endpoint for client https://github.com/moneymanagerex/moneymanagerex/blob/master/src/webapp.cpp.
- * @package App\Http\Controllers\Api
  */
 class MmexController extends Controller
 {
@@ -79,7 +78,7 @@ class MmexController extends Controller
         if ($function == MmexFunctions::DonwloadAttachment) {
 
             // is something like: Transaction_3_test-receipt-3.png
-            $fileName = $data["download_attachment"];
+            $fileName = $data['download_attachment'];
 
             // extract transaction
             $fileNameParts = explode('_', $fileName);
@@ -95,11 +94,11 @@ class MmexController extends Controller
             $filePath = $media->getPath();
 
             $headers = [
-                "Content-Type"              => "",
-                "Cache-Control"             => "public",
-                "Content-Description"       => "File Transfer",
-                "Content-Disposition"       => "attachment; filename= ".$fileName,
-                "Content-Transfer-Encoding" => "binary",
+                'Content-Type'              => '',
+                'Cache-Control'             => 'public',
+                'Content-Description'       => 'File Transfer',
+                'Content-Disposition'       => 'attachment; filename= '.$fileName,
+                'Content-Transfer-Encoding' => 'binary',
             ];
 
             return response()->file($filePath, $headers);
@@ -208,6 +207,7 @@ class MmexController extends Controller
     {
         // TODO: Really dirty hack to force key => value format for outputs via fractal serializer
         $text = str_replace(',"meta":null', '', $text);
+
         return response($text, 200)
             ->header('Content-Type', 'text/plain; charset=UTF-8');
     }

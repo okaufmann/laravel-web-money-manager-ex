@@ -12,6 +12,7 @@ class TransactionTransformer extends TransformerAbstract
      * A Fractal transformer.
      *
      * @param Transaction $item
+     *
      * @return array
      */
     public function transform(Transaction $item)
@@ -26,11 +27,11 @@ class TransactionTransformer extends TransformerAbstract
             'Payee'       => $item->payee_name,
             'Category'    => $item->category_name,
             'SubCategory' => $item->sub_category_name,
-            'Amount'      => (string)floatval($item->amount),
+            'Amount'      => (string) floatval($item->amount),
             'Notes'       => $item->notes,
             'Attachments' => $item->getMedia('attachments')
                 ->map(function (Media $mediaItem) {
                     return $mediaItem->file_name;
-                })->implode(';'),];
+                })->implode(';'), ];
     }
 }
