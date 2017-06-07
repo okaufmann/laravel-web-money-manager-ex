@@ -1,4 +1,5 @@
 <?php
+
 return [
     /*
      * The filesystems on which to store added files and derived images by default. Choose
@@ -33,7 +34,7 @@ return [
      * The class that contains the strategy for determining a media file's path.
      */
     'custom_path_generator_class' => null,
-    's3' => [
+    's3'                          => [
         /*
          * The domain that should be prepended when generating urls.
          */
@@ -71,6 +72,6 @@ return [
      * thumbnails and have installed the php-ffmpeg/php-ffmpeg composer
      * dependency.
      */
-    'ffmpeg_binaries' => '/usr/bin/ffmpeg',
+    'ffmpeg_binaries'  => '/usr/bin/ffmpeg',
     'ffprobe_binaries' => '/usr/bin/ffprobe',
 ];

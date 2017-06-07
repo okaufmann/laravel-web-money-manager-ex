@@ -22,7 +22,7 @@ class MmexArraySerializer extends SerializerAbstract
      * Serialize a collection.
      *
      * @param string $resourceKey
-     * @param array $data
+     * @param array  $data
      *
      * @return array
      */
@@ -35,7 +35,7 @@ class MmexArraySerializer extends SerializerAbstract
      * Serialize an item.
      *
      * @param string $resourceKey
-     * @param array $data
+     * @param array  $data
      *
      * @return array
      */
@@ -58,7 +58,7 @@ class MmexArraySerializer extends SerializerAbstract
      * Serialize the included data.
      *
      * @param ResourceInterface $resource
-     * @param array $data
+     * @param array             $data
      *
      * @return array
      */
@@ -76,7 +76,7 @@ class MmexArraySerializer extends SerializerAbstract
      */
     public function meta(array $meta)
     {
-        return ["meta" => null];
+        return ['meta' => null];
     }
 
     /**
