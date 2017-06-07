@@ -5,12 +5,17 @@ namespace App\Http\Controllers\Api;
 use App\Constants;
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
+use App\Serializers\MmexArraySerializer;
 use App\Services\MmexFunctions;
 use App\Services\MmexService;
 use App\Transformers\TransactionTransformer;
 use Illuminate\Http\Request;
 use Log;
 
+/**
+ * API endpoint for client https://github.com/moneymanagerex/moneymanagerex/blob/master/src/webapp.cpp.
+ * @package App\Http\Controllers\Api
+ */
 class MmexController extends Controller
 {
     /**
@@ -64,6 +69,7 @@ class MmexController extends Controller
 
             $result = fractal()
                 ->collection($transactions)
+                ->serializeWith(new MmexArraySerializer())
                 ->transformWith(new TransactionTransformer())
                 ->toJson();
 
@@ -200,6 +206,8 @@ class MmexController extends Controller
 
     private function returnText($text)
     {
+        // TODO: Really dirty hack to force key => value format for outputs via fractal serializer
+        $text = str_replace(',"meta":null', '', $text);
         return response($text, 200)
             ->header('Content-Type', 'text/plain; charset=UTF-8');
     }

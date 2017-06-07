@@ -161,8 +161,8 @@ class MmexControllerTest extends AbstractApiTestCase
                     'SubCategory' => $transaction->sub_category_name,
                     'Amount'      => $transaction->amount,
                     'Notes'       => $transaction->notes,
-                    'Attachments' => 'Transaction_'.$transaction->id.'_test-receipt.png,Transaction_'.$transaction->id
-                        .'_test-receipt-2.png,Transaction_'.$transaction->id.'_test-receipt-3.png'
+                    'Attachments' => 'Transaction_'.$transaction->id.'_test-receipt.png;Transaction_'.$transaction->id
+                        .'_test-receipt-2.png;Transaction_'.$transaction->id.'_test-receipt-3.png'
                 ]
             );
     }

@@ -18,7 +18,7 @@ class MmexService
 {
     public function getTransactions()
     {
-        $transactions = Transaction::all()->all();
+        $transactions = Transaction::all();
 
         return $transactions;
         // example

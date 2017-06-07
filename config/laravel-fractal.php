@@ -13,6 +13,6 @@ return [
     |
     */
 
-    'default_serializer' => \League\Fractal\Serializer\DataArraySerializer::class,
+    'default_serializer' => '',
 
 ];
