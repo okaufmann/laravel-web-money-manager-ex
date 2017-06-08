@@ -1,11 +1,21 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "es2015",
+        "moduleResolution": "node",
         "target": "es5",
         "noImplicitAny": false,
-        "sourceMap": false
+        "sourceMap": false,
+        "allowSyntheticDefaultImports": true,
+        "lib": [
+            "dom",
+            "es5",
+            "es2015.promise"
+        ]
     },
     "include": [
         "resources/assets/js/**/*"
-    ]
+    ],
+    "typeAcquisition": {
+        "enable": true
+    }
 }
