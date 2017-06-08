@@ -11,6 +11,8 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap-sass');
+    require('bootstrap-material-design');
+
 } catch (e) {}
 
 /**
@@ -38,6 +40,23 @@ if (token) {
 }
 
 /**
+ * Setup moment.js
+ */
+window.moment = require('moment');
+require('moment/locale/de-ch.js');
+moment.locale('de');
+
+/**
+ * Kendo UI
+ */
+require('kendo-ui-core');
+require('kendo-ui-core/js/messages/kendo.messages.de-CH');
+require('kendo-ui-core/js/cultures/kendo.culture.de-CH');
+kendo.culture("de-CH");
+
+
+
+/**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allows your team to easily build robust real-time web applications.
@@ -51,3 +70,6 @@ if (token) {
 //     broadcaster: 'pusher',
 //     key: 'your-pusher-key'
 // });
+
+// Material Buttons
+$.material.init();
