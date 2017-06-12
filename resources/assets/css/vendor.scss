@@ -5,10 +5,6 @@
 // Variables
 @import "variables";
 
-// Kendo-UI
-@import url(../../../node_modules/kendo-ui-core/css/web/kendo.common-material.core.css);
-@import url(../../../node_modules/kendo-ui-core/css/web/kendo.material.css);
-
 // Font awesome
 @import "node_modules/font-awesome/scss/font-awesome";
 
@@ -17,5 +13,3 @@
 
 // Bootstrap Material Design
 @import "vendor/bootstrap-material-design";
-
-@import "styles";

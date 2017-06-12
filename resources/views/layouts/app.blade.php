@@ -16,6 +16,8 @@
     @include('partials.icons')
 
     <!-- Custom styles for this template -->
+    <link href="{{mix('css/vendor.css')}}" rel="stylesheet">
+    <link href="{{mix('css/kendo.css')}}" rel="stylesheet">
     <link href="{{mix('css/app.css')}}" rel="stylesheet">
 
 @yield('header')
