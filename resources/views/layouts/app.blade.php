@@ -21,6 +21,7 @@
     <link href="{{mix('css/app.css')}}" rel="stylesheet">
 
 @yield('header')
+@stack('header')
 
 <!-- Scripts -->
     <script>
@@ -57,5 +58,6 @@
 <script src="{{mix('js/app.js')}}"></script>
 
 @yield('footer')
+@stack('footer')
 </body>
 </html>
