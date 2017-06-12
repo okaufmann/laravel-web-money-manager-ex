@@ -1,4 +1,3 @@
-
 window._ = require('lodash');
 
 /**
@@ -54,6 +53,10 @@ require('kendo-ui-core/js/messages/kendo.messages.de-CH');
 require('kendo-ui-core/js/cultures/kendo.culture.de-CH');
 kendo.culture("de-CH");
 
+/**
+ * Autosize
+ */
+window.autosize = require('autosize');
 
 
 /**

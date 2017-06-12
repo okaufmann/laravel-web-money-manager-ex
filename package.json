@@ -23,6 +23,7 @@
     "vue": "^2.1.10"
   },
   "dependencies": {
+    "autosize": "^3.0.21",
     "bootstrap-material-design": "^0.5.10",
     "font-awesome": "^4.7.0",
     "kendo-ui-core": "^2017.2.504",
