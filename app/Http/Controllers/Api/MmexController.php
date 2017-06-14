@@ -6,8 +6,8 @@ use App\Constants;
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use App\Serializers\MmexArraySerializer;
-use App\Services\MmexFunctions;
-use App\Services\MmexService;
+use App\Services\Mmex\ClientApiService;
+use App\Services\Mmex\Functions;
 use App\Transformers\TransactionTransformer;
 use Illuminate\Http\Request;
 use Log;
@@ -18,16 +18,16 @@ use Log;
 class MmexController extends Controller
 {
     /**
-     * @var MmexService
+     * @var ClientApiService
      */
     private $mmexService;
 
     /**
      * MmexController constructor.
      *
-     * @param MmexService $mmexService
+     * @param ClientApiService $mmexService
      */
-    public function __construct(MmexService $mmexService)
+    public function __construct(ClientApiService $mmexService)
     {
         $this->mmexService = $mmexService;
     }
@@ -54,16 +54,16 @@ class MmexController extends Controller
 
         $function = $this->getFunction($data);
 
-        if ($function == MmexFunctions::CheckGuid) {
+        if ($function == Functions::CheckGuid) {
             // TODO
             return $this->returnSuccess();
         }
 
-        if ($function == MmexFunctions::CheckApiVersion) {
+        if ($function == Functions::CheckApiVersion) {
             return $this->returnText(Constants::$api_version);
         }
 
-        if ($function == MmexFunctions::DownloadTransactions) {
+        if ($function == Functions::DownloadTransactions) {
             $transactions = $this->mmexService->getTransactions();
 
             $result = fractal()
@@ -78,7 +78,7 @@ class MmexController extends Controller
             return $this->returnText($json);
         }
 
-        if ($function == MmexFunctions::DonwloadAttachment) {
+        if ($function == Functions::DonwloadAttachment) {
 
             // is something like: Transaction_3_test-receipt-3.png
             $fileName = $data['download_attachment'];
@@ -107,43 +107,43 @@ class MmexController extends Controller
             return response()->file($filePath, $headers);
         }
 
-        if ($function == MmexFunctions::DeleteBankAccounts) {
+        if ($function == Functions::DeleteBankAccounts) {
             $this->mmexService->deleteAccounts();
 
             return $this->returnSuccess();
         }
 
-        if ($function == MmexFunctions::ImportBankAccounts) {
+        if ($function == Functions::ImportBankAccounts) {
             $this->mmexService->importBankAccounts($postData);
 
             return $this->returnSuccess();
         }
 
-        if ($function == MmexFunctions::DeletePayees) {
+        if ($function == Functions::DeletePayees) {
             $this->mmexService->deletePayees();
 
             return $this->returnSuccess();
         }
 
-        if ($function == MmexFunctions::ImportPayees) {
+        if ($function == Functions::ImportPayees) {
             $this->mmexService->importPayees($postData);
 
             return $this->returnSuccess();
         }
 
-        if ($function == MmexFunctions::DeleteCategories) {
+        if ($function == Functions::DeleteCategories) {
             $this->mmexService->deleteCategories();
 
             return $this->returnSuccess();
         }
 
-        if ($function == MmexFunctions::ImportCategories) {
+        if ($function == Functions::ImportCategories) {
             $this->mmexService->importCategories($postData);
 
             return $this->returnSuccess();
         }
 
-        if ($function == MmexFunctions::DeleteTransactions) {
+        if ($function == Functions::DeleteTransactions) {
             $transactionId = $data['delete_group'];
             $this->mmexService->deleteTransactions($transactionId);
 
@@ -155,47 +155,47 @@ class MmexController extends Controller
 
     private function getFunction($data)
     {
-        if (isset($data[MmexFunctions::CheckApiVersion])) {
-            return MmexFunctions::CheckApiVersion;
+        if (isset($data[Functions::CheckApiVersion])) {
+            return Functions::CheckApiVersion;
         }
-        if (isset($data[MmexFunctions::CheckGuid])) {
-            return MmexFunctions::CheckGuid;
+        if (isset($data[Functions::CheckGuid])) {
+            return Functions::CheckGuid;
         }
-        if (isset($data[MmexFunctions::DeleteAttachment])) {
-            return MmexFunctions::DeleteAttachment;
+        if (isset($data[Functions::DeleteAttachment])) {
+            return Functions::DeleteAttachment;
         }
-        if (isset($data[MmexFunctions::DeleteBankAccounts])) {
-            return MmexFunctions::DeleteBankAccounts;
+        if (isset($data[Functions::DeleteBankAccounts])) {
+            return Functions::DeleteBankAccounts;
         }
-        if (isset($data[MmexFunctions::DeleteCategories])) {
-            return MmexFunctions::DeleteCategories;
+        if (isset($data[Functions::DeleteCategories])) {
+            return Functions::DeleteCategories;
         }
-        if (isset($data[MmexFunctions::DeletePayees])) {
-            return MmexFunctions::DeletePayees;
+        if (isset($data[Functions::DeletePayees])) {
+            return Functions::DeletePayees;
         }
-        if (isset($data[MmexFunctions::DeleteTransactions])) {
-            return MmexFunctions::DeleteTransactions;
+        if (isset($data[Functions::DeleteTransactions])) {
+            return Functions::DeleteTransactions;
         }
-        if (isset($data[MmexFunctions::DonwloadAttachment])) {
-            return MmexFunctions::DonwloadAttachment;
+        if (isset($data[Functions::DonwloadAttachment])) {
+            return Functions::DonwloadAttachment;
         }
-        if (isset($data[MmexFunctions::DownloadTransactions])) {
-            return MmexFunctions::DownloadTransactions;
+        if (isset($data[Functions::DownloadTransactions])) {
+            return Functions::DownloadTransactions;
         }
-        if (isset($data[MmexFunctions::ImportBankAccounts])) {
-            return MmexFunctions::ImportBankAccounts;
+        if (isset($data[Functions::ImportBankAccounts])) {
+            return Functions::ImportBankAccounts;
         }
-        if (isset($data[MmexFunctions::ImportBankAccounts])) {
-            return MmexFunctions::ImportBankAccounts;
+        if (isset($data[Functions::ImportBankAccounts])) {
+            return Functions::ImportBankAccounts;
         }
-        if (isset($data[MmexFunctions::ImportPayees])) {
-            return MmexFunctions::ImportPayees;
+        if (isset($data[Functions::ImportPayees])) {
+            return Functions::ImportPayees;
         }
-        if (isset($data[MmexFunctions::DeleteCategories])) {
-            return MmexFunctions::DeleteCategories;
+        if (isset($data[Functions::DeleteCategories])) {
+            return Functions::DeleteCategories;
         }
-        if (isset($data[MmexFunctions::ImportCategories])) {
-            return MmexFunctions::ImportCategories;
+        if (isset($data[Functions::ImportCategories])) {
+            return Functions::ImportCategories;
         }
 
         throw new \Exception('No valid function request!');

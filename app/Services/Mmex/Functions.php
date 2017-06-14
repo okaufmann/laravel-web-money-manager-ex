@@ -6,9 +6,9 @@
  * Time: 01:02.
  */
 
-namespace App\Services;
+namespace App\Services\Mmex;
 
-class MmexFunctions
+class Functions
 {
     const CheckApiVersion = 'check_api_version';
     const CheckGuid = 'check_guid';

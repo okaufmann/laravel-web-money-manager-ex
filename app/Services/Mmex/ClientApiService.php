@@ -6,7 +6,7 @@
  * Time: 14:53.
  */
 
-namespace App\Services;
+namespace App\Services\Mmex;
 
 use App\Models\Account;
 use App\Models\Category;
@@ -14,30 +14,13 @@ use App\Models\Payee;
 use App\Models\Transaction;
 use Log;
 
-class MmexService
+class ClientApiService
 {
     public function getTransactions()
     {
         $transactions = Transaction::all();
 
         return $transactions;
-        // example
-//        return [
-//            0 => [
-//                'ID'          => 1,
-//                'Date'        => '2016-10-07',
-//                'Account'     => 'Another Account',
-//                'ToAccount'   => 'None',
-//                'Status'      => 'R',
-//                'Type'        => 'Zahlung',
-//                'Payee'       => 'Migros',
-//                'Category'    => 'Einkauf',
-//                'SubCategory' => 'Etwas anderes',
-//                'Amount'      => '123',
-//                'Notes'       => "Das ist ein \r\nMeeeeehrzeiliger \r\nText",
-//                'Attachments' => 'Transaction_1_Attach1.png;Transaction_1_Attach2.jpg',
-//            ],
-//        ];
     }
 
     public function deleteAccounts()
