@@ -29,6 +29,7 @@ mix.webpackConfig({
 });
 
 mix.js('resources/assets/js/app.ts', 'public/js')
+    .js('resources/assets/js/vendor.js', 'public/js')
     .sass('resources/assets/css/app.scss', 'public/css')
     .sass('resources/assets/css/vendor.scss', 'public/css')
     .less('resources/assets/css/kendo.less', 'public/css');
