@@ -10,8 +10,6 @@
 
 namespace App\Services;
 
-use App\Models\Model;
-
 class FormFieldOptionService
 {
     public function getValues($model)
