@@ -1,5 +1,7 @@
+@inject('fieldValues', 'App\Services\FormFieldOptionService')
+
 @push('footer')
-<script type="application/javascript">
+<script type="text/javascript">
     $(document).ready(function () {
         autosize($('textarea'));
 
@@ -50,11 +52,9 @@
 <div class="form-group label-static is-empty">
     <label for="transaction_status" class="control-label">@lang('Status')</label>
     <select name="transaction_status" class="dropdown-list">
-        <option value=""> Keine Auswahl</option>
-        <option value="R" selected=""> Überprüft</option>
-        <option value="V"> Ungültig</option>
-        <option value="F"> Beobachten</option>
-        <option value="D"> Duplizieren</option>
+        @foreach($fieldValues->getValues(App\Models\TransactionStatus::class) as $value)
+            <option value="{{$value->id}}">{{$value->name}}</option>
+        @endforeach
     </select>
 
     <span class="help-block">Gib an, von wann bis wann das Event stattfindet</span>
