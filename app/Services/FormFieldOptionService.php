@@ -10,15 +10,14 @@
 
 namespace App\Services;
 
-
-
 use App\Models\Model;
 
 class FormFieldOptionService
 {
-    public function getValues(Model $model)
+    public function getValues($model)
     {
-        $values = $model->all()->values();
+        // TODO: cache
+        $values = $model::all()->values();
 
         return $values;
     }
