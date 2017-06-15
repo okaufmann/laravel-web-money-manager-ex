@@ -2,13 +2,13 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Tests\TestCase;
+use Tests\Features\TestCase;
+use Tests\UsesDatabase;
 use Tests\utils\DbUtils;
 
 class TransactionControllerTest extends TestCase
 {
-    use DatabaseMigrations;
+    use UsesDatabase;
     use DbUtils;
 
     /**
