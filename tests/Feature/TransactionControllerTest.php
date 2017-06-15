@@ -3,14 +3,9 @@
 namespace Tests\Feature;
 
 use Tests\Features\TestCase;
-use Tests\UsesDatabase;
-use Tests\utils\DbUtils;
 
 class TransactionControllerTest extends TestCase
 {
-    use UsesDatabase;
-    use DbUtils;
-
     /**
      * A basic test example.
      *
