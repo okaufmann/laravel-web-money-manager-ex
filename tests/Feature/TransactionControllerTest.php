@@ -18,7 +18,7 @@ class TransactionControllerTest extends TestCase
      *
      * @return void
      */
-    public function it_can_browse_transaction_create_form()
+    public function it_can_browse_transaction_create_page()
     {
         // Arrange
 
