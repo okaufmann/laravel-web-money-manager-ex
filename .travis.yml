@@ -1,28 +1,32 @@
+sudo: required
 language: php
+dist: trusty
 
 php:
   - '7.0'
   - '7.1'
 
-before_script:
-  - cp .env.testing .env
-  - touch database/testing.sqlite
-  - travis_retry composer self-update
-  - travis_retry composer install --no-interaction --prefer-dist
-
-script: vendor/bin/phpunit
-
-sudo: false
-
-services:
-  - redis-server
-
 cache:
-  bundler: true
+  yarn: true
   directories:
-  - node_modules # NPM packages
-  - vendor
+      - $HOME/.composer/cache/files
 
 notifications:
     on_success: never
     on_failure: always
+
+before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - composer install --prefer-dist --ignore-platform-reqs
+  - nvm install node
+  - npm install -g yarn
+  - yarn
+  - npm run dev -- --progress=false
+  - cp .env.testing .env
+  - ./vendor/laravel/dusk/bin/chromedriver-linux &
+  - php artisan serve &
+
+script:
+ - ./vendor/bin/phpunit
+# - php artisan dusk
