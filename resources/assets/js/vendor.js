@@ -24,15 +24,13 @@ window.axios = require('axios');
  */
 window.moment = require('moment');
 require('moment/locale/de-ch.js');
-moment.locale('de');
 
 /**
  * Kendo UI
  */
 require('kendo-ui-core');
-require('kendo-ui-core/js/messages/kendo.messages.de-CH');
-require('kendo-ui-core/js/cultures/kendo.culture.de-CH');
-kendo.culture("de-CH");
+require('kendo-ui-core/js/messages/kendo.messages.de-DE');
+require('kendo-ui-core/js/cultures/kendo.culture.de');
 
 /**
  * Autosize
