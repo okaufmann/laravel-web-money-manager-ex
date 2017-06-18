@@ -19,4 +19,6 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     })->middleware('auth:api');
+
+    Route::get('/transactions', 'TransactionController@index');
 });

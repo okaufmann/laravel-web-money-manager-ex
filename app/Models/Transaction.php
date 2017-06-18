@@ -18,7 +18,7 @@ class Transaction extends Model implements HasMedia
      *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
     public function getDateAttribute()
     {

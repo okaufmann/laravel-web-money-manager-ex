@@ -2,6 +2,7 @@
 
 namespace Tests\Features;
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Tests\CreatesApplication;
 use Tests\UsesDatabase;
@@ -16,7 +17,7 @@ abstract class TestCase extends BaseTestCase
 
     public function setUp()
     {
-        $this->prepareDatabase();
+        $this->prepareDatabase(true);
 
         parent::setUp();
 
