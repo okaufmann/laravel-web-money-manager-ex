@@ -19,12 +19,12 @@ class TransactionTransfomer extends TransformerAbstract
             'status'            => [
                 'id'   => $item->status->id,
                 'name' => $item->status->name,
-                'slug' => $item->status->slug
+                'slug' => $item->status->slug,
             ],
             'type'              => [
                 'id'   => $item->type->id,
                 'name' => $item->type->name,
-                'slug' => $item->type->slug
+                'slug' => $item->type->slug,
             ],
             'account_name'      => $item->account_name,
             'to_account_name'   => $item->to_account_name,
@@ -34,7 +34,7 @@ class TransactionTransfomer extends TransformerAbstract
             'amount'            => round($item->amount, 2),
             'notes'             => $item->notes,
             'created_at'        => $item->created_at->toIso8601String(),
-            'updated_at'        => $item->updated_at->toIso8601String()
+            'updated_at'        => $item->updated_at->toIso8601String(),
         ];
     }
 }
