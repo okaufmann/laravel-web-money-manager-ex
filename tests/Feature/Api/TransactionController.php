@@ -9,7 +9,9 @@ class TransactionController extends TestCase
 {
     /**
      * A basic test example.
+     *
      * @test
+     *
      * @return void
      */
     public function it_can_get_all_transactions()
@@ -28,12 +30,12 @@ class TransactionController extends TestCase
                 'status'            => [
                     'id'   => $transaction->status->id,
                     'name' => $transaction->status->name,
-                    'slug' => $transaction->status->slug
+                    'slug' => $transaction->status->slug,
                 ],
                 'type'              => [
                     'id'   => $transaction->type->id,
                     'name' => $transaction->type->name,
-                    'slug' => $transaction->type->slug
+                    'slug' => $transaction->type->slug,
                 ],
                 'account_name'      => $transaction->account_name,
                 'to_account_name'   => $transaction->to_account_name,
@@ -43,7 +45,7 @@ class TransactionController extends TestCase
                 'amount'            => round($transaction->amount, 2),
                 'notes'             => $transaction->notes,
                 'created_at'        => $transaction->created_at->toIso8601String(),
-                'updated_at'        => $transaction->updated_at->toIso8601String()
+                'updated_at'        => $transaction->updated_at->toIso8601String(),
             ]);
     }
 }

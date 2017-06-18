@@ -3,9 +3,8 @@
 namespace Tests\Feature\MmexClient;
 
 use App\Models\Category;
-use Tests\Feature\Api\AbstractMmexTestCase;
 
-class CategoryTest extends AbstractMmexTestCase
+class CategoryTest extends MmexTestCase
 {
     public function testDeleteAllCategories()
     {

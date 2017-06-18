@@ -12,12 +12,12 @@ trait UsesDatabase
     /** @var bool */
     protected static $migrated = false;
 
-    public function prepareDatabase($force = false)
+    public function prepareDatabase()
     {
         // The database needs to be deleted before the application gets boted
         // to avoid having the database in a weird read-only state.
 
-        if (!$force && static::$migrated) {
+        if (static::$migrated) {
             return;
         }
 
@@ -42,6 +42,11 @@ trait UsesDatabase
         static::$migrated = true;
     }
 
+    /**
+     * Handle database transactions on the specified connections.
+     *
+     * @return void
+     */
     public function beginDatabaseTransaction()
     {
         $database = $this->app->make('db');
@@ -57,7 +62,12 @@ trait UsesDatabase
         });
     }
 
-    protected function connectionsToTransact(): array
+    /**
+     * The database connections that should have transactions.
+     *
+     * @return array
+     */
+    protected function connectionsToTransact()
     {
         return property_exists($this, 'connectionsToTransact')
             ? $this->connectionsToTransact : [null];
