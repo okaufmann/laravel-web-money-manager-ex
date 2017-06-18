@@ -8,9 +8,6 @@
                   @vuetable:pagination-data="onPaginationData"
         ></vuetable>
         <div class="vuetable-pagination">
-            <vuetable-pagination-info ref="paginationInfo"
-                                      info-class="pagination-info"
-            ></vuetable-pagination-info>
             <vuetable-pagination-bootstrap ref="pagination"
                                            @vuetable-pagination:change-page="onChangePage"
             ></vuetable-pagination-bootstrap>
@@ -106,7 +103,7 @@
                 paginationData.last_page = paginationData.total_pages;
                 paginationData.last_page = paginationData.total_pages;
                 this.$refs.pagination.setPaginationData(paginationData)
-            },
+            }
         }
     }
 </script>
