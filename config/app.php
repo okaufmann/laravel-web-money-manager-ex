@@ -170,6 +170,7 @@ return [
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
         Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
         Spatie\Fractal\FractalServiceProvider::class,
+        Mariuzzo\LaravelJsLocalization\LaravelJsLocalizationServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -36,6 +36,7 @@ mix.js('resources/assets/js/app.ts', 'public/js')
 
 if (mix.config.inProduction) {
     mix.version();
+    mix.version('js/message.js');
 } else {
     mix.sourceMaps();
 }

@@ -13,9 +13,9 @@
 
     <title>@yield('title', 'Home') - {{config('app.name')}}</title>
 
-    @include('partials.icons')
+@include('partials.icons')
 
-    <!-- Custom styles for this template -->
+<!-- Custom styles for this template -->
     <link href="{{mix('css/vendor.css')}}" rel="stylesheet">
     <link href="{{mix('css/kendo.css')}}" rel="stylesheet">
     <link href="{{mix('css/app.css')}}" rel="stylesheet">
@@ -28,6 +28,7 @@
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
         ]); ?>
+
     </script>
 </head>
 
@@ -55,8 +56,19 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
+@if(App::environment('production'))
+    <script src="{{mix('js/messages.js')}}"></script>
+@else
+    <script src="{{asset('js/messages.js')}}"></script>
+@endif
 <script src="{{mix('js/vendor.js')}}"></script>
 <script src="{{mix('js/app.js')}}"></script>
+
+<script>
+    Lang.setLocale("{{App::getLocale()}}");
+    kendo.culture("{{App::getLocale()}}");
+    moment.locale('{{App::getLocale()}}');
+</script>
 
 @yield('footer')
 @stack('footer')

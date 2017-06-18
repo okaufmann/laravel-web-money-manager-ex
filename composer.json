@@ -8,6 +8,7 @@
         "php": "^7.0",
         "doctrine/dbal": "~2.3",
         "laravel/framework": "5.4.*",
+        "mariuzzo/laravel-js-localization": "^1.4",
         "rap2hpoutre/laravel-log-viewer": "^0.10",
         "spatie/laravel-fractal": "^4.0",
         "spatie/laravel-medialibrary": "^5.0"
