@@ -13,8 +13,11 @@
         <div id="navbar" class="navbar-collapse collapse">
             @if(Auth::check())
                 <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a href="{{url('/')}}">Home</a>
+                    <li>
+                        <a href="{{url('/')}}"><i class="fa fa-usd"></i> Transactions</a>
+                    </li>
+                    <li>
+                        <a href="{{url('/settings')}}"><i class="fa fa-cogs"></i> Settings</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

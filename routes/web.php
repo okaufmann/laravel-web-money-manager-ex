@@ -16,6 +16,8 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
 Route::get('/', 'HomeController@index');
 Route::resource('transactions', 'TransactionController');
+Route::get('settings', 'SettingController@index');
+Route::post('settings', 'SettingController@update');
 
 Route::group(['prefix' => '/admin'], function () {
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
