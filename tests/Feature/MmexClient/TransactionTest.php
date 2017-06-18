@@ -9,11 +9,11 @@
  * @version 1.0
  */
 
-namespace Tests\Feature\Api;
+namespace Tests\Feature\MmexClient;
 
 use App\Models\Transaction;
 
-class TransactionTest extends AbstractMmexTestCase
+class TransactionTest extends MmexTestCase
 {
     public function testDeleteTransactions()
     {

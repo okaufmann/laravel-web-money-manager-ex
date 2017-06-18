@@ -3,9 +3,8 @@
 namespace Tests\Feature\MmexClient;
 
 use App\Models\Account;
-use Tests\Feature\Api\AbstractMmexTestCase;
 
-class AccountTest extends AbstractMmexTestCase
+class AccountTest extends MmexTestCase
 {
     public function testDeleteAllAccounts()
     {

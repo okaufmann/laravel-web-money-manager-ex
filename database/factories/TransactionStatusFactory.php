@@ -16,6 +16,6 @@ $factory->define(App\Models\TransactionStatus::class, function (Faker\Generator 
      */
     return [
         'name' => $faker->word,
-        'slug' => str_slug($faker->word),
+        'slug' => str_slug(implode('_', $faker->words(2))),
     ];
 });

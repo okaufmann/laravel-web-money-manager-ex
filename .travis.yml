@@ -2,6 +2,8 @@ sudo: required
 language: php
 dist: trusty
 
+group: edge
+
 php:
   - '7.0'
   - '7.1'
@@ -18,7 +20,8 @@ notifications:
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  - composer install --prefer-dist --ignore-platform-reqs
+  - touch database/testing.sqlite
+  - composer install --prefer-dist
   - nvm install node
   - npm install -g yarn
   - yarn
@@ -29,4 +32,6 @@ before_script:
 
 script:
  - ./vendor/bin/phpunit
+ - cat storage/logs/laravel.log
+
 # - php artisan dusk
