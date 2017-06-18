@@ -6,7 +6,20 @@
                   :css="css.table"
                   pagination-path="meta.pagination"
                   @vuetable:pagination-data="onPaginationData"
-        ></vuetable>
+        >
+            <template slot="actions" scope="props">
+                <div class="btn-group ">
+                    <button class="btn btn-sm btn-primary"
+                            @click="onAction('edit-item', props.rowData, props.index)">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger"
+                            @click="onAction('delete-item', props.rowData, props.index)">
+                        <i class="fa fa-remove"></i>
+                    </button>
+                </div>
+            </template>
+        </vuetable>
         <div class="vuetable-pagination">
             <vuetable-pagination-bootstrap ref="pagination"
                                            @vuetable-pagination:change-page="onChangePage"
@@ -60,6 +73,11 @@
                         sortField: 'amount',
                         callback: 'formatCurrency',
                     },
+                    {
+                        name: '__slot:actions',
+                        title: Lang.get('Actions'),
+                        titleClass: 'center aligned',
+                    }
                 ],
                 css: {
                     table: {
@@ -78,6 +96,9 @@
             }
         },
         methods: {
+            onAction (action, data, index) {
+                console.log('slot) action: ' + action, data, index)
+            },
             formatCurrency(value){
                 if (value == null) {
                     return '';
