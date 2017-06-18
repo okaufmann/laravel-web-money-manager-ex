@@ -2,7 +2,6 @@
 
 namespace Tests\Features;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Tests\CreatesApplication;
 use Tests\UsesDatabase;
