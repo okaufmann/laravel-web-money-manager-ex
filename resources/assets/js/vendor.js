@@ -41,9 +41,6 @@ window.autosize = require('autosize');
 
 window.Vue = require('vue');
 
-import TableComponent from 'vue-table-component';
-Vue.use(TableComponent);
-
 // import Echo from 'laravel-echo'
 
 // window.Pusher = require('pusher-js');
