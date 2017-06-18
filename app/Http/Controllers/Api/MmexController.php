@@ -8,7 +8,7 @@ use App\Models\Transaction;
 use App\Serializers\MmexArraySerializer;
 use App\Services\Mmex\ClientApiService;
 use App\Services\Mmex\Functions;
-use App\Transformers\TransactionTransformer;
+use App\Transformers\Mmex\TransactionTransformer;
 use Illuminate\Http\Request;
 use Log;
 
