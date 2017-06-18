@@ -2,9 +2,15 @@
 # yarn lockfile v1
 
 
-"@types/jquery@^2.0.46":
+"@types/jquery@*", "@types/jquery@^2.0.46":
   version "2.0.47"
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.47.tgz#9665a157519dd48d259f94ac670d332a56561c00"
+
+"@types/kendo-ui@^2017.1.6":
+  version "2017.1.6"
+  resolved "https://registry.yarnpkg.com/@types/kendo-ui/-/kendo-ui-2017.1.6.tgz#fbeccf056cfa057dc555f5d303cbcd374c872e5e"
+  dependencies:
+    "@types/jquery" "*"
 
 "@types/lodash@^4.14.65":
   version "4.14.66"

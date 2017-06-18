@@ -11,7 +11,19 @@ class TransactionController extends Controller
 {
     public function index()
     {
-        $paginator = Transaction::paginate(10);
+        $column = 'created_at';
+        $direction = 'asc';
+
+        // add support for sorting in vuetable-2
+        $sort = request()->get('sort');
+        if ($sort) {
+            list($column, $direction) = explode('|', $sort);
+        }
+
+        $paginator = Transaction::query()
+            ->orderBy($column, $direction)
+            ->paginate(10);
+
         $transactions = $paginator->getCollection();
 
         return fractal()

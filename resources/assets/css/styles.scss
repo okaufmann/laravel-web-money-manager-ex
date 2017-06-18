@@ -1,3 +1,11 @@
+/* styles */
+.label-required::after {
+    content: ' *';
+    color: red;
+    font-weight: bold;
+}
+
+ /* Bootstrap customisations */
 body {
     padding-top: 80px;
     padding-bottom: 20px;
@@ -41,14 +49,12 @@ body {
     }
 }
 
-.label-required::after {
-    content: ' *';
-    color: red;
-    font-weight: bold;
+.pagination li{
+    cursor: pointer;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
+
+/* Sticky footer styles */
 html {
     position: relative;
     min-height: 100%;
