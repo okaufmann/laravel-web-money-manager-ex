@@ -2,15 +2,15 @@
 
 namespace Tests\Feature;
 
-
 use Tests\Features\TestCase;
 
 class SettingsControllerTest extends TestCase
 {
-
     /**
      * A basic test example.
+     *
      * @test
+     *
      * @return void
      */
     public function it_can_browse_settings_page()
@@ -23,6 +23,6 @@ class SettingsControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200)
-            ->assertSee("Settings");
+            ->assertSee('Settings');
     }
 }
