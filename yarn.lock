@@ -5297,6 +5297,10 @@ strip-outer@^1.0.0:
   dependencies:
     escape-string-regexp "^1.0.2"
 
+striptags@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/striptags/-/striptags-3.0.1.tgz#48f0d6932549c47bb3582920c87527cf49a160c1"
+
 style-loader@^0.13.1:
   version "0.13.2"
   resolved "https://registry.yarnpkg.com/style-loader/-/style-loader-0.13.2.tgz#74533384cf698c7104c7951150b49717adc2f3bb"
@@ -5730,6 +5734,14 @@ vue-style-loader@^2.0.0:
   dependencies:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
+
+vue-table-component@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/vue-table-component/-/vue-table-component-1.0.1.tgz#5fc3bc2d47b64f9add40750cbf8467a65fb929f6"
+  dependencies:
+    lodash "^4.17.4"
+    moment "^2.18.1"
+    striptags "^3.0.1"
 
 vue-template-compiler@^2.0.0:
   version "2.3.3"
