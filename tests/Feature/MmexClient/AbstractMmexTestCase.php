@@ -11,11 +11,12 @@ namespace Tests\Feature\Api;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\TestResponse;
 use Tests\TestCase;
+use Tests\UsesDatabase;
 use Tests\utils\DbUtils;
 
 abstract class AbstractMmexTestCase extends TestCase
 {
-    use DatabaseMigrations;
+    use UsesDatabase;
     use DbUtils;
 
     protected $apiUri = '/services.php';
