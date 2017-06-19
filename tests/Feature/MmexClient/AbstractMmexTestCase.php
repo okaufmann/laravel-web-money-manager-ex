@@ -8,7 +8,6 @@
 
 namespace Tests\Feature\Api;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\TestResponse;
 use Tests\TestCase;
 use Tests\UsesDatabase;
