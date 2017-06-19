@@ -12,6 +12,6 @@ $factory->define(App\Models\TransactionType::class, function (Faker\Generator $f
     // $TypeArrayDesc = array ("Withdrawal", "Deposit", "Transfer");
     return [
         'name' => $faker->word,
-        'slug' => str_slug($faker->word),
+        'slug' => str_slug(implode('_', $faker->words(2))),
     ];
 });
