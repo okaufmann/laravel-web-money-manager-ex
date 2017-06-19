@@ -2,25 +2,23 @@
 
 namespace Tests\Features;
 
-use Tests\UsesDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\utils\DbUtils;
 use UsersTableSeeder;
 
 abstract class TestCase extends \Tests\TestCase
 {
-    use UsesDatabase;
+    use DatabaseMigrations;
     use DbUtils;
+
+    protected $database = __DIR__.'/../database/testing.sqlite';
 
     public function setUp()
     {
-        $this->prepareDatabase(true);
+        @unlink($this->database);
+        touch($this->database);
 
         parent::setUp();
 
-        $this->setUpDatabase(function () {
-            $this->artisan('db:seed', ['--class' => UsersTableSeeder::class]);
-        });
-
-        $this->beginDatabaseTransaction();
     }
 }
