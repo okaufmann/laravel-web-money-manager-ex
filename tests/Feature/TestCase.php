@@ -2,7 +2,6 @@
 
 namespace Tests\Features;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\UsesDatabase;
 use Tests\utils\DbUtils;
 use UsersTableSeeder;
