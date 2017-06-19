@@ -29,7 +29,6 @@ before_script:
 
 script:
  - ./vendor/bin/phpunit
- - ls -la database/testing.sqlite
- - php artisan migrate:status
+ - cat storage/logs/laravel.log
 
 # - php artisan dusk
