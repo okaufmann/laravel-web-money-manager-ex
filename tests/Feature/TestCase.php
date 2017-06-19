@@ -4,7 +4,6 @@ namespace Tests\Features;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\utils\DbUtils;
-use UsersTableSeeder;
 
 abstract class TestCase extends \Tests\TestCase
 {
@@ -19,6 +18,5 @@ abstract class TestCase extends \Tests\TestCase
         touch($this->database);
 
         parent::setUp();
-
     }
 }
