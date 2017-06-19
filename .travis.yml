@@ -28,5 +28,6 @@ before_script:
   - php artisan serve &
 
 script:
+ - cat .env
  - ./vendor/bin/phpunit
 # - php artisan dusk
