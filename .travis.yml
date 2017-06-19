@@ -28,8 +28,8 @@ before_script:
   - php artisan serve &
 
 script:
- - ls -la database/testing.sqlite
- - ls -la database/database.sqlite
- - php artisan migrate:status
  - ./vendor/bin/phpunit
+ - ls -la database/testing.sqlite
+ - php artisan migrate:status
+
 # - php artisan dusk
