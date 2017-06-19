@@ -9,15 +9,10 @@
 namespace Tests\Feature\Api;
 
 use Illuminate\Foundation\Testing\TestResponse;
-use Tests\TestCase;
-use Tests\UsesDatabase;
-use Tests\utils\DbUtils;
+use Tests\Features\TestCase;
 
-abstract class AbstractMmexTestCase extends TestCase
+abstract class MmexTestCase extends TestCase
 {
-    use UsesDatabase;
-    use DbUtils;
-
     protected $apiUri = '/services.php';
     protected $guid = '{D6A33C24-DE43-D62C-A609-EF5138F33F30}';
     protected $success = 'Operation has succeeded';

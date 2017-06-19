@@ -10,7 +10,7 @@ namespace Tests\Feature\Api;
 
 use App\Constants;
 
-class CheckGuidTest extends AbstractMmexTestCase
+class CheckGuidTest extends MmexTestCase
 {
     public function testCorrectGuidLogin()
     {

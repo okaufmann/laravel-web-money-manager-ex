@@ -13,7 +13,7 @@ namespace Tests\Feature\Api;
 
 use App\Models\Transaction;
 
-class TransactionTest extends AbstractMmexTestCase
+class TransactionTest extends MmexTestCase
 {
     public function testDeleteTransactions()
     {
