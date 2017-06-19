@@ -3,7 +3,6 @@
 namespace Tests\Feature\MmexClient;
 
 use App\Models\Account;
-use Tests\Feature\Api\MmexTestCase;
 
 class AccountTest extends MmexTestCase
 {

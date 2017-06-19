@@ -17,10 +17,10 @@ abstract class TestCase extends \Tests\TestCase
 
         parent::setUp();
 
-        //$this->setUpDatabase(function () {
-        //    $this->artisan('db:seed', ['--class' => UsersTableSeeder::class]);
-        //});
-        //
-        //$this->beginDatabaseTransaction();
+        $this->setUpDatabase(function () {
+            $this->artisan('db:seed', ['--class' => UsersTableSeeder::class]);
+        });
+
+        $this->beginDatabaseTransaction();
     }
 }

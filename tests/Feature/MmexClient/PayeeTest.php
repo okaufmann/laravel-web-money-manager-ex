@@ -4,7 +4,6 @@ namespace Tests\Feature\MmexClient;
 
 use App\Models\Category;
 use App\Models\Payee;
-use Tests\Feature\Api\MmexTestCase;
 
 class PayeeTest extends MmexTestCase
 {

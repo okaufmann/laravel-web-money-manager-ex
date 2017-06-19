@@ -6,7 +6,7 @@
  * Time: 01:42.
  */
 
-namespace Tests\Feature\Api;
+namespace Tests\Feature\MmexClient;
 
 use App\Constants;
 

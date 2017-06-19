@@ -3,7 +3,6 @@
 namespace Tests\Feature\MmexClient;
 
 use App\Models\Category;
-use Tests\Feature\Api\MmexTestCase;
 
 class CategoryTest extends MmexTestCase
 {

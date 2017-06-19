@@ -6,7 +6,7 @@
  * Time: 01:23.
  */
 
-namespace Tests\Feature\Api;
+namespace Tests\Feature\MmexClient;
 
 use Illuminate\Foundation\Testing\TestResponse;
 use Tests\Features\TestCase;
