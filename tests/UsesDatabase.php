@@ -42,6 +42,11 @@ trait UsesDatabase
         static::$migrated = true;
     }
 
+    /**
+     * Handle database transactions on the specified connections.
+     *
+     * @return void
+     */
     public function beginDatabaseTransaction()
     {
         $database = $this->app->make('db');
@@ -54,10 +59,18 @@ trait UsesDatabase
             foreach ($this->connectionsToTransact() as $name) {
                 $database->connection($name)->rollBack();
             }
+
+            $this->artisan('migrate:rollback');
+            static::$migrated = false;
         });
     }
 
-    protected function connectionsToTransact(): array
+    /**
+     * The database connections that should have transactions.
+     *
+     * @return array
+     */
+    protected function connectionsToTransact()
     {
         return property_exists($this, 'connectionsToTransact')
             ? $this->connectionsToTransact : [null];
