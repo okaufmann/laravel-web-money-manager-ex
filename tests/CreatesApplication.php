@@ -17,7 +17,7 @@ trait CreatesApplication
 
         $app->make(Kernel::class)->bootstrap();
 
-        \Log::debug('created application for testing');
+        echo 'created application for testing';
 
         return $app;
     }

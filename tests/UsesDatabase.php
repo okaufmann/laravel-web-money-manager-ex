@@ -23,7 +23,7 @@ trait UsesDatabase
 
         @unlink($this->database);
         touch($this->database);
-        \Log::debug('prepared testing database');
+        echo 'prepared testing database';
     }
 
     public function setUpDatabase(callable $afterMigrations = null)
@@ -41,7 +41,7 @@ trait UsesDatabase
         }
 
         static::$migrated = true;
-        \Log::debug('setup (migrated and seeded) database');
+        echo 'setup (migrated and seeded) database';
     }
 
     public function beginDatabaseTransaction()
@@ -57,7 +57,7 @@ trait UsesDatabase
                 $database->connection($name)->rollBack();
             }
         });
-        \Log::debug('begun db transaction');
+        echo 'begun db transaction';
     }
 
     protected function connectionsToTransact(): array
