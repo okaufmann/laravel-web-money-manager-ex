@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "35b83de559bc52684a4b9a5e2f516c3b",
+    "content-hash": "9963bd105e712c36c51c5143f69c0c1c",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1232,6 +1232,46 @@
                 "time"
             ],
             "time": "2017-01-16T07:55:07+00:00"
+        },
+        {
+            "name": "okaufmann/laravel-git-version",
+            "version": "1.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/okaufmann/laravel-git-version.git",
+                "reference": "7d3babc2c3e05f8f2055f457bff47af9d05e95bf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/okaufmann/laravel-git-version/zipball/7d3babc2c3e05f8f2055f457bff47af9d05e95bf",
+                "reference": "7d3babc2c3e05f8f2055f457bff47af9d05e95bf",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tremby\\LaravelGitVersion\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oliver Kaufmann",
+                    "email": "okaufmann91@gmail.com"
+                },
+                {
+                    "name": "Bart Nagel",
+                    "email": "bart@tremby.net"
+                }
+            ],
+            "description": "A helper to get the current git version of the application",
+            "time": "2017-06-20T22:54:14+00:00"
         },
         {
             "name": "paragonie/random_compat",

@@ -171,6 +171,7 @@ return [
         Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
         Spatie\Fractal\FractalServiceProvider::class,
         Mariuzzo\LaravelJsLocalization\LaravelJsLocalizationServiceProvider::class,
+        Tremby\LaravelGitVersion\GitVersionServiceProvider::class,
 
         /*
          * Application Service Providers...
