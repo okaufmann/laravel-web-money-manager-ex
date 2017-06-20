@@ -37,6 +37,7 @@ class VersionInfoService
 
         if (!$process->isSuccessful()) {
             Log::error($process->getErrorOutput());
+
             return [];
         }
 
