@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Services\VersionInfoService;
-use Symfony\Component\Process\Process;
 
 class SettingController extends Controller
 {
@@ -14,11 +13,11 @@ class SettingController extends Controller
 
     /**
      * SettingController constructor.
+     *
      * @param VersionInfoService $versionInfoService
      */
     public function __construct(VersionInfoService $versionInfoService)
     {
-
         $this->versionInfoService = $versionInfoService;
     }
 
