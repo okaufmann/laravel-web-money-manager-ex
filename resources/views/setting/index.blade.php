@@ -23,11 +23,11 @@
             </div>
             <div class="col-md-4">
                 <h4>Used Packages</h4>
-                <ul class="list-unsyled">
-                @foreach($packages as $package)
 
-                    <li>{{$package["name"]}}@{{ $package["version"] }}</li>
-                @endforeach
+                <ul class=list-unstyled>
+                    @foreach($packages as $package)
+                        <li><a href="https://github.com/{{$package["name"]}}" target="_blank">{{$package["name"]}}{{'@'}}{{ $package["version"] }}</a></li>
+                    @endforeach
                 </ul>
             </div>
         </div>
