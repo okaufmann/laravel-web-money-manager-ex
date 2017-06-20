@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Constants;
+use App\Services\Mmex\MmexConstants;
 use Closure;
 
 class MmexEnsureGuid
@@ -11,7 +11,7 @@ class MmexEnsureGuid
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
+     * @param \Closure $next
      *
      * @return mixed
      */
@@ -22,7 +22,7 @@ class MmexEnsureGuid
             return $next($request);
         }
 
-        return response(Constants::$wrong_guid)
+        return response(MmexConstants::$wrong_guid)
             ->header('Content-Type', 'text/plain; charset=UTF-8');
     }
 }

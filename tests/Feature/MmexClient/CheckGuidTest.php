@@ -8,14 +8,14 @@
 
 namespace Tests\Feature\MmexClient;
 
-use App\Constants;
+use App\Services\Mmex\MmexConstants;
 
 class CheckGuidTest extends MmexTestCase
 {
     public function testCorrectGuidLogin()
     {
         $this->get('/services.php?check_guid&guid='.$this->guid)
-            ->assertSee(Constants::$operation_succeded)
+            ->assertSee(MmexConstants::$operation_succeded)
             ->assertHeader('Content-Type', 'text/plain; charset=UTF-8')
             ->assertStatus(200);
     }
@@ -25,7 +25,7 @@ class CheckGuidTest extends MmexTestCase
         $incorrectGuid = '{DE43-D62C-A609-UIFSDDFUISF}';
 
         $this->get('/services.php?check_guid&guid='.$incorrectGuid)
-            ->assertSee(Constants::$wrong_guid)
+            ->assertSee(MmexConstants::$wrong_guid)
             ->assertHeader('Content-Type', 'text/plain; charset=UTF-8')
             ->assertStatus(200); // need to be 200 cause client otherwise crash..
     }

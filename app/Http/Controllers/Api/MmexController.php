@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Constants;
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use App\Serializers\MmexArraySerializer;
 use App\Services\Mmex\ClientApiService;
 use App\Services\Mmex\Functions;
+use App\Services\Mmex\MmexConstants;
 use App\Transformers\Mmex\TransactionTransformer;
 use Illuminate\Http\Request;
 use Log;
@@ -60,7 +60,7 @@ class MmexController extends Controller
         }
 
         if ($function == Functions::CheckApiVersion) {
-            return $this->returnText(Constants::$api_version);
+            return $this->returnText(MmexConstants::$api_version);
         }
 
         if ($function == Functions::DownloadTransactions) {
@@ -203,7 +203,7 @@ class MmexController extends Controller
 
     private function returnSuccess()
     {
-        return $this->returnText(Constants::$operation_succeded);
+        return $this->returnText(MmexConstants::$operation_succeded);
     }
 
     private function returnText($text)
