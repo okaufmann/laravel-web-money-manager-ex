@@ -23,13 +23,13 @@ trait UsesDatabase
 
         try {
             unlink($this->database);
-            echo "unlinked db file! ".PHP_EOL;
+            echo 'unlinked db file! '.PHP_EOL;
         } catch (\Exception $e) {
-            echo "cant unlink db file! ".$e->getMessage().PHP_EOL;
+            echo 'cant unlink db file! '.$e->getMessage().PHP_EOL;
         }
 
         touch($this->database);
-        echo "touch".PHP_EOL;
+        echo 'touch'.PHP_EOL;
     }
 
     public function setUpDatabase(callable $afterMigrations = null)
@@ -39,7 +39,7 @@ trait UsesDatabase
         }
 
         $this->artisan('migrate');
-        echo "migrated! ".PHP_EOL;
+        echo 'migrated! '.PHP_EOL;
 
         $this->app[Kernel::class]->setArtisan(null);
 
