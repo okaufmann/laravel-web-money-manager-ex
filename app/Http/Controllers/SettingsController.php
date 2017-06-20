@@ -27,6 +27,6 @@ class SettingsController extends Controller
         $packages = $this->versionInfoService->packageInfo();
         $version = GitVersionHelper::getVersion();
 
-        return view('setting.index', compact('packages','version'));
+        return view('setting.index', compact('packages', 'version'));
     }
 }
