@@ -11,6 +11,7 @@
 namespace App\Services;
 
 use Cache;
+use Log;
 use Symfony\Component\Process\Process;
 
 class VersionInfoService
@@ -30,11 +31,16 @@ class VersionInfoService
      */
     protected function getInstalledPackages()
     {
-        $process = new Process('cd .. && composer show -i -f json');
+        $process = new Process('composer show -i -f json', base_path());
         $process->run();
         $output = $process->getOutput();
-        $output = json_decode($output, true);
 
+        if (!$process->isSuccessful()) {
+            Log::error($process->getErrorOutput());
+            return [];
+        }
+
+        $output = json_decode($output, true);
         $r = $output['installed'];
 
         return $r;
