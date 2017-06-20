@@ -21,8 +21,15 @@ trait UsesDatabase
             return;
         }
 
-        @unlink($this->database);
+        try {
+            unlink($this->database);
+            echo "unlinked db file! ".PHP_EOL;
+        } catch (\Exception $e) {
+            echo "cant unlink db file! ".$e->getMessage().PHP_EOL;
+        }
+
         touch($this->database);
+        echo "touch".PHP_EOL;
     }
 
     public function setUpDatabase(callable $afterMigrations = null)
@@ -32,6 +39,7 @@ trait UsesDatabase
         }
 
         $this->artisan('migrate');
+        echo "migrated! ".PHP_EOL;
 
         $this->app[Kernel::class]->setArtisan(null);
 
@@ -59,9 +67,6 @@ trait UsesDatabase
             foreach ($this->connectionsToTransact() as $name) {
                 $database->connection($name)->rollBack();
             }
-
-            $this->artisan('migrate:rollback');
-            static::$migrated = false;
         });
     }
 
