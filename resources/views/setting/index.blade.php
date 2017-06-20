@@ -22,11 +22,23 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <h4>Used Packages</h4>
+                <h4>@lang('Common')</h4>
+                <div class="settings-common">
+
+                    <dl class="dl-horizontal">
+                        <dt>App Version</dt>
+                        <dd>{{$version}}</dd>
+                        <dt>API Version</dt>
+                        <dd>{{\App\Services\Mmex\MmexConstants::$api_version}}</dd>
+                    </dl>
+                </div>
+
+                <h4>@lang('Used Packages')</h4>
 
                 <ul class=list-unstyled>
                     @foreach($packages as $package)
-                        <li><a href="https://packagist.org/packages/{{$package["name"]}}" target="_blank">{{$package["name"]}}{{'@'}}{{ $package["version"] }}</a></li>
+                        <li><a href="https://packagist.org/packages/{{$package["name"]}}"
+                               target="_blank">{{$package["name"]}}{{'@'}}{{ $package["version"] }}</a></li>
                     @endforeach
                 </ul>
             </div>

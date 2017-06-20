@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Services\VersionInfoService;
+use Tremby\LaravelGitVersion\GitVersionHelper;
 
-class SettingController extends Controller
+class SettingsController extends Controller
 {
     /**
      * @var VersionInfoService
@@ -24,7 +25,8 @@ class SettingController extends Controller
     public function index()
     {
         $packages = $this->versionInfoService->packageInfo();
+        $version = GitVersionHelper::getVersion();
 
-        return view('setting.index', compact('packages'));
+        return view('setting.index', compact('packages','version'));
     }
 }
