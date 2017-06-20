@@ -10,7 +10,6 @@
 
 namespace App\Services;
 
-
 use Cache;
 use Symfony\Component\Process\Process;
 
@@ -40,5 +39,4 @@ class VersionInfoService
 
         return $r;
     }
-
 }
