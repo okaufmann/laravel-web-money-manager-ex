@@ -26,7 +26,7 @@
 
                 <ul class=list-unstyled>
                     @foreach($packages as $package)
-                        <li><a href="https://github.com/{{$package["name"]}}" target="_blank">{{$package["name"]}}{{'@'}}{{ $package["version"] }}</a></li>
+                        <li><a href="https://packagist.org/packages/{{$package["name"]}}" target="_blank">{{$package["name"]}}{{'@'}}{{ $package["version"] }}</a></li>
                     @endforeach
                 </ul>
             </div>
