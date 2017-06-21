@@ -13,6 +13,12 @@
                         <form action="{{url('settings')}}" method="POST" enctype="multipart/form-data">
                             {!! csrf_field() !!}
 
+                            @if (session('status'))
+                                <div class="alert alert-success">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
+
                             <div class="alert alert-info">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
                                 </button>

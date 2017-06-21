@@ -58,6 +58,6 @@ class SettingsController extends Controller
             TransactionType::where('id', $id)->update(['name' => $value, 'slug' => str_slug($value)]);
         }
 
-        return back();
+        return back()->with('status', trans('Status and Types were updated!'));
     }
 }
