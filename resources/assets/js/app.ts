@@ -3,6 +3,8 @@
 //     key: 'your-pusher-key'
 // });
 
+require('./bootstrap');
+
 Vue.component('transaction-table', require('./components/TransactionTable.vue'));
 
 const app = new Vue({

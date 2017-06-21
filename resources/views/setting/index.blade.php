@@ -10,12 +10,42 @@
                     <div class="panel-heading">@lang('User Settings')</div>
 
                     <div class="panel-body">
-                        <form action="{{url('transactions/store')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{url('settings')}}" method="POST" enctype="multipart/form-data">
                             {!! csrf_field() !!}
+
+                            <div class="alert alert-info">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
+                                </button>
+                                <strong>@lang('Types and Status')</strong> @lang('Please align the values for status and type with them in your MMEX Client (New Transaction -> Dropdowns Status and Type).')
+                            </div>
+
+                            <p class="lang">@lang('Status')</p>
+                            <table class="table">
+                                @foreach($status as $s)
+                                    <tr>
+                                        <td>
+                                            <input type="hidden" name="status_ids[]" value="{{$s->id}}">
+                                            <input class="form-control" value="{{$s->name}}" name="status_values[]">
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </table>
+
+                            <p class="lang">@lang('Types')</p>
+                            <table class="table">
+                                @foreach($types as $s)
+                                    <tr>
+                                        <td>
+                                            <input type="hidden" name="type_ids[]" value="{{$s->id}}">
+                                            <input class="form-control" value="{{$s->name}}" name="type_values[]">
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </table>
 
 
                             <div class="form-group label-static is-empty">
-                                <button type="button" class="btn btn-primary btn-raised">@lang('Save')</button>
+                                <button type="submit" class="btn btn-primary btn-raised">@lang('Save')</button>
                             </div>
                         </form>
                     </div>
