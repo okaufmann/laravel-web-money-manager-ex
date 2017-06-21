@@ -3,17 +3,15 @@
 namespace Tests\Unit;
 
 use App\Http\Requests\SettingsRequest;
-use Mockery;
-use Mockery\Mock;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class TestSettingsRequest extends TestCase
 {
     /**
      * A basic test example.
+     *
      * @test
+     *
      * @return void
      */
     public function it_can_transform_ids_and_values_in_correct_key_value_collection()
@@ -31,7 +29,7 @@ class TestSettingsRequest extends TestCase
             1  => 'a',
             22 => 'b',
             33 => 'c',
-            49 => 'd'
+            49 => 'd',
         ];
 
         $this->assertEquals($expected, $status);
