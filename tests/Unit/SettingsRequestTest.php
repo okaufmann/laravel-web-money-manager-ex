@@ -5,7 +5,7 @@ namespace Tests\Unit;
 use App\Http\Requests\SettingsRequest;
 use Tests\TestCase;
 
-class TestSettingsRequest extends TestCase
+class SettingsRequestTest extends TestCase
 {
     /**
      * A basic test example.
@@ -20,8 +20,13 @@ class TestSettingsRequest extends TestCase
         $keys = collect([1, 22, 33, 49]);
         $values = collect(['a', 'b', 'c', 'd']);
 
+        $settingRequest = new SettingsRequest();
+        $settingRequest->attributes->set('status_ids', $keys);
+        $settingRequest->attributes->set('status_values', $values);
+        $settingRequest->attributes->set('type_ids', $keys);
+        $settingRequest->attributes->set('type_values', $values);
+
         // Act
-        $settingRequest = $this->app->make(SettingsRequest::class);
         list($status, $types) = $settingRequest->getStatusAndTypes();
 
         // Assert
@@ -32,7 +37,7 @@ class TestSettingsRequest extends TestCase
             49 => 'd',
         ];
 
-        $this->assertEquals($expected, $status);
-        $this->assertEquals($expected, $types);
+        $this->assertEquals($expected, $status->all());
+        $this->assertEquals($expected, $types->all());
     }
 }

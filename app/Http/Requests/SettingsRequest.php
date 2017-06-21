@@ -34,11 +34,11 @@ class SettingsRequest extends FormRequest
     public function getStatusAndTypes()
     {
         $status_ids = collect($this->get('status_ids'));
-        $status_values = collect($this->get('status'));
+        $status_values = collect($this->get('status_values'));
         $status = $status_ids->combine($status_values);
 
-        $types_ids = collect($this->get('types_id'));
-        $types_values = collect($this->get('types'));
+        $types_ids = collect($this->get('type_ids'));
+        $types_values = collect($this->get('type_values'));
         $types = $types_ids->combine($types_values);
 
         return [$status, $types];
