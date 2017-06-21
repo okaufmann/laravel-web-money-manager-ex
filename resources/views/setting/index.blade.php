@@ -27,29 +27,16 @@
                             </div>
 
                             <p class="lang">@lang('Status')</p>
-                            <table class="table">
-                                @foreach($status as $s)
-                                    <tr>
-                                        <td>
-                                            <input type="hidden" name="status_ids[]" value="{{$s->id}}">
-                                            <input class="form-control" value="{{$s->name}}" name="status_values[]">
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </table>
+                            @foreach($status as $s)
+                                <input type="hidden" name="status_ids[]" value="{{$s->id}}">
+                                <input class="form-control" value="{{$s->name}}" name="status_values[]">
+                            @endforeach
 
                             <p class="lang">@lang('Types')</p>
-                            <table class="table">
-                                @foreach($types as $s)
-                                    <tr>
-                                        <td>
-                                            <input type="hidden" name="type_ids[]" value="{{$s->id}}">
-                                            <input class="form-control" value="{{$s->name}}" name="type_values[]">
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </table>
-
+                            @foreach($types as $s)
+                                <input type="hidden" name="type_ids[]" value="{{$s->id}}">
+                                <input class="form-control" value="{{$s->name}}" name="type_values[]">
+                            @endforeach
 
                             <div class="form-group label-static is-empty">
                                 <button type="submit" class="btn btn-primary btn-raised">@lang('Save')</button>
