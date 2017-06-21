@@ -15,13 +15,14 @@
 
                             @if (session('status'))
                                 <div class="alert alert-success">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
+                                    </button>
                                     {{ session('status') }}
                                 </div>
                             @endif
 
                             <div class="alert alert-info">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
-                                </button>
+
                                 <strong>@lang('Types and Status')</strong> @lang('Please align the values for status and type with them in your MMEX Client (New Transaction -> Dropdowns Status and Type).')
                             </div>
 
