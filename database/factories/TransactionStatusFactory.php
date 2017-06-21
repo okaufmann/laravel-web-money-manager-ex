@@ -15,6 +15,7 @@ $factory->define(App\Models\TransactionStatus::class, function (Faker\Generator 
      * $StatusArrayDB = array ("", "R", "V", "F", "D");
      */
     $name = implode('_', $faker->words(2));
+
     return [
         'name' => $name,
         'slug' => str_slug($name),
