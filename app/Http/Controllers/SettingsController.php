@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SettingsRequest;
-use App\Models\Transaction;
 use App\Models\TransactionStatus;
 use App\Models\TransactionType;
 use App\Services\VersionInfoService;
-use Illuminate\Http\Request;
 use Tremby\LaravelGitVersion\GitVersionHelper;
 
 class SettingsController extends Controller
@@ -42,6 +40,7 @@ class SettingsController extends Controller
 
     /**
      * @param SettingsRequest $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(SettingsRequest $request)
