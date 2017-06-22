@@ -10,9 +10,19 @@
                 value: new Date()
             });
         });
-        $(".dropdown-list").each((index, elm) => {
+        $(".common-dropdown-list").each((index, elm) => {
             new kendo.ui.DropDownList($(elm), {
                 filter: "startswith",
+            });
+        });
+
+        $("#to_account").each((index, elm) => {
+            new kendo.ui.DropDownList($(elm), {
+                filter: "startswith",
+                optionLabel: {
+                    dataTextField: "Bitte wählen",
+                    dataValueField: null,
+                }
             });
         });
 
@@ -49,7 +59,7 @@
 
 <div class="form-group label-static is-empty">
     <label for="transaction_status" class="control-label">@lang('Status')</label>
-    <select name="transaction_status" class="dropdown-list">
+    <select name="transaction_status" class="common-dropdown-list">
         @foreach($fieldValues->getValues(App\Models\TransactionStatus::class) as $value)
             <option value="{{$value->id}}">{{$value->name}}</option>
         @endforeach
@@ -57,7 +67,7 @@
 </div>
 <div class="form-group label-static is-empty">
     <label for="transaction_type" class="control-label">@lang('Type')</label>
-    <select name="transaction_type" class="dropdown-list">
+    <select name="transaction_type" class="common-dropdown-list">
         @foreach($fieldValues->getValues(App\Models\TransactionType::class) as $value)
             <option value="{{$value->id}}">{{$value->name}}</option>
         @endforeach
@@ -66,7 +76,7 @@
 
 <div class="form-group label-static is-empty">
     <label for="account" class="control-label">@lang('Account')</label>
-    <select name="account" class="dropdown-list">
+    <select name="account" class="common-dropdown-list">
         @foreach($fieldValues->getValues(App\Models\Account::class) as $value)
             <option value="{{$value->id}}">{{$value->name}}</option>
         @endforeach
@@ -75,7 +85,7 @@
 
 <div class="form-group label-static is-empty">
     <label for="to_account" class="control-label">@lang('to Account')</label>
-    <select name="to_account" class="dropdown-list">
+    <select id="to_account" name="to_account">
         @foreach($fieldValues->getValues(App\Models\Account::class) as $value)
             <option value="{{$value->id}}">{{$value->name}}</option>
         @endforeach
@@ -84,7 +94,7 @@
 
 <div class="form-group label-static is-empty">
     <label for="payee" class="control-label">@lang('Payee')</label>
-    <select name="payee" class="dropdown-list">
+    <select name="payee" class="common-dropdown-list">
         @foreach($fieldValues->getValues(App\Models\Payee::class) as $value)
             <option value="{{$value->id}}">{{$value->name}}</option>
         @endforeach
