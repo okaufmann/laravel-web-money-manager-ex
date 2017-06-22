@@ -23,23 +23,46 @@
 
                             <div class="alert alert-info">
 
-                                <strong>@lang('Types and Status')</strong> @lang('Please align the values for status and type with them in your MMEX Client (New Transaction -> Dropdowns Status and Type).')
+                                <strong>@lang('Types and Status')</strong><br/> @lang('Please adopt the values for status and type with values from your MMEX Client (New Transaction -> Dropdowns Status and Type).')
                             </div>
 
                             <p class="lang">@lang('Status')</p>
                             @foreach($status as $s)
-                                <input type="hidden" name="status_ids[]" value="{{$s->id}}">
-                                <input class="form-control" value="{{$s->name}}" name="status_values[]">
+                                <div class="form-group label-static is-empty">
+                                    <input type="hidden" name="status_ids[]" value="{{$s->id}}">
+                                    <input class="form-control" value="{{$s->name}}" name="status_values[]">
+                                </div>
+
                             @endforeach
 
                             <p class="lang">@lang('Types')</p>
                             @foreach($types as $s)
-                                <input type="hidden" name="type_ids[]" value="{{$s->id}}">
-                                <input class="form-control" value="{{$s->name}}" name="type_values[]">
+                                <div class="form-group label-static is-empty">
+                                    <input type="hidden" name="type_ids[]" value="{{$s->id}}">
+                                    <input class="form-control" value="{{$s->name}}" name="type_values[]">
+                                </div>
+
                             @endforeach
 
                             <div class="form-group label-static is-empty">
                                 <button type="submit" class="btn btn-primary btn-raised">@lang('Save')</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">@lang('System Settings')</div>
+                    <div class="panel-body">
+                        <form class="form-horizontal">
+                            <div class="form-group is-focused">
+                                <label class="control-label col-md-3">@lang('Auth GUID')</label>
+                                <div class="col-md-9">
+                                    <p class="form-control-static">{{$authGuid}}</p>
+                                    <p class="help-block ">
+                                        @lang('Set the correct GUID from your MMEX Client in the .env file in the projects root.')
+                                    </p>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -50,10 +73,10 @@
                 <div class="settings-common">
 
                     <dl class="dl-horizontal">
-                        <dt>App Version</dt>
+                        <dt>@lang('App Version')</dt>
                         <dd>{{$version}}</dd>
-                        <dt>API Version</dt>
-                        <dd>{{\App\Services\Mmex\MmexConstants::$api_version}}</dd>
+                        <dt>@lang('API Version')</dt>
+                        <dd>{{$apiVersion}}</dd>
                     </dl>
                 </div>
 

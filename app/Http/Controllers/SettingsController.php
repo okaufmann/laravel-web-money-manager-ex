@@ -32,10 +32,12 @@ class SettingsController extends Controller
     {
         $packages = $this->versionInfoService->packageInfo();
         $version = GitVersionHelper::getVersion();
+        $apiVersion = \App\Services\Mmex\MmexConstants::$api_version;
+        $authGuid = config('services.mmex.guid');
         $status = TransactionStatus::all();
         $types = TransactionType::all();
 
-        return view('setting.index', compact('packages', 'version', 'status', 'types'));
+        return view('setting.index', compact('packages', 'version', 'status', 'types', 'apiVersion', 'authGuid'));
     }
 
     /**
