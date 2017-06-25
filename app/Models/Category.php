@@ -13,7 +13,7 @@ class Category extends Model
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeSubCategories($query)
+    public function scopeRootCategories($query)
     {
         return $query->where('parent_id', null);
     }

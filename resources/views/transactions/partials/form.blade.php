@@ -10,36 +10,58 @@
                 value: new Date()
             });
         });
+
         $(".common-dropdown-list").each((index, elm) => {
             new kendo.ui.DropDownList($(elm), {
                 filter: "startswith",
             });
         });
 
-        $("#to_account").each((index, elm) => {
-            new kendo.ui.DropDownList($(elm), {
-                filter: "startswith",
-                optionLabel: {
-                    dataTextField: "Bitte wählen",
-                    dataValueField: null,
+        $("#to_account").data("kendoDropDownList", new kendo.ui.DropDownList($("#to_account"), {
+            filter: "startswith",
+            optionLabel: Lang.get("Please Choose")
+        }));
+
+        $("#to_account").data("kendoDropDownList").enable(false);
+
+        $("#category").data("kendoDropDownList", new kendo.ui.DropDownList($("#category"), {
+            filter: "startswith",
+            optionLabel: Lang.get("Please Choose"),
+            dataTextField: "name",
+            dataValueField: "id",
+            dataSource: {
+                serverFiltering: false,
+                transport: {
+                    read: "/api/v1/category/"
+                },
+                schema: {
+                    data: "data"
                 }
-            });
-        });
+            }
+        }));
 
-        $("#category").each((index, elm) => {
-            new kendo.ui.DropDownList($(elm), {
-                filter: "startswith",
-            });
+        new kendo.ui.DropDownList($("#subcategory"), {
+            autoBind: false,
+            cascadeFrom: "category",
+            filter: "startswith",
+            optionLabel: Lang.get("Please Choose"),
+            dataTextField: "name",
+            dataValueField: "id",
+            dataSource: {
+                serverFiltering: true,
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: function () {
+                            return "/api/v1/category/" + $("#category").data("kendoDropDownList").value() + "/subcategories"
+                        }
+                    }
+                },
+                schema: {
+                    data: "data"
+                }
+            }
         });
-
-        $("#subcategory").each((index, elm) => {
-            new kendo.ui.DropDownList($(elm), {
-                autoBind: false,
-                cascadeFrom: "category",
-                filter: "startswith",
-            });
-        });
-
 
         $(".numeric-currency").each((index, elm) => {
             new kendo.ui.NumericTextBox($(elm), {
@@ -86,6 +108,7 @@
 <div class="form-group label-static is-empty">
     <label for="to_account" class="control-label">@lang('to Account')</label>
     <select id="to_account" name="to_account">
+        <option value="">@lang('Choose Account')</option>
         @foreach($fieldValues->getValues(App\Models\Account::class) as $value)
             <option value="{{$value->id}}">{{$value->name}}</option>
         @endforeach
@@ -103,11 +126,7 @@
 
 <div class="form-group label-static is-empty">
     <label for="category" class="control-label">@lang('Category')</label>
-    <select id="category" name="category">
-        @foreach($fieldValues->getValues(App\Models\Category::class) as $value)
-            <option value="{{$value->id}}">{{$value->name}}</option>
-        @endforeach
-    </select>
+    <select id="category" name="category"></select>
 </div>
 <div class="form-group label-static is-empty">
     <label for="subcategory" class="control-label">@lang('Subcategory')</label>
