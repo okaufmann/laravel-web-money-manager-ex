@@ -147,5 +147,5 @@
     <label for="inputFile" class="control-label">@lang('Take a picture or upload attachments')</label>
 
     <input type="text" readonly="" class="form-control" placeholder="Browse...">
-    <input type="file" multiple="">
+    <input type="file" multiple="" name="attachments">
 </div>
