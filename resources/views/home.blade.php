@@ -7,13 +7,13 @@
                 <div class="panel-heading">@lang('Add Transaction')</div>
 
                 <div class="panel-body">
-                    <form action="{{url('transactions/store')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('transactions')}}" method="POST" enctype="multipart/form-data">
                         {!! csrf_field() !!}
 
                         @include('transactions.partials.form')
 
                         <div class="form-group label-static is-empty">
-                            <button type="button" class="btn btn-primary btn-raised">@lang('Add')</button>
+                            <button type="submit" class="btn btn-primary btn-raised">@lang('Add')</button>
                         </div>
                     </form>
                 </div>
