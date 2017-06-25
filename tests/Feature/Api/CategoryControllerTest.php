@@ -4,15 +4,14 @@ namespace Tests\Feature\Api;
 
 use App\Models\Category;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CategoryControllerTest extends TestCase
 {
     /**
      * A basic test example.
+     *
      * @test
+     *
      * @return void
      */
     public function it_return_all_subcategories_of_a_category()
@@ -42,7 +41,9 @@ class CategoryControllerTest extends TestCase
 
     /**
      * A basic test example.
+     *
      * @test
+     *
      * @return void
      */
     public function it_can_access_all_root_categories()
