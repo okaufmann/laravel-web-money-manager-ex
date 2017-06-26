@@ -35,13 +35,13 @@ class TransactionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param TransactionRequest|Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(TransactionRequest $request)
     {
         dd($request->all());
         if ($request->hasFile('attachments') && is_array($request->file('attachments'))) {
-
         }
     }
 
@@ -73,7 +73,7 @@ class TransactionController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param int                      $id
      *
      * @return \Illuminate\Http\Response
      */
