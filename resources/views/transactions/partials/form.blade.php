@@ -73,6 +73,8 @@
 </script>
 @endpush
 
+@include('partials.form-errors')
+
 <div class="form-group label-static is-empty">
     <label for="transaction_date" class="control-label">@lang('Date')</label>
     <input type="date-local" name="transaction_date" placeholder="Von"
@@ -147,5 +149,8 @@
     <label for="inputFile" class="control-label">@lang('Take a picture or upload attachments')</label>
 
     <input type="text" readonly="" class="form-control" placeholder="Browse...">
-    <input type="file" multiple="" name="attachments">
+    <input type="file" multiple="" name="attachments[]">
+    <span class="help-block">
+        {{ini_get('upload_max_filesize')}}/{{ini_get('post_max_size')}}
+    </span>
 </div>
