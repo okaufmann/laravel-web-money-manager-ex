@@ -114,7 +114,7 @@ class ClientApiService
             return $existingCategory;
         }
 
-        $newCategory = $parentCategory->subCategories()->create([
+        $newCategory = $parentCategory->categories()->create([
             'name' => $name,
         ]);
 

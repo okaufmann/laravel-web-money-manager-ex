@@ -19,7 +19,7 @@ class CategoryController extends Controller
 
     public function subCategories(Category $category)
     {
-        $data = $category->subCategories;
+        $data = $category->categories;
 
         return fractal()
             ->collection($data)
