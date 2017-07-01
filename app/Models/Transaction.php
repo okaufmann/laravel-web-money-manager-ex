@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Transaction extends Model implements HasMedia
 {
@@ -97,14 +98,24 @@ class Transaction extends Model implements HasMedia
         return $this->belongsTo(TransactionType::class);
     }
 
+    /**
+     * @param $file string|UploadedFile
+     * @param bool $keepOriginal
+     */
     public function addAttachment($file, $keepOriginal = false)
     {
         if (is_string($file)) {
-            $file = basename($file);
+            $fileName = basename($file);
+        } else if ($file instanceof UploadedFile) {
+            $fileName = $file->getFilename();
+        } else {
+            throw new \InvalidArgumentException('$file must be either a path or an UploadedFile!');
         }
 
+        $fileName = 'Transaction_'.$this->id.'_'.$fileName;
+
         $media = $this->addMedia($file)
-            ->usingFileName('Transaction_'.$this->id.'_'.$fileName);
+            ->usingFileName($fileName);
 
         if ($keepOriginal) {
             $media->preservingOriginal();

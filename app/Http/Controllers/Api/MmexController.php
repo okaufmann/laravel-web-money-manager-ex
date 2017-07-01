@@ -66,16 +66,20 @@ class MmexController extends Controller
         if ($function == Functions::DownloadTransactions) {
             $transactions = $this->mmexService->getTransactions();
 
-            $result = fractal()
-                ->collection($transactions)
-                ->serializeWith(new MmexArraySerializer())
-                ->transformWith(new TransactionTransformer())
-                ->toArray();
+            $responseText = "";
+            if ($transactions->count()) {
 
-            // encodes the array as it its (with it keys "0"=> {}, as needed by client)
-            $json = json_encode($result, JSON_FORCE_OBJECT);
+                $result = fractal()
+                    ->collection($transactions)
+                    ->serializeWith(new MmexArraySerializer())
+                    ->transformWith(new TransactionTransformer())
+                    ->toArray();
 
-            return $this->returnText($json);
+                // encodes the array as it its (with it keys "0"=> {}, as needed by client)
+                $responseText = json_encode($result, JSON_FORCE_OBJECT);
+            }
+
+            return $this->returnText($responseText);
         }
 
         if ($function == Functions::DonwloadAttachment) {

@@ -16,6 +16,9 @@ use Log;
 
 class ClientApiService
 {
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
     public function getTransactions()
     {
         $transactions = Transaction::all();
