@@ -3,17 +3,37 @@
 @section('content')
     <div class="row">
         <div class="col-md-4 col-md-push-8 ">
-            <div class="panel panel-default">
-                <div class="panel-heading">@lang('Add Transaction')</div>
+            <div class="panel  @if(isset($transaction)) panel-info @else panel-default @endif">
+                @isset($transaction)
+                    <div class="panel-heading">@lang('Edit Transaction')</div>
+                @endisset
+
+                @empty($transaction)
+                    <div class="panel-heading">@lang('Add Transaction')</div>
+                @endempty
 
                 <div class="panel-body">
-                    <form action="{{url('transactions')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('transactions/' . ($transaction ? $transaction->id : null))}}" method="POST"
+                          enctype="multipart/form-data">
                         {!! csrf_field() !!}
+                        @isset($transaction)
+                            <input type="hidden" name="_method" value="PUT">
+                        @endisset
+                        @include('transactions.partials.form', compact('transaction'))
 
-                        @include('transactions.partials.form')
 
                         <div class="form-group label-static is-empty">
-                            <button type="submit" class="btn btn-primary btn-raised">@lang('Add')</button>
+                            @empty($transaction)
+                                <button type="submit" class="btn btn-primary btn-raised">
+                                    <i class="fa fa-plus"></i> @lang('Add')</button>
+                            @endempty
+
+                            @isset($transaction)
+                                <button type="submit" class="btn btn-primary btn-raised">
+                                    <i class="fa fa-floppy-o"></i> @lang('Update')</button>
+                                <a href="/" class="btn btn-warning">
+                                    <i class="fa fa-times"></i> @lang('Cancel')</a>
+                            @endisset
                         </div>
                     </form>
                 </div>

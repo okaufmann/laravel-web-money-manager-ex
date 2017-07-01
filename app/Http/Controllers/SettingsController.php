@@ -51,7 +51,7 @@ class SettingsController extends Controller
 
         // update status
         foreach ($status as $id => $value) {
-            TransactionStatus::where('id', $id)->update(['name' => $value, 'slug' => str_slug($value)]);
+            TransactionStatus::where('id', $id)->update(['name' => $value]);
         }
 
         // update types

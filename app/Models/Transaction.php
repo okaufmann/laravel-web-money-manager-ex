@@ -11,18 +11,79 @@ class Transaction extends Model implements HasMedia
     use SoftDeletes;
     use HasMediaTrait;
 
-    protected $fillable = ['account_name', 'to_account_name', 'payee_name', 'category_name', 'sub_category_name', 'amount', 'notes'];
+    protected $fillable = ['transaction_date', 'account_name', 'to_account_name', 'payee_name', 'category_name', 'sub_category_name', 'amount', 'notes'];
 
     /**
      * The attributes that should be mutated to dates.
      *
      * @var array
      */
-    protected $dates = ['deleted_at', 'created_at', 'updated_at'];
+    protected $dates = ['deleted_at', 'created_at', 'updated_at', 'transaction_date'];
 
-    public function getDateAttribute()
+    /**
+     * Set the user's first name.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setFirstNameAttribute($value)
     {
-        return $this->created_at->toDateString();
+        $this->attributes['transaction_date'] = strtolower($value);
+    }
+
+    public function getAccountIdAttribute()
+    {
+        $account = Account::where('name', $this->account_name)->first();
+
+        if ($account) {
+            return $account->id;
+        }
+
+        return null;
+    }
+
+    public function getToAccountIdAttribute()
+    {
+        $account = Account::where('name', $this->to_account_name)->first();
+
+        if ($account) {
+            return $account->id;
+        }
+
+        return null;
+    }
+
+    public function getPayeeIdAttribute()
+    {
+        $payee = Payee::where('name', $this->payee_name)->first();
+
+        if ($payee) {
+            return $payee->id;
+        }
+
+        return null;
+    }
+
+    public function getCategoryIdAttribute()
+    {
+        $category = Category::where('name', $this->category_name)->first();
+
+        if ($category) {
+            return $category->id;
+        }
+
+        return null;
+    }
+
+    public function getSubCategoryIdAttribute()
+    {
+        $category = Category::where('name', $this->sub_category_name)->first();
+
+        if ($category) {
+            return $category->id;
+        }
+
+        return null;
     }
 
     public function status()
@@ -35,13 +96,16 @@ class Transaction extends Model implements HasMedia
         return $this->belongsTo(TransactionType::class);
     }
 
-    public function addAttachment($filePath, $preventOriginal = false)
+    public function addAttachment($file, $keepOriginal = false)
     {
-        $fileName = basename($filePath);
-        $media = $this->addMedia($filePath)
+        if (is_string($file)) {
+            $file = basename($file);
+        }
+
+        $media = $this->addMedia($file)
             ->usingFileName('Transaction_'.$this->id.'_'.$fileName);
 
-        if ($preventOriginal) {
+        if ($keepOriginal) {
             $media->preservingOriginal();
         }
 

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
+
 class HomeController extends Controller
 {
     /**
@@ -19,8 +21,12 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Transaction $transaction = null)
     {
-        return view('home');
+        if (!$transaction->exists) {
+            $transaction = null;
+        }
+
+        return view('home', compact('transaction'));
     }
 }

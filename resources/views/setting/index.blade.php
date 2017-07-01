@@ -26,16 +26,16 @@
                                 <strong>@lang('Types and Status')</strong><br/> @lang('Please adopt the values for status and type with values from your MMEX Client (New Transaction -> Dropdowns Status and Type).')
                             </div>
 
-                            <p class="lang">@lang('Status')</p>
+                            <p class="lead">@lang('Status')</p>
                             @foreach($status as $s)
-                                <div class="form-group label-static is-empty">
+                                <div class="input-group label-static is-empty">
+                                    <span class="input-group-addon">{{$s->slug}}</span>
                                     <input type="hidden" name="status_ids[]" value="{{$s->id}}">
                                     <input class="form-control" value="{{$s->name}}" name="status_values[]">
                                 </div>
-
                             @endforeach
 
-                            <p class="lang">@lang('Types')</p>
+                            <p class="lead">@lang('Types')</p>
                             @foreach($types as $s)
                                 <div class="form-group label-static is-empty">
                                     <input type="hidden" name="type_ids[]" value="{{$s->id}}">

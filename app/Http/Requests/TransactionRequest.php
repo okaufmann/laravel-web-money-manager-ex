@@ -26,16 +26,17 @@ class TransactionRequest extends FormRequest
         $size = $this->getMaxFileUploadSizeInKb();
 
         return [
-            'transaction_date'   => 'date',
+            'id'                 => 'integer',
+            'transaction_date'   => 'date|nullable',
             'transaction_status' => 'integer',
             'transaction_type'   => 'integer',
             'account'            => 'integer',
             'payee'              => 'integer',
-            'category'           => 'integer',
+            'category'           => 'required|integer',
             'subcategory'        => 'integer',
             'amount'             => 'numeric',
             'notes'              => 'string|nullable',
-            //'attachments.*'      => 'max:'.$size
+            'attachments.*'      => 'max:'.$size
         ];
     }
 
@@ -44,7 +45,18 @@ class TransactionRequest extends FormRequest
         $uploadSizes = [ini_get('upload_max_filesize'), ini_get('post_max_size')];
 
         $uploadSizes = array_map(function ($item) {
-            return trim($item, 'Mm');
+            $metric = strtoupper(substr($item, -1));
+
+            switch ($metric) {
+                case 'K':
+                    return (int)$item * 1024;
+                case 'M':
+                    return (int)$item * 1048576;
+                case 'G':
+                    return (int)$item * 1073741824;
+                default:
+                    return (int)$item;
+            }
         }, $uploadSizes);
 
         return min($uploadSizes) * 1024;

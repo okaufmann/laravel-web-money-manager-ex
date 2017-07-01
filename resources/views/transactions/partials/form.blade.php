@@ -75,17 +75,21 @@
 
 @include('partials.form-errors')
 
+<input type="hidden" name="id" value="{{old('id', $transaction ? $transaction->id : null)}}">
+
 <div class="form-group label-static is-empty">
     <label for="transaction_date" class="control-label">@lang('Date')</label>
     <input type="date-local" name="transaction_date" placeholder="Von"
-           value="{{old('date_from')}}">
+           value="{{old('transaction_date', $transaction ? $transaction->transaction_date : null)}}">
 </div>
 
 <div class="form-group label-static is-empty">
     <label for="transaction_status" class="control-label">@lang('Status')</label>
     <select name="transaction_status" class="common-dropdown-list">
+        <option value="">@lang('Choose Status')</option>
         @foreach($fieldValues->getValues(App\Models\TransactionStatus::class) as $value)
-            <option value="{{$value->id}}">{{$value->name}}</option>
+            <option @if (old('transaction_status', $transaction ? $transaction->status_id : null) == $value->id) selected=""
+                    @endif value="{{$value->id}}">{{$value->name}}</option>
         @endforeach
     </select>
 </div>
@@ -93,7 +97,8 @@
     <label for="transaction_type" class="control-label">@lang('Type')</label>
     <select name="transaction_type" class="common-dropdown-list">
         @foreach($fieldValues->getValues(App\Models\TransactionType::class) as $value)
-            <option value="{{$value->id}}">{{$value->name}}</option>
+            <option @if (old('transaction_type', $transaction ? $transaction->type_id: null) == $value->id) selected=""
+                    @endif value="{{$value->id}}">{{$value->name}}</option>
         @endforeach
     </select>
 </div>
@@ -102,7 +107,8 @@
     <label for="account" class="control-label">@lang('Account')</label>
     <select name="account" class="common-dropdown-list">
         @foreach($fieldValues->getValues(App\Models\Account::class) as $value)
-            <option value="{{$value->id}}">{{$value->name}}</option>
+            <option @if (old('account',$transaction ? $transaction->account_id : null) == $value->id) selected=""
+                    @endif value="{{$value->id}}">{{$value->name}}</option>
         @endforeach
     </select>
 </div>
@@ -112,7 +118,8 @@
     <select id="to_account" name="to_account">
         <option value="">@lang('Choose Account')</option>
         @foreach($fieldValues->getValues(App\Models\Account::class) as $value)
-            <option value="{{$value->id}}">{{$value->name}}</option>
+            <option @if (old('to_account', $transaction ? $transaction->to_account_id : null) == $value->id) selected=""
+                    @endif value="{{$value->id}}">{{$value->name}}</option>
         @endforeach
     </select>
 </div>
@@ -121,29 +128,33 @@
     <label for="payee" class="control-label">@lang('Payee')</label>
     <select name="payee" class="common-dropdown-list">
         @foreach($fieldValues->getValues(App\Models\Payee::class) as $value)
-            <option value="{{$value->id}}">{{$value->name}}</option>
+            <option @if (old('payee', $transaction ? $transaction->payee_id : null) == $value->id) selected=""
+                    @endif value="{{$value->id}}">{{$value->name}}</option>
         @endforeach
     </select>
 </div>
 
 <div class="form-group label-static is-empty">
     <label for="category" class="control-label">@lang('Category')</label>
-    <select id="category" name="category"></select>
+    <input id="category" name="category" value="{{old('category', $transaction ? $transaction->category_id : null)}}">
 </div>
 <div class="form-group label-static is-empty">
     <label for="subcategory" class="control-label">@lang('Subcategory')</label>
-    <select id="subcategory" name="subcategory"></select>
+    <input id="subcategory" name="subcategory"
+           value="{{old('subcategory', $transaction ? $transaction->sub_category_id : null)}}">
 </div>
 <div class="form-group label-static is-empty">
     <label for="amount" class="control-label">@lang('Amount')</label>
-    <input name="amount" type="number" title="currency" value="{{old('amount')}}" min="0"
+    <input name="amount" type="number" title="currency"
+           value="{{old('amount', $transaction ? $transaction->amount : null)}}"
+           min="0"
            class="numeric-currency"/>
 </div>
 
 <div class="form-group label-static is-empty">
     <label for="notes" class="control-label">@lang('Notes')</label>
     <textarea name="notes" class="form-control" rows="5"
-              placeholder="@lang('New transaction notes')"></textarea>
+              placeholder="@lang('New transaction notes')">{{old('notes', $transaction ? $transaction->notes : null)}}</textarea>
 </div>
 <div class="form-group label-static is-empty">
     <label for="inputFile" class="control-label">@lang('Take a picture or upload attachments')</label>

@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TransactionRequest;
+use App\Models\Account;
+use App\Models\Category;
+use App\Models\Payee;
+use App\Models\Transaction;
+use App\Models\TransactionStatus;
+use App\Models\TransactionType;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -40,9 +46,20 @@ class TransactionController extends Controller
      */
     public function store(TransactionRequest $request)
     {
-        dd($request->all());
+        /** @var Transaction $transaction */
+        $transaction = Transaction::make($request->all());
+
+        $this->setResolvedFieldValues($request, $transaction);
+
+        $transaction->save();
+
         if ($request->hasFile('attachments') && is_array($request->file('attachments'))) {
+            foreach ($request->file('attachments') as $file) {
+                $transaction->addAttachment($file);
+            }
         }
+
+        return redirect()->back();
     }
 
     /**
@@ -73,13 +90,29 @@ class TransactionController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TransactionRequest $request, $id)
     {
-        //
+        $transaction = Transaction::findOrFail($id);
+
+        $transaction->amount = $request->input('amount');
+        $transaction->notes = $request->input('notes');
+        $transaction->transaction_date = $request->input('transaction_date');
+
+        $this->setResolvedFieldValues($request, $transaction);
+
+        $transaction->save();
+
+        if ($request->hasFile('attachments') && is_array($request->file('attachments'))) {
+            foreach ($request->file('attachments') as $file) {
+                $transaction->addAttachment($file);
+            }
+        }
+
+        return redirect()->route('home');
     }
 
     /**
@@ -92,5 +125,40 @@ class TransactionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * @param TransactionRequest $request
+     * @param $transaction
+     */
+    protected function setResolvedFieldValues(TransactionRequest $request, $transaction)
+    {
+        $type = TransactionType::findOrFail($request->input('transaction_type'));
+        $transaction->type()->associate($type);
+
+        $status = TransactionStatus::find($request->input('transaction_status'));
+        if ($status) {
+            $transaction->status()->associate($status);
+        }
+
+        $account = Account::find($request->input('account'));
+        if ($account) {
+            $transaction->account_name = $account->name;
+        }
+
+        $payee = Payee::find($request->input('payee'));
+        if ($payee) {
+            $transaction->payee_name = $payee->name;
+        }
+
+        $category = Category::rootCategories()->find($request->input('category'));
+        if ($category) {
+            $transaction->category_name = $category->name;
+
+            $subcategory = Category::subCategories()->find($request->input('subcategory'));
+            if ($subcategory) {
+                $transaction->sub_category_name = $subcategory->name;
+            }
+        }
     }
 }

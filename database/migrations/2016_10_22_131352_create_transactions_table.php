@@ -15,7 +15,8 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('status_id')->unsigned();
+            $table->timestamp('transaction_date')->nullable();
+            $table->integer('status_id')->unsigned()->nullable();
             $table->integer('type_id')->unsigned();
             $table->string('account_name'); // should not be linked through a FK since a account can be deleted anytime
             $table->string('to_account_name')->nullable();
@@ -31,6 +32,11 @@ class CreateTransactionsTable extends Migration
         Schema::table('transactions', function (Blueprint $table) {
             $table->foreign('status_id')->references('id')->on('transaction_status');
             $table->foreign('type_id')->references('id')->on('transaction_types');
+            $table->foreign('account_id')->references('id')->on('transaction_types')->onDelete('set null');
+            $table->foreign('to_account_id')->references('id')->on('transaction_types')->onDelete('set null');
+            $table->foreign('payee_id')->references('id')->on('transaction_types')->onDelete('set null');
+            $table->foreign('category_id')->references('id')->on('transaction_types')->onDelete('set null');
+            $table->foreign('sub_category_id')->references('id')->on('transaction_types')->onDelete('set null');
         });
     }
 
