@@ -9,7 +9,7 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    /** @var  User */
+    /** @var User */
     public $user;
 
     /**

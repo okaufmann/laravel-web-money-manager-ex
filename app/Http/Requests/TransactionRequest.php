@@ -36,7 +36,7 @@ class TransactionRequest extends FormRequest
             'subcategory'        => 'integer',
             'amount'             => 'numeric',
             'notes'              => 'string|nullable',
-            'attachments.*'      => 'max:'.$size
+            'attachments.*'      => 'max:'.$size,
         ];
     }
 
@@ -49,13 +49,13 @@ class TransactionRequest extends FormRequest
 
             switch ($metric) {
                 case 'K':
-                    return (int)$item * 1024;
+                    return (int) $item * 1024;
                 case 'M':
-                    return (int)$item * 1048576;
+                    return (int) $item * 1048576;
                 case 'G':
-                    return (int)$item * 1073741824;
+                    return (int) $item * 1073741824;
                 default:
-                    return (int)$item;
+                    return (int) $item;
             }
         }, $uploadSizes);
 

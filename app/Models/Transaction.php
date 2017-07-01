@@ -23,7 +23,8 @@ class Transaction extends Model implements HasMedia
     /**
      * Set the user's first name.
      *
-     * @param  string  $value
+     * @param string $value
+     *
      * @return void
      */
     public function setFirstNameAttribute($value)
