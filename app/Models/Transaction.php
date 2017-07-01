@@ -106,7 +106,7 @@ class Transaction extends Model implements HasMedia
     {
         if (is_string($file)) {
             $fileName = basename($file);
-        } else if ($file instanceof UploadedFile) {
+        } elseif ($file instanceof UploadedFile) {
             $fileName = $file->getFilename();
         } else {
             throw new \InvalidArgumentException('$file must be either a path or an UploadedFile!');
