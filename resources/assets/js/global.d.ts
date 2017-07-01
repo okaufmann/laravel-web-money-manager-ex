@@ -1,5 +1,6 @@
 import _Vue = require("vue");
 import _moment = require("moment");
+import {AxiosStatic} from "axios";
 
 declare global {
 
@@ -8,12 +9,14 @@ declare global {
     }
 
     interface Window {
-        // test: any;
+
     }
 
+    const Laravel: { csrfToken: string, apiToken: string };
     const Vue: typeof _Vue;
     const moment: typeof _moment;
     const Lang: ILaravelJsLocalization;
+    const axios: AxiosStatic;
 }
 
 interface ILaravelJsLocalization {

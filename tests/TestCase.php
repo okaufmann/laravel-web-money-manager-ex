@@ -9,20 +9,8 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    /**
-     * Sign in an user if it's the case.
-     *
-     * @param User|null $user
-     *
-     * @return $this
-     */
-    protected function signIn(User $user = null)
-    {
-        $this->user = $user ?: $this->createUser();
-        $this->be($this->user);
-
-        return $this;
-    }
+    /** @var  User */
+    public $user;
 
     /**
      * Create and return a new user.
@@ -34,5 +22,12 @@ abstract class TestCase extends BaseTestCase
     protected function createUser($properties = [])
     {
         return factory(User::class)->create($properties);
+    }
+
+    protected function ensureAuthenticated()
+    {
+        $this->user = $this->createUser();
+        $this->actingAs($this->user);
+        $this->actingAs($this->user, 'api');
     }
 }

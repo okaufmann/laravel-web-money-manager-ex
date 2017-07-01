@@ -15,15 +15,17 @@ use Illuminate\Http\Request;
 
 Route::any('services.php', 'MmexController@handle')->middleware('ensureguid');
 
-Route::group(['prefix' => 'api/v1'], function () {
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    })->middleware('auth:api');
+Route::group(['prefix'     => 'api/v1',
+              'middleware' => 'auth:api'],
+    function () {
+        Route::get('/user', function (Request $request) {
+            return $request->user();
+        });
 
-    Route::get('transactions', 'TransactionController@index');
+        Route::get('transactions', 'TransactionController@index');
 
-    Route::group(['prefix' => 'category'], function () {
-        Route::get('{category}/subcategories', 'CategoryController@subCategories');
-        Route::get('', 'CategoryController@index');
+        Route::group(['prefix' => 'category'], function () {
+            Route::get('{category}/subcategories', 'CategoryController@subCategories');
+            Route::get('', 'CategoryController@index');
+        });
     });
-});

@@ -19,6 +19,7 @@ class SettingsControllerTest extends TestCase
         $url = '/settings';
 
         // Act
+        $this->ensureAuthenticated();
         $response = $this->get($url);
 
         // Assert

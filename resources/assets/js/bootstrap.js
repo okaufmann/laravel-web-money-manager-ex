@@ -7,6 +7,21 @@
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
+ * Sett global authorization headers for js libraries
+ */
+window.axios.defaults.headers.common['Authorization'] = "Bearer " + Laravel.apiToken;
+$.ajaxSetup({
+    beforeSend: function (xhr) {
+        xhr.setRequestHeader("Authorization", "Bearer " + Laravel.apiToken);
+    }
+});
+kendo.jQuery.ajaxSetup({
+    beforeSend: function (xhr) {
+        xhr.setRequestHeader("Authorization", "Bearer " + Laravel.apiToken);
+    }
+});
+
+/**
  * Next we will register the CSRF Token as a common header with Axios so that
  * all outgoing HTTP requests automatically have it attached. This is just
  * a simple convenience so we don't have to attach every token manually.

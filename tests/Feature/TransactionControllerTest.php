@@ -18,10 +18,11 @@ class TransactionControllerTest extends TestCase
         // Arrange
 
         // Act
-        $response = $this->get('/transactions/create');
+        $this->ensureAuthenticated();
+        $response = $this->get('/');
 
         // Assert
         $response->assertStatus(200)
-            ->assertSee('Add new Transaction');
+            ->assertSee('Add Transaction');
     }
 }

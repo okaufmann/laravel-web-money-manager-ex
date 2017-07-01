@@ -1,7 +1,7 @@
 <template>
     <div class="table-responsive">
         <vuetable ref="vuetable"
-                  api-url="/api/v1/transactions"
+                  :api-url="url"
                   :fields="fields"
                   :css="css.table"
                   pagination-path="meta.pagination"
@@ -9,10 +9,10 @@
         >
             <template slot="actions" scope="props">
                 <div class="btn-group ">
-                    <button class="btn btn-sm btn-primary"
-                            @click="onAction('edit-item', props.rowData, props.index)">
+                    <a class="btn btn-sm btn-primary"
+                       :href="'/' + props.rowData.id">
                         <i class="fa fa-edit"></i>
-                    </button>
+                    </a>
                     <button class="btn btn-sm btn-danger"
                             @click="onAction('delete-item', props.rowData, props.index)">
                         <i class="fa fa-remove"></i>
@@ -41,6 +41,8 @@
         },
         data () {
             return {
+                // Hack api token to url cause axios is not using global config
+                url: "/api/v1/transactions?api_token=" + Laravel.apiToken,
                 fields: [
                     {
                         title: Lang.get('Date'),

@@ -3,7 +3,7 @@
 namespace Tests\Feature\Api;
 
 use App\Models\Category;
-use Tests\TestCase;
+use Tests\Features\TestCase;
 
 class CategoryControllerTest extends TestCase
 {
@@ -26,6 +26,7 @@ class CategoryControllerTest extends TestCase
         $url = sprintf($url, $category->id);
 
         // Act
+        $this->ensureAuthenticated();
         $response = $this->get($url);
 
         // Assert
@@ -59,6 +60,7 @@ class CategoryControllerTest extends TestCase
         $url = sprintf($url);
 
         // Act
+        $this->ensureAuthenticated();
         $response = $this->get($url);
 
         // Assert

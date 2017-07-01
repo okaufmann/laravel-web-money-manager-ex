@@ -15,7 +15,7 @@ Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', 'HomeController@index');
+    Route::get('/', 'HomeController@index')->name('home');
     Route::resource('transactions', 'TransactionController');
     Route::get('settings', 'SettingsController@index');
     Route::post('settings', 'SettingsController@update');
@@ -23,4 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => '/admin'], function () {
         Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     });
+
+    // must be at the end of the definitions
+    Route::get('/{transaction?}', 'HomeController@index');
 });
