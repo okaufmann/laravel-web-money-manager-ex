@@ -66,9 +66,8 @@ class MmexController extends Controller
         if ($function == Functions::DownloadTransactions) {
             $transactions = $this->mmexService->getTransactions();
 
-            $responseText = "";
+            $responseText = '';
             if ($transactions->count()) {
-
                 $result = fractal()
                     ->collection($transactions)
                     ->serializeWith(new MmexArraySerializer())
