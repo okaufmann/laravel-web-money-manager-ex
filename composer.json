@@ -12,7 +12,7 @@
         "okaufmann/laravel-git-version": "^1.1",
         "rap2hpoutre/laravel-log-viewer": "^0.10",
         "spatie/laravel-fractal": "^4.0",
-        "spatie/laravel-medialibrary": "5.0.0"
+        "spatie/laravel-medialibrary": "^5.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^2.4",
