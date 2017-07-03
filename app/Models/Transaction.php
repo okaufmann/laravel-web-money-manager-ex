@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
@@ -28,9 +29,10 @@ class Transaction extends Model implements HasMedia
      *
      * @return void
      */
-    public function setFirstNameAttribute($value)
+    public function setTransactionDateAttribute($value)
     {
-        $this->attributes['transaction_date'] = strtolower($value);
+        $date = Carbon::createFromFormat('m/d/Y', $value);
+        $this->attributes['transaction_date'] = $date;
     }
 
     public function getAccountIdAttribute()

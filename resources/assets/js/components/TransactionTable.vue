@@ -46,8 +46,8 @@
                 fields: [
                     {
                         title: Lang.get('Date'),
-                        name: 'created_at',
-                        sortField: 'created_at',
+                        name: 'transaction_date',
+                        sortField: 'transaction_date',
                         callback: 'formatDate'
                     },
                     {
