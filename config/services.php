@@ -34,9 +34,4 @@ return [
         'key'    => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
-
-    'mmex' => [
-        'guid' => env('MMEX_GUID'),
-    ],
-
 ];

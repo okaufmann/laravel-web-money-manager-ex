@@ -21,50 +21,29 @@
                                 </div>
                             @endif
 
-                            <div class="alert alert-info">
-
-                                <strong>@lang('Types and Status')</strong><br/> @lang('Please adopt the values for status and type with values from your MMEX Client (New Transaction -> Dropdowns Status and Type).')
+                            <div class="form-group">
+                                <label class="control-label col-md-3">@lang('Auth GUID')</label>
+                                <div class="col-md-9">
+                                    <input name="mmex_guid" class="form-control" value="{{old('authGuid',$authGuid)}}">
+                                </div>
                             </div>
-
-                            <p class="lead">@lang('Status')</p>
-                            @foreach($status as $s)
-                                <div class="input-group label-static is-empty">
-                                    <span class="input-group-addon">{{$s->slug}}</span>
-                                    <input type="hidden" name="status_ids[]" value="{{$s->id}}">
-                                    <input class="form-control" value="{{$s->name}}" name="status_values[]">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">@lang('UI Language')</label>
+                                <div class="col-md-9">
+                                    <select name="language" class="common-dropdown-list">
+                                        <option value="de_DE">@lang('Swiss German')</option>
+                                        <option value="de_CH">@lang('German')</option>
+                                        <option value="en_US">@lang('English (USA)')</option>
+                                        <option value="en_GB">@lang('English (GB)')</option>
+                                    </select>
                                 </div>
-                            @endforeach
-
-                            <p class="lead">@lang('Types')</p>
-                            @foreach($types as $s)
-                                <div class="form-group label-static is-empty">
-                                    <input type="hidden" name="type_ids[]" value="{{$s->id}}">
-                                    <input class="form-control" value="{{$s->name}}" name="type_values[]">
-                                </div>
-
-                            @endforeach
-
+                            </div>
                             <div class="form-group label-static is-empty">
                                 <button type="submit" class="btn btn-primary btn-raised">@lang('Save')</button>
                             </div>
-                        </form>
-                    </div>
-                </div>
 
-                <div class="panel panel-default">
-                    <div class="panel-heading">@lang('System Settings')</div>
-                    <div class="panel-body">
-                        <form class="form-horizontal">
-                            <div class="form-group is-focused">
-                                <label class="control-label col-md-3">@lang('Auth GUID')</label>
-                                <div class="col-md-9">
-                                    <p class="form-control-static">{{$authGuid}}</p>
-                                    <p class="help-block ">
-                                        @lang('Set the correct GUID from your MMEX Client in the .env file in the projects root.')
-                                    </p>
-                                </div>
-                            </div>
                         </form>
+
                     </div>
                 </div>
             </div>

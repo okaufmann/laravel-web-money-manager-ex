@@ -3,19 +3,6 @@
 @push('footer')
 <script type="text/javascript">
     $(document).ready(function () {
-        autosize($('textarea'));
-
-        $("[type=date-local]").each((index, elm) => {
-            new kendo.ui.DateInput($(elm), {
-                value: new Date()
-            });
-        });
-
-        $(".common-dropdown-list").each((index, elm) => {
-            new kendo.ui.DropDownList($(elm), {
-                filter: "startswith",
-            });
-        });
 
         $("#to_account").data("kendoDropDownList", new kendo.ui.DropDownList($("#to_account"), {
             filter: "startswith",
