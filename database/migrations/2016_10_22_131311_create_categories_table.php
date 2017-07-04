@@ -15,14 +15,17 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
             $table->integer('parent_id')->unsigned()->nullable();
             $table->string('name')->unique();
             $table->timestamps();
         });
 
         Schema::table('categories', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('parent_id')->references('id')->on('categories');
         });
+
     }
 
     /**

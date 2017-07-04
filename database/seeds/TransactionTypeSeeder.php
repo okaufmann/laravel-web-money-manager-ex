@@ -12,18 +12,18 @@ class TransactionTypeSeeder extends Seeder
     public function run()
     {
         DB::table('transaction_types')->insert([
-            'name' => trans('Withdrawal'),
-            'slug' => trans('Withdrawal'),
+            'name' => 'Withdrawal',
+            'slug' => 'Withdrawal',
         ]);
 
         DB::table('transaction_types')->insert([
-            'name' => trans('Deposit'),
-            'slug' => trans('Deposit'),
+            'name' => 'Deposit',
+            'slug' => 'Deposit',
         ]);
 
         DB::table('transaction_types')->insert([
-            'name' => trans('Transfer'),
-            'slug' => trans('Transfer'),
+            'name' => 'Transfer',
+            'slug' => 'Transfer',
         ]);
     }
 }

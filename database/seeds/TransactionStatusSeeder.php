@@ -12,22 +12,22 @@ class TransactionStatusSeeder extends Seeder
     public function run()
     {
         DB::table('transaction_status')->insert([
-            'name' => trans('Reconciled'),
+            'name' => 'Reconciled',
             'slug' => 'R',
         ]);
 
         DB::table('transaction_status')->insert([
-            'name' => trans('Void'),
+            'name' => 'Void',
             'slug' => 'V',
         ]);
 
         DB::table('transaction_status')->insert([
-            'name' => trans('Follow Up'),
+            'name' => 'Follow Up',
             'slug' => 'F',
         ]);
 
         DB::table('transaction_status')->insert([
-            'name' => trans('Duplicate'),
+            'name' => 'Duplicate',
             'slug' => 'D',
         ]);
     }

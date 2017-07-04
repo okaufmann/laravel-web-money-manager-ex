@@ -15,12 +15,14 @@ class CreatePayeesTable extends Migration
     {
         Schema::create('payees', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
             $table->integer('last_category_id')->unsigned()->nullable();
             $table->string('name')->unique();
             $table->timestamps();
         });
 
         Schema::table('payees', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('last_category_id')->references('id')->on('categories');
         });
     }

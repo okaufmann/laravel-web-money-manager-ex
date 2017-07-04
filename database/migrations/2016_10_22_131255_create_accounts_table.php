@@ -15,8 +15,13 @@ class CreateAccountsTable extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
             $table->string('name')->unique();
             $table->timestamps();
+        });
+
+        Schema::table('accounts', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
