@@ -64,4 +64,14 @@ $(document).ready(() => {
             filter: "startswith",
         });
     });
+
+    $('textarea, input').keyup(function (e) {
+        if (e.which == 17) isCtrl = false;
+    }).keydown(function (e) {
+        if (e.which == 17) isCtrl = true;
+        if (e.which == 13 && isCtrl === true) {
+            $(this).closest('form').submit();
+            return false;
+        }
+    });
 });
