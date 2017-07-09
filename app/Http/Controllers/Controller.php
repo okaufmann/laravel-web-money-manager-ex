@@ -15,5 +15,4 @@ class Controller extends BaseController
     {
         View::share('globalUser', Auth::user());
     }
-
 }

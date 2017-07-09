@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SettingsRequest;
-use App\Models\TransactionStatus;
-use App\Models\TransactionType;
 use App\Services\VersionInfoService;
 use Auth;
 use Tremby\LaravelGitVersion\GitVersionHelper;
