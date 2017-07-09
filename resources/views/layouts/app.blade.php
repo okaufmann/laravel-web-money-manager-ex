@@ -67,9 +67,13 @@
 
 <script>
     @if(isset($globalUser))
-    Lang.setLocale("{{$globalUser->locale}}");
-    kendo.culture("{{App::getLocale()}}");
-    moment.locale('{{App::getLocale()}}');
+    Lang.setLocale("{{$globalUser->language}}");
+    kendo.culture("{{$globalUser->locale}}");
+    moment.locale('{{$globalUser->locale}}');
+    @else
+    Lang.setLocale("en");
+    kendo.culture("en_US");
+    moment.locale('en_US');
     @endif
 </script>
 

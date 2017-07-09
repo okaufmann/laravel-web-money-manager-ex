@@ -9,6 +9,8 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    private $defaultLocale = 'en_US';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -30,6 +32,21 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->attributes['is_admin'];
+    }
+
+    public function getLocaleAttribute()
+    {
+        $locale = $this->attributes['locale'] ?? $this->defaultLocale;
+
+        return $locale;
+    }
+
+    public function getLanguageAttribute()
+    {
+        $locale = $this->locale;
+        $language = explode('_', $locale)[0];
+
+        return $language;
     }
 
     public function getApiTokenAttribute($value)
