@@ -21,9 +21,11 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <p class="navbar-text"><i class="fa fa-user"></i> {{Auth::user()->name}}</p>
-                    </li>
+                    @if(Auth::check())
+                        <li>
+                            <p class="navbar-text"><i class="fa fa-user"></i> {{$globalUser->name}}</p>
+                        </li>
+                    @endif
                     {{--<li>--}}
                     {{--<a href="{{url('profile')}}">Profil bearbeiten</a>--}}
                     {{--</li>--}}

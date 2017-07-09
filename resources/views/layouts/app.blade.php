@@ -27,10 +27,10 @@
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
-            'apiToken'  => Auth::check() ? Auth::user()->api_token: ""
-]); ?>
+            'apiToken'  => Auth::check() ? Auth::user()->api_token : ""
+        ]); ?>
 
-</script>
+    </script>
 </head>
 
 <body>
@@ -66,9 +66,11 @@
 <script src="{{mix('js/app.js')}}"></script>
 
 <script>
-    Lang.setLocale("{{App::getLocale()}}");
+    @if(isset($globalUser))
+    Lang.setLocale("{{$globalUser->locale}}");
     kendo.culture("{{App::getLocale()}}");
     moment.locale('{{App::getLocale()}}');
+    @endif
 </script>
 
 @yield('footer')

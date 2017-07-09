@@ -24,23 +24,8 @@ class SettingsRequest extends FormRequest
     public function rules()
     {
         return [
-            'status_ids'    => 'array|required',
-            'status_values' => 'array|required',
-            'type_ids'      => 'array|required',
-            'type_values'   => 'array|required',
+            'mmex_guid' => 'string|required',
+            'locale'    => 'string|required',
         ];
-    }
-
-    public function getStatusAndTypes()
-    {
-        $status_ids = collect($this->get('status_ids'));
-        $status_values = collect($this->get('status_values'));
-        $status = $status_ids->combine($status_values);
-
-        $types_ids = collect($this->get('type_ids'));
-        $types_values = collect($this->get('type_values'));
-        $types = $types_ids->combine($types_values);
-
-        return [$status, $types];
     }
 }

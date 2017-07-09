@@ -6,6 +6,7 @@ use App\Http\Requests\SettingsRequest;
 use App\Models\TransactionStatus;
 use App\Models\TransactionType;
 use App\Services\VersionInfoService;
+use Auth;
 use Tremby\LaravelGitVersion\GitVersionHelper;
 
 class SettingsController extends Controller
@@ -33,11 +34,11 @@ class SettingsController extends Controller
         $packages = $this->versionInfoService->packageInfo();
         $version = GitVersionHelper::getVersion();
         $apiVersion = \App\Services\Mmex\MmexConstants::$api_version;
-        $authGuid = config('services.mmex.guid');
-        $status = TransactionStatus::all();
-        $types = TransactionType::all();
+        $user = Auth::user();
+        $authGuid = $user->mmex_guid;
+        $userLocale = $user->locale;
 
-        return view('setting.index', compact('packages', 'version', 'status', 'types', 'apiVersion', 'authGuid'));
+        return view('setting.index', compact('packages', 'version', 'userLocale', 'apiVersion', 'authGuid'));
     }
 
     /**
@@ -47,18 +48,13 @@ class SettingsController extends Controller
      */
     public function update(SettingsRequest $request)
     {
-        list($status, $types) = $request->getStatusAndTypes();
+        $user = Auth::user();
 
-        // update status
-        foreach ($status as $id => $value) {
-            TransactionStatus::where('id', $id)->update(['name' => $value]);
-        }
+        $user->locale = $request->user_locale;
+        $user->mmex_guid = $request->mmex_guid;
 
-        // update types
-        foreach ($types as $id => $value) {
-            TransactionType::where('id', $id)->update(['name' => $value, 'slug' => str_slug($value)]);
-        }
+        $user->save();
 
-        return back()->with('status', trans('Status and Types were updated!'));
+        return back()->with('status', trans('Update successful!'));
     }
 }

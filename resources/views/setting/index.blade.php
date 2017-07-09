@@ -13,6 +13,8 @@
                         <form action="{{url('settings')}}" method="POST" enctype="multipart/form-data">
                             {!! csrf_field() !!}
 
+                            @include('partials.form-errors')
+
                             @if (session('status'))
                                 <div class="alert alert-success">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
@@ -30,11 +32,14 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3">@lang('UI Language')</label>
                                 <div class="col-md-9">
-                                    <select name="language" class="common-dropdown-list">
-                                        <option value="de_DE">@lang('Swiss German')</option>
-                                        <option value="de_CH">@lang('German')</option>
-                                        <option value="en_US">@lang('English (USA)')</option>
-                                        <option value="en_GB">@lang('English (GB)')</option>
+                                    <select name="user_locale" class="common-dropdown-list">
+                                        @if(!$userLocale)
+                                            <option>@lang('Please choose...')</option>
+                                        @endif
+                                        @foreach(config('money-manager.locales') as $code => $name)
+                                            <option value="{{$code}}"
+                                                    @if($userLocale == $code) selected @endif>@lang($name)</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
