@@ -25,7 +25,7 @@ class SettingsRequest extends FormRequest
     {
         return [
             'mmex_guid' => 'string|required',
-            'locale'    => 'string|required',
+            'user_locale'    => 'string|required',
         ];
     }
 }
