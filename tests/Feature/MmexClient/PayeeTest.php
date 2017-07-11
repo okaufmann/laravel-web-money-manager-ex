@@ -18,7 +18,7 @@ class PayeeTest extends MmexTestCase
 
         // Assert
         $this->assertSeeMmexSuccess($response);
-        $this->assertDontSeeInDatabase('payees', ['user_id' => $this->user->id, 'name' => $payee->name]);
+        $this->assertDatabaseMissing('payees', ['user_id' => $this->user->id, 'name' => $payee->name]);
     }
 
     public function testImportPayees()
@@ -39,7 +39,7 @@ class PayeeTest extends MmexTestCase
 
         // Assert
         $this->assertSeeMmexSuccess($response);
-        $this->assertSeeInDatabase('payees', ['user_id' => $this->user->id, 'name' => 'Mc Donalds', 'last_category_id' => $foodPurchases->id]);
-        $this->assertSeeInDatabase('payees', ['user_id' => $this->user->id, 'name' => 'Spotify', 'last_category_id' => $billsServices->id]);
+        $this->assertDatabaseHas('payees', ['user_id' => $this->user->id, 'name' => 'Mc Donalds', 'last_category_id' => $foodPurchases->id]);
+        $this->assertDatabaseHas('payees', ['user_id' => $this->user->id, 'name' => 'Spotify', 'last_category_id' => $billsServices->id]);
     }
 }

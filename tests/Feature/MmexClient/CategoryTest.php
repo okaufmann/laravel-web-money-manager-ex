@@ -18,7 +18,7 @@ class CategoryTest extends MmexTestCase
 
         // Assert
         $this->assertSeeMmexSuccess($response);
-        $this->assertDontSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => $categorie->name]);
+        $this->assertDatabaseMissing('categories', ['user_id' => $this->user->id, 'name' => $categorie->name]);
     }
 
     public function testImportCategories()
@@ -32,12 +32,12 @@ class CategoryTest extends MmexTestCase
 
         // Assert
         $this->assertSeeMmexSuccess($response);
-        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Bills']);
-        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Telecom']);
-        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Water']);
-        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Automobile']);
-        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Maintenance']);
-        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Parking']);
+        $this->assertDatabaseHas('categories', ['user_id' => $this->user->id, 'name' => 'Bills']);
+        $this->assertDatabaseHas('categories', ['user_id' => $this->user->id, 'name' => 'Telecom']);
+        $this->assertDatabaseHas('categories', ['user_id' => $this->user->id, 'name' => 'Water']);
+        $this->assertDatabaseHas('categories', ['user_id' => $this->user->id, 'name' => 'Automobile']);
+        $this->assertDatabaseHas('categories', ['user_id' => $this->user->id, 'name' => 'Maintenance']);
+        $this->assertDatabaseHas('categories', ['user_id' => $this->user->id, 'name' => 'Parking']);
     }
 
     public function testImportSubCategories()
@@ -54,11 +54,11 @@ class CategoryTest extends MmexTestCase
 
         // Assert
         $this->assertSeeMmexSuccess($response);
-        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Bills', 'id' => $bills->id]);
-        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Telecom', 'parent_id' => $bills->id]);
-        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Water', 'parent_id' => $bills->id]);
-        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Automobile', 'id' => $automobile->id]);
-        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Maintenance', 'parent_id' => $automobile->id]);
-        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Parking', 'parent_id' => $automobile->id]);
+        $this->assertDatabaseHas('categories', ['user_id' => $this->user->id, 'name' => 'Bills', 'id' => $bills->id]);
+        $this->assertDatabaseHas('categories', ['user_id' => $this->user->id, 'name' => 'Telecom', 'parent_id' => $bills->id]);
+        $this->assertDatabaseHas('categories', ['user_id' => $this->user->id, 'name' => 'Water', 'parent_id' => $bills->id]);
+        $this->assertDatabaseHas('categories', ['user_id' => $this->user->id, 'name' => 'Automobile', 'id' => $automobile->id]);
+        $this->assertDatabaseHas('categories', ['user_id' => $this->user->id, 'name' => 'Maintenance', 'parent_id' => $automobile->id]);
+        $this->assertDatabaseHas('categories', ['user_id' => $this->user->id, 'name' => 'Parking', 'parent_id' => $automobile->id]);
     }
 }

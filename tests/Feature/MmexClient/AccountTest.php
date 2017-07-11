@@ -17,7 +17,7 @@ class AccountTest extends MmexTestCase
 
         // Assert
         $this->assertSeeMmexSuccess($response);
-        $this->assertDontSeeInDatabase('accounts', ['user_id' => $this->user->id, 'name' => $account->name]);
+        $this->assertDatabaseMissing('accounts', ['user_id' => $this->user->id, 'name' => $account->name]);
     }
 
     public function testImportAccounts()
@@ -31,7 +31,7 @@ class AccountTest extends MmexTestCase
 
         // Assert
         $this->assertSeeMmexSuccess($response);
-        $this->assertSeeInDatabase('accounts', ['user_id' => $this->user->id, 'name' => 'Creditcard']);
-        $this->assertSeeInDatabase('accounts', ['user_id' => $this->user->id, 'name' => 'Private Account']);
+        $this->assertDatabaseHas('accounts', ['user_id' => $this->user->id, 'name' => 'Creditcard']);
+        $this->assertDatabaseHas('accounts', ['user_id' => $this->user->id, 'name' => 'Private Account']);
     }
 }
