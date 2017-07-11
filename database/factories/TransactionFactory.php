@@ -10,6 +10,9 @@
  */
 $factory->define(App\Models\Transaction::class, function (Faker\Generator $faker) {
     return [
+        'user_id' => function () {
+            return factory(App\Models\User::class)->create()->id;
+        },
         'status_id' => function () {
             return factory(App\Models\TransactionStatus::class)->create()->id;
         },
