@@ -28,9 +28,10 @@ before_script:
   - cp .env.testing .env
   - ./vendor/laravel/dusk/bin/chromedriver-linux &
   - php artisan serve &
+  - ls database/testing.sqlite
 
 script:
  - ./vendor/bin/phpunit
+# - php artisan dusk
  - cat storage/logs/laravel.log
 
-# - php artisan dusk

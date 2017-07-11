@@ -9,6 +9,7 @@ use App\Models\Payee;
 use App\Models\Transaction;
 use App\Models\TransactionStatus;
 use App\Models\TransactionType;
+use Auth;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -42,8 +43,9 @@ class TransactionController extends Controller
      */
     public function store(TransactionRequest $request)
     {
+        dd($request->all());
         /** @var Transaction $transaction */
-        $transaction = Transaction::make($request->all());
+        $transaction = Auth::user()->transactions()->create($request->all());
 
         $this->setResolvedFieldValues($request, $transaction);
 
@@ -86,7 +88,7 @@ class TransactionController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
