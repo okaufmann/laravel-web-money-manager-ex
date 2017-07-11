@@ -59,4 +59,36 @@ class User extends Authenticatable
 
         return $value;
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function accounts()
+    {
+        return $this->hasMany(Account::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payees()
+    {
+        return $this->hasMany(Payee::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
 }

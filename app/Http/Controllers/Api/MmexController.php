@@ -9,6 +9,7 @@ use App\Services\Mmex\ClientApiService;
 use App\Services\Mmex\Functions;
 use App\Services\Mmex\MmexConstants;
 use App\Transformers\Mmex\TransactionTransformer;
+use Auth;
 use Illuminate\Http\Request;
 use Log;
 
@@ -34,6 +35,9 @@ class MmexController extends Controller
 
     public function handle(Request $request)
     {
+        $user = Auth::guard('api')->user();
+        abort_unless($user, 404, 'User not found!');
+
         $debugData = ['url' => $request->fullUrl(), 'data' => $request->all(), 'method' => $request->method()];
 
         Log::debug('Service Request', $debugData);
@@ -64,7 +68,7 @@ class MmexController extends Controller
         }
 
         if ($function == Functions::DownloadTransactions) {
-            $transactions = $this->mmexService->getTransactions();
+            $transactions = $this->mmexService->getTransactions($user);
 
             $responseText = '';
             if ($transactions->count()) {
@@ -86,18 +90,10 @@ class MmexController extends Controller
             // is something like: Transaction_3_test-receipt-3.png
             $fileName = $data['download_attachment'];
 
-            // extract transaction
-            $fileNameParts = explode('_', $fileName);
-            $transactionId = $fileNameParts[1];
-            $transaction = Transaction::findOrFail($transactionId);
-
-            // get attachment of transaction
-            $media = $transaction->getMedia('attachments')->first(function ($item) use ($fileName) {
-                return $item->file_name == $fileName;
-            });
+            $attachment = $this->mmexService->getAttachment($user, $fileName);
 
             // return file as download
-            $filePath = $media->getPath();
+            $filePath = $attachment->getPath();
 
             $headers = [
                 'Content-Type'              => '',
@@ -111,44 +107,44 @@ class MmexController extends Controller
         }
 
         if ($function == Functions::DeleteBankAccounts) {
-            $this->mmexService->deleteAccounts();
+            $this->mmexService->deleteAccounts($user);
 
             return $this->returnSuccess();
         }
 
         if ($function == Functions::ImportBankAccounts) {
-            $this->mmexService->importBankAccounts($postData);
+            $this->mmexService->importBankAccounts($user, $postData);
 
             return $this->returnSuccess();
         }
 
         if ($function == Functions::DeletePayees) {
-            $this->mmexService->deletePayees();
+            $this->mmexService->deletePayees($user);
 
             return $this->returnSuccess();
         }
 
         if ($function == Functions::ImportPayees) {
-            $this->mmexService->importPayees($postData);
+            $this->mmexService->importPayees($user, $postData);
 
             return $this->returnSuccess();
         }
 
         if ($function == Functions::DeleteCategories) {
-            $this->mmexService->deleteCategories();
+            $this->mmexService->deleteCategories($user);
 
             return $this->returnSuccess();
         }
 
         if ($function == Functions::ImportCategories) {
-            $this->mmexService->importCategories($postData);
+            $this->mmexService->importCategories($user, $postData);
 
             return $this->returnSuccess();
         }
 
         if ($function == Functions::DeleteTransactions) {
             $transactionId = $data['delete_group'];
-            $this->mmexService->deleteTransactions($transactionId);
+            $this->mmexService->deleteTransactions($user, $transactionId);
 
             return $this->returnSuccess();
         }

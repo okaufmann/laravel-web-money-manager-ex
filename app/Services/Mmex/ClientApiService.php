@@ -8,47 +8,45 @@
 
 namespace App\Services\Mmex;
 
-use App\Models\Account;
-use App\Models\Category;
-use App\Models\Payee;
-use App\Models\Transaction;
+use App\Models\User;
 use Log;
+use Spatie\MediaLibrary\Media;
 
 class ClientApiService
 {
     /**
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getTransactions()
+    public function getTransactions(User $user)
     {
-        $transactions = Transaction::all();
+        $transactions = $user->transactions;
 
         return $transactions;
     }
 
-    public function deleteAccounts()
+    public function deleteAccounts(User $user)
     {
         // TODO: find better method than where hack
-        Account::where('id', '>', 0)->delete();
+        $user->accounts()->where('id', '>', 0)->delete();
     }
 
-    public function importBankAccounts($postData)
+    public function importBankAccounts(User $user, $postData)
     {
         Log::debug('MmexController.importBankAccounts(), $accounts', [$postData->Accounts]);
         foreach ($postData->Accounts as $account) {
-            Account::create([
+            $user->accounts()->create([
                 'name' => $account->AccountName,
             ]);
         }
     }
 
-    public function deletePayees()
+    public function deletePayees(User $user)
     {
         // TODO: find better method than where hack
-        Payee::where('id', '>', 0)->delete();
+        $user->payees()->where('id', '>', 0)->delete();
     }
 
-    public function importPayees($postData)
+    public function importPayees(User $user, $postData)
     {
         Log::debug('MmexController.importPayees(), $payees', [$postData->Payees]);
 
@@ -56,7 +54,7 @@ class ClientApiService
             $categoryName = $payee->DefCateg;
             $subCategoryName = $payee->DefSubCateg;
 
-            $category = Category::where('name', $subCategoryName)->whereHas('parentCategory', function ($query) use ($categoryName) {
+            $category = $user->categories()->where('name', $subCategoryName)->whereHas('parentCategory', function ($query) use ($categoryName) {
                 $query->where('name', $categoryName);
             })->first();
 
@@ -66,52 +64,57 @@ class ClientApiService
                 ]);
             } else {
                 // ignore default/last category and just create entry
-                Payee::create([
+                $user->payees()->create([
                     'name' => $payee->PayeeName,
                 ]);
             }
         }
     }
 
-    public function deleteCategories()
+    public function deleteCategories(User $user)
     {
         // TODO: find better method than where hack
-        Category::where('id', '>', 0)->delete();
+        $user->categories()->where('id', '>', 0)->delete();
     }
 
-    public function importCategories($postData)
+    public function importCategories(User $user, $postData)
     {
         $categories = collect($postData->Categories);
 
         $grouped = $categories->groupBy('CategoryName');
 
         foreach ($grouped as $categoryName => $subCategories) {
-            $category = $this->createOrGetCategory($categoryName);
+            $category = $this->createOrGetCategory($user, $categoryName);
 
             foreach ($subCategories as $subCategory) {
-                $this->createOrGetSubCategory($category, $subCategory->SubCategoryName);
+                $this->createOrGetSubCategory($user, $category, $subCategory->SubCategoryName);
             }
         }
     }
 
-    private function createOrGetCategory($name)
+    /**
+     * @param User $user
+     * @param $name
+     * @return Category
+     */
+    private function createOrGetCategory(User $user, $name)
     {
-        $existingCategory = Category::whereName($name)->first();
+        $existingCategory = $user->categories()->whereName($name)->first();
 
         if ($existingCategory) {
             return $existingCategory;
         }
 
-        $newCategory = Category::create([
+        $newCategory = $user->categories()->create([
             'name' => $name,
         ]);
 
         return $newCategory;
     }
 
-    private function createOrGetSubCategory(Category $parentCategory, $name)
+    private function createOrGetSubCategory(User $user, Category $parentCategory, $name)
     {
-        $existingCategory = Category::whereName($name)->first();
+        $existingCategory = $user->categories()->whereName($name)->first();
 
         if ($existingCategory) {
             return $existingCategory;
@@ -124,8 +127,28 @@ class ClientApiService
         return $newCategory;
     }
 
-    public function deleteTransactions($transactionId)
+    public function deleteTransactions(User $user, $transactionId)
     {
-        Transaction::whereId($transactionId)->delete();
+        $user->transactions()->whereId($transactionId)->delete();
+    }
+
+    /**
+     * @param User $user
+     * @param $fileName
+     * @return Media
+     */
+    public function getAttachment(User $user, $fileName)
+    {
+        // extract transaction
+        $fileNameParts = explode('_', $fileName);
+        $transactionId = $fileNameParts[1];
+        $transaction = $user->transactions()->findOrFail($transactionId);
+
+        // get attachment of transaction
+        $media = $transaction->getMedia('attachments')->first(function ($item) use ($fileName) {
+            return $item->file_name == $fileName;
+        });
+
+        return $media;
     }
 }

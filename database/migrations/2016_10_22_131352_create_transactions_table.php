@@ -31,6 +31,7 @@ class CreateTransactionsTable extends Migration
         });
 
         Schema::table('transactions', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('status_id')->references('id')->on('transaction_status');
             $table->foreign('type_id')->references('id')->on('transaction_types');
             $table->foreign('account_id')->references('id')->on('transaction_types')->onDelete('set null');
