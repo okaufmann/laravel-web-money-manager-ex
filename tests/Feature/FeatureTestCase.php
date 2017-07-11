@@ -15,7 +15,6 @@ abstract class FeatureTestCase extends \Tests\TestCase
     /** @var User */
     public $user;
 
-
     public function setUp()
     {
         $this->prepareDatabase();

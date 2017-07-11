@@ -16,6 +16,6 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'is_admin'  => true,
         'mmex_guid' => mmex_guid(),
         'locale'    => 'en_US',
-        'api_token' => str_random(60)
+        'api_token' => str_random(60),
     ];
 });
