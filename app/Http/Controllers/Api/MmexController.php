@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Transaction;
 use App\Serializers\MmexArraySerializer;
 use App\Services\Mmex\ClientApiService;
 use App\Services\Mmex\Functions;

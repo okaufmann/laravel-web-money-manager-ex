@@ -24,7 +24,7 @@ class SettingsRequest extends FormRequest
     public function rules()
     {
         return [
-            'mmex_guid' => 'string|required',
+            'mmex_guid'      => 'string|required',
             'user_locale'    => 'string|required',
         ];
     }
