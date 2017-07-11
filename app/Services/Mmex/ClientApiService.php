@@ -95,6 +95,7 @@ class ClientApiService
     /**
      * @param User $user
      * @param $name
+     *
      * @return Category
      */
     private function createOrGetCategory(User $user, $name)
@@ -135,6 +136,7 @@ class ClientApiService
     /**
      * @param User $user
      * @param $fileName
+     *
      * @return Media
      */
     public function getAttachment(User $user, $fileName)

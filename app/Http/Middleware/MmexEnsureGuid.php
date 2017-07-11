@@ -13,7 +13,7 @@ class MmexEnsureGuid
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
+     * @param \Closure                 $next
      *
      * @return mixed
      */
@@ -25,6 +25,7 @@ class MmexEnsureGuid
         if ($guid == $user->mmex_guid) {
             // login user on api guard (simple alternative login method)
             Auth::guard('api')->setUser($user);
+
             return $next($request);
         }
 
