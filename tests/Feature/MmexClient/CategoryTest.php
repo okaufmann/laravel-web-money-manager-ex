@@ -9,56 +9,56 @@ class CategoryTest extends MmexTestCase
     public function testDeleteAllCategories()
     {
         // Arrange
-        $categorie = factory(Category::class)->create();
+        $categorie = factory(Category::class)->create(['user_id' => $this->user->id]);
 
-        $url = $this->buildUrl('', ['delete_category' => 'true']);
+        $url = $this->buildUrl(['delete_category' => 'true']);
 
         // Act
         $response = $this->get($url);
 
         // Assert
-        $this->seeSuccess($response);
-        $this->assertDatabaseMissing('categories', ['name' => $categorie->name]);
+        $this->assertSeeMmexSuccess($response);
+        $this->assertDontSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => $categorie->name]);
     }
 
     public function testImportCategories()
     {
         // Arrange
         $data = ['MMEX_Post' => '{ "Categories" : [ { "CategoryName" : "Bills", "SubCategoryName" : "Telecom" }, { "CategoryName" : "Bills", "SubCategoryName" : "Water" }, { "CategoryName" : "Automobile", "SubCategoryName" : "Maintenance" }, { "CategoryName" : "Automobile", "SubCategoryName" : "Parking" } ] }'];
-        $url = $this->buildUrl('', ['import_category' => 'true']);
+        $url = $this->buildUrl(['import_category' => 'true']);
 
         // Act
         $response = $this->postJson($url, $data);
 
         // Assert
-        $this->seeSuccess($response);
-        $this->assertDatabaseHas('categories', ['name' => 'Bills']);
-        $this->assertDatabaseHas('categories', ['name' => 'Telecom']);
-        $this->assertDatabaseHas('categories', ['name' => 'Water']);
-        $this->assertDatabaseHas('categories', ['name' => 'Automobile']);
-        $this->assertDatabaseHas('categories', ['name' => 'Maintenance']);
-        $this->assertDatabaseHas('categories', ['name' => 'Parking']);
+        $this->assertSeeMmexSuccess($response);
+        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Bills']);
+        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Telecom']);
+        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Water']);
+        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Automobile']);
+        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Maintenance']);
+        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Parking']);
     }
 
     public function testImportSubCategories()
     {
         // Arrange
         $data = ['MMEX_Post' => '{ "Categories" : [ { "CategoryName" : "Bills", "SubCategoryName" : "Telecom" }, { "CategoryName" : "Bills", "SubCategoryName" : "Water" }, { "CategoryName" : "Automobile", "SubCategoryName" : "Maintenance" }, { "CategoryName" : "Automobile", "SubCategoryName" : "Parking" } ] }'];
-        $url = $this->buildUrl('', ['import_category' => 'true']);
+        $url = $this->buildUrl(['import_category' => 'true']);
 
-        $bills = factory(Category::class)->create(['name' => 'Bills']);
-        $automobile = factory(Category::class)->create(['name' => 'Automobile']);
+        $bills = factory(Category::class)->create(['user_id' => $this->user->id, 'name' => 'Bills']);
+        $automobile = factory(Category::class)->create(['user_id' => $this->user->id, 'name' => 'Automobile']);
 
         // Act
         $response = $this->postJson($url, $data);
 
         // Assert
-        $this->seeSuccess($response);
-        $this->assertDatabaseHas('categories', ['name' => 'Bills', 'id' => $bills->id]);
-        $this->assertDatabaseHas('categories', ['name' => 'Telecom', 'parent_id' => $bills->id]);
-        $this->assertDatabaseHas('categories', ['name' => 'Water', 'parent_id' => $bills->id]);
-        $this->assertDatabaseHas('categories', ['name' => 'Automobile', 'id' => $automobile->id]);
-        $this->assertDatabaseHas('categories', ['name' => 'Maintenance', 'parent_id' => $automobile->id]);
-        $this->assertDatabaseHas('categories', ['name' => 'Parking', 'parent_id' => $automobile->id]);
+        $this->assertSeeMmexSuccess($response);
+        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Bills', 'id' => $bills->id]);
+        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Telecom', 'parent_id' => $bills->id]);
+        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Water', 'parent_id' => $bills->id]);
+        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Automobile', 'id' => $automobile->id]);
+        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Maintenance', 'parent_id' => $automobile->id]);
+        $this->assertSeeInDatabase('categories', ['user_id' => $this->user->id, 'name' => 'Parking', 'parent_id' => $automobile->id]);
     }
 }

@@ -14,7 +14,7 @@ class CheckGuidTest extends MmexTestCase
 {
     public function testCorrectGuidLogin()
     {
-        $this->get('/services.php?check_guid&guid='.$this->guid)
+        $this->get('/services.php?check_guid&guid='.$this->user->mmex_guid)
             ->assertSee(MmexConstants::$operation_succeded)
             ->assertHeader('Content-Type', 'text/plain; charset=UTF-8')
             ->assertStatus(200);

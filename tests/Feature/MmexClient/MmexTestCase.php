@@ -8,18 +8,24 @@
 
 namespace Tests\Feature\MmexClient;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\TestResponse;
-use Tests\Features\TestCase;
+use Tests\Features\FeatureTestCase;
 
-abstract class MmexTestCase extends TestCase
+abstract class MmexTestCase extends FeatureTestCase
 {
     protected $apiUri = '/services.php';
-    protected $guid = '{D6A33C24-DE43-D62C-A609-EF5138F33F30}';
     protected $success = 'Operation has succeeded';
 
-    protected function buildUrl(string $url, array $data): string
+    public function setUp()
     {
-        $data['guid'] = $this->guid;
+        parent::setUp();
+        $this->ensureUser();
+    }
+
+    protected function buildUrl(array $data): string
+    {
+        $data['guid'] = $this->user->mmex_guid;
         $paramString = http_build_query($data);
 
         return $this->apiUri.'?'.$paramString;
@@ -30,7 +36,7 @@ abstract class MmexTestCase extends TestCase
      *
      * @return TestResponse
      */
-    protected function seeSuccess(TestResponse $response)
+    protected function assertSeeMmexSuccess(TestResponse $response)
     {
         return $response->assertStatus(200)
             ->assertSee($this->success);

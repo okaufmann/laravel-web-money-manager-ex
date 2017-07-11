@@ -18,7 +18,7 @@ class TransactionTest extends MmexTestCase
     public function testEmptyResponseWhenNoTransactionsExists()
     {
         // Arrange
-        $url = $this->buildUrl('', ['download_transaction' => 'true']);
+        $url = $this->buildUrl(['download_transaction' => 'true']);
 
         // Act
         $response = $this->get($url);
@@ -31,24 +31,24 @@ class TransactionTest extends MmexTestCase
     public function testDeleteTransactions()
     {
         // Arrange
-        $transaction = factory(Transaction::class)->create();
-        $url = $this->buildUrl('', ['delete_group' => $transaction->id]);
+        $transaction = factory(Transaction::class)->create(['user_id' => $this->user->id]);
+        $url = $this->buildUrl(['delete_group' => $transaction->id]);
 
         // Act
         $response = $this->get($url);
 
         // Assert
-        $this->seeSuccess($response);
-        $this->seeIsSoftDeletedInDatabase('transactions', ['payee_name' => $transaction->payee_name]); // must not be deleted! just soft deleted.
+        $this->assertSeeMmexSuccess($response);
+        $this->assertIsSoftDeletedInDatabase('transactions', ['user_id' => $this->user->id, 'id' => $transaction->id]); // must not be deleted! just soft deleted.
     }
 
     public function testDownloadTransactions()
     {
         // Arrange
         /** @var Transaction $transaction */
-        $transaction = factory(Transaction::class)->create();
+        $transaction = factory(Transaction::class)->create(['user_id' => $this->user->id]);
         $this->addReceiptsToTransaction($transaction);
-        $url = $this->buildUrl('', ['download_transaction' => 'true']);
+        $url = $this->buildUrl(['download_transaction' => 'true']);
 
         // Act
         $response = $this->get($url);
@@ -66,7 +66,7 @@ class TransactionTest extends MmexTestCase
                     'Payee'       => $transaction->payee_name,
                     'Category'    => $transaction->category_name,
                     'SubCategory' => $transaction->sub_category_name,
-                    'Amount'      => (string) $transaction->amount,
+                    'Amount'      => (string)$transaction->amount,
                     'Notes'       => $transaction->notes,
                     'Attachments' => 'Transaction_'.$transaction->id.'_test-receipt.png;Transaction_'.$transaction->id
                         .'_test-receipt-2.png;Transaction_'.$transaction->id.'_test-receipt-3.png',
@@ -81,10 +81,10 @@ class TransactionTest extends MmexTestCase
     {
         // Arrange
         /** @var Transaction $transaction */
-        $transaction = factory(Transaction::class)->create();
+        $transaction = factory(Transaction::class)->create(['user_id' => $this->user->id]);
         $this->addReceiptsToTransaction($transaction);
         $fileName = 'Transaction_'.$transaction->id.'_test-receipt-3.png';
-        $url = $this->buildUrl('', ['download_attachment' => $fileName]);
+        $url = $this->buildUrl(['download_attachment' => $fileName]);
 
         // Act
         $response = $this->get($url);
