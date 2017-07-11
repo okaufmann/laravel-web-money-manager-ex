@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use Tests\Features\TestCase;
+use Tests\Features\FeatureTestCase;
 
-class SettingsControllerTest extends TestCase
+class SettingsControllerTest extends FeatureTestCase
 {
     /**
      * A basic test example.

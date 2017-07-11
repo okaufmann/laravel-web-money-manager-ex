@@ -51,7 +51,7 @@ trait DbUtils
      *
      * @return $this
      */
-    protected function seeIsSoftDeletedInDatabase($table, array $data, $connection = null)
+    protected function assertIsSoftDeletedInDatabase($table, array $data, $connection = null)
     {
         $database = $this->app->make('db');
 

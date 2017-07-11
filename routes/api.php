@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 Route::any('services.php', 'MmexController@handle')->middleware('ensureguid');
 
 Route::group(['prefix'     => 'api/v1',
-              'middleware' => 'auth:api', ],
+              'middleware' => 'auth:api'],
     function () {
         Route::get('/user', function (Request $request) {
             return $request->user();
