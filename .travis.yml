@@ -1,37 +1,25 @@
-sudo: required
 language: php
 dist: trusty
-
-group: edge
 
 php:
   - '7.0'
   - '7.1'
-
-cache:
-  yarn: true
-  directories:
-      - $HOME/.composer/cache/files
 
 notifications:
     on_success: never
     on_failure: always
 
 before_script:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - composer install --prefer-dist --ignore-platform-reqs
+  - phpenv config-rm xdebug.ini
+  #  TODO
+  #  - pecl install imagick
+  - composer install --no-interaction --no-suggest --ignore-platform-reqs
   - nvm install node
   - npm install -g yarn
   - yarn
   - npm run dev -- --progress=false
-  - cp .env.testing .env
-  - ./vendor/laravel/dusk/bin/chromedriver-linux &
-  - php artisan serve &
-  - ls database/testing.sqlite
 
 script:
  - ./vendor/bin/phpunit
-# - php artisan dusk
- - cat storage/logs/laravel.log
+ - cat ./storage/logs/laravel.log
 

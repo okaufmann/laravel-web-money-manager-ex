@@ -17,12 +17,6 @@ abstract class MmexTestCase extends FeatureTestCase
     protected $apiUri = '/services.php';
     protected $success = 'Operation has succeeded';
 
-    public function setUp()
-    {
-        parent::setUp();
-        $this->ensureUser();
-    }
-
     protected function buildUrl(array $data): string
     {
         $data['guid'] = $this->user->mmex_guid;
