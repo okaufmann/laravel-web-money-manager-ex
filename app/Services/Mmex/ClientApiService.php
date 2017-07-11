@@ -8,6 +8,7 @@
 
 namespace App\Services\Mmex;
 
+use App\Models\Category;
 use App\Models\User;
 use Log;
 use Spatie\MediaLibrary\Media;
@@ -59,9 +60,11 @@ class ClientApiService
             })->first();
 
             if ($category) {
-                $category->defaultForPayees()->create([
+                $payee = $user->payees()->create([
                     'name' => $payee->PayeeName,
                 ]);
+
+                $category->defaultForPayees()->save($payee);
             } else {
                 // ignore default/last category and just create entry
                 $user->payees()->create([
@@ -90,6 +93,32 @@ class ClientApiService
                 $this->createOrGetSubCategory($user, $category, $subCategory->SubCategoryName);
             }
         }
+    }
+
+    public function deleteTransactions(User $user, $transactionId)
+    {
+        $user->transactions()->whereId($transactionId)->delete();
+    }
+
+    /**
+     * @param User $user
+     * @param $fileName
+     *
+     * @return Media
+     */
+    public function getAttachment(User $user, $fileName)
+    {
+        // extract transaction
+        $fileNameParts = explode('_', $fileName);
+        $transactionId = $fileNameParts[1];
+        $transaction = $user->transactions()->findOrFail($transactionId);
+
+        // get attachment of transaction
+        $media = $transaction->getMedia('attachments')->first(function ($item) use ($fileName) {
+            return $item->file_name == $fileName;
+        });
+
+        return $media;
     }
 
     /**
@@ -121,36 +150,12 @@ class ClientApiService
             return $existingCategory;
         }
 
-        $newCategory = $parentCategory->categories()->create([
+        $newCategory = $user->categories()->create([
             'name' => $name,
         ]);
 
+        $parentCategory->categories()->save($newCategory);
+
         return $newCategory;
-    }
-
-    public function deleteTransactions(User $user, $transactionId)
-    {
-        $user->transactions()->whereId($transactionId)->delete();
-    }
-
-    /**
-     * @param User $user
-     * @param $fileName
-     *
-     * @return Media
-     */
-    public function getAttachment(User $user, $fileName)
-    {
-        // extract transaction
-        $fileNameParts = explode('_', $fileName);
-        $transactionId = $fileNameParts[1];
-        $transaction = $user->transactions()->findOrFail($transactionId);
-
-        // get attachment of transaction
-        $media = $transaction->getMedia('attachments')->first(function ($item) use ($fileName) {
-            return $item->file_name == $fileName;
-        });
-
-        return $media;
     }
 }
