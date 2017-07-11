@@ -235,6 +235,7 @@ return [
          * Package Facades...
          */
         'Fractal'      => Spatie\Fractal\FractalFacade::class,
+        'Uuid'         => Webpatser\Uuid\Uuid::class,
     ],
 
 ];
