@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Transaction;
 use App\Transformers\TransactionTransfomer;
+use Auth;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 
 class TransactionController extends Controller
@@ -20,7 +20,7 @@ class TransactionController extends Controller
             list($column, $direction) = explode('|', $sort);
         }
 
-        $paginator = Transaction::query()
+        $paginator = Auth::user()->transactions()
             ->orderBy($column, $direction)
             ->paginate(10);
 

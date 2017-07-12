@@ -43,13 +43,11 @@ class TransactionController extends Controller
      */
     public function store(TransactionRequest $request)
     {
-        dd($request->all());
-        /** @var Transaction $transaction */
-        $transaction = Auth::user()->transactions()->create($request->all());
+        $transaction = new Transaction($request->all());
 
         $this->setResolvedFieldValues($request, $transaction);
 
-        $transaction->save();
+        Auth::user()->transactions()->save($transaction);
 
         if ($request->hasFile('attachments') && is_array($request->file('attachments'))) {
             foreach ($request->file('attachments') as $file) {
@@ -87,9 +85,8 @@ class TransactionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
-     *
+     * @param TransactionRequest|Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(TransactionRequest $request, $id)
@@ -122,7 +119,9 @@ class TransactionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        abort_unless(Auth::user()->transactions()->whereId($id)->exists(), 403);
+
+        Transaction::destroy($id);
     }
 
     /**
