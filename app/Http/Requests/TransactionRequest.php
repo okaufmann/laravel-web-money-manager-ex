@@ -26,7 +26,6 @@ class TransactionRequest extends FormRequest
         $size = $this->getMaxFileUploadSizeInKb();
 
         return [
-            'id'                 => 'integer',
             'transaction_date'   => 'date|nullable',
             'transaction_status' => 'integer',
             'transaction_type'   => 'required|integer',

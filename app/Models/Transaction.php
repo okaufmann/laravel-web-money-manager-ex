@@ -32,6 +32,10 @@ class Transaction extends Model implements HasMedia
      */
     public function setTransactionDateAttribute($value)
     {
+        if (!$value) {
+            return;
+        }
+
         $format = 'm/d/Y';
         if (App::getLocale() == 'de') {
             $format = 'd.m.Y';
