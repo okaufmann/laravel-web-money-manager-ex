@@ -22,7 +22,7 @@ class TransactionTransformer extends TransformerAbstract
             'Date'        => $item->date,
             'Account'     => $item->account_name,
             'ToAccount'   => $item->to_account_name,
-            'Status'      => $item->status->slug,
+            'Status'      => $item->status ? $item->status->slug : null,
             'Type'        => $item->type->name,
             'Payee'       => $item->payee_name,
             'Category'    => $item->category_name,
