@@ -9,153 +9,12 @@
 ])
 <script id="noDataAddNewTemplate" type="text/x-kendo-tmpl">
         <div>
-            No data found. Do you want to add new item - '#: instance.filterInput.val() #' ?
+            #= Lang.get("No data found. Do you want to add new item?") #
         </div>
         <br />
-        <button class="k-button" onclick="mmex.addPayee('#: instance.element[0].id #', '#: instance.filterInput.val() #')">Add new item</button>
+        <button class="k-button" onclick="mmex.addPayee('#: instance.element[0].id #', '#: instance.filterInput.val() #')">#= Lang.get("Add new Payee") #</button>
 </script>
-<script type="text/javascript">
-    $(document).ready(function () {
-
-        kendo.ui.DropDownList.prototype.options =
-            $.extend(kendo.ui.DropDownList.prototype.options, {
-                noDataTemplate: Lang.get('No Data found.'),
-                optionLabel: Lang.get("Please Choose"),
-                filter: "startswith",
-                dataTextField: "name",
-                dataValueField: "id",
-            });
-
-        $("#transaction_type").data("kendoDropDownList", new kendo.ui.DropDownList($("#transaction_type"), {
-            dataSource: {
-                data: mmex.dropDownOptions.types
-            },
-            change: (e) => {
-                let id = e.sender.value();
-                let item = e.sender.dataSource.get(id);
-                if (item.slug === "Transfer") {
-                    $("#to_account").data("kendoDropDownList").enable();
-                } else {
-                    $("#to_account").data("kendoDropDownList").reset();
-                    $("#to_account").data("kendoDropDownList").enable(false);
-                }
-            }
-        }));
-
-        $("#transaction_status").data("kendoDropDownList", new kendo.ui.DropDownList($("#transaction_status"), {
-            dataSource: {
-                data: mmex.dropDownOptions.status
-            },
-        }));
-
-        mmex.addPayee = (widgetId, value) => {
-            let widget = $("#" + widgetId).data("kendoDropDownList");
-            let dataSource = widget.dataSource;
-
-            dataSource.add({
-                name: value
-            });
-
-            dataSource.one("sync", () => {
-                widget.select(dataSource.view().length - 1);
-            });
-
-            dataSource.sync();
-        };
-
-        $("#payee").data("kendoDropDownList", new kendo.ui.DropDownList($("#payee"), {
-            noDataTemplate: $("#noDataAddNewTemplate").html(),
-            dataSource: {
-                batch: true,
-                transport: {
-                    read: '/api/v1/payee',
-                    create: {
-                        url: "/api/v1/payee",
-                        dataType: "json",
-                        method: "POST"
-                    },
-                    parameterMap: function (options, operation) {
-                        if (operation !== "read" && options.models) {
-                            return _.first(options.models);
-                        }
-                    }
-                },
-                schema: {
-                    model: {
-                        id: "id",
-                        fields: {
-                            id: {type: "number"},
-                            name: {type: "string"}
-                        }
-                    },
-                    data: "data"
-                }
-            },
-
-        }));
-
-        $("#account").data("kendoDropDownList", new kendo.ui.DropDownList($("#account"), {
-            dataSource: {
-                data: mmex.dropDownOptions.accounts
-            },
-            change: (e) => {
-                let id = e.sender.value();
-                let accounts = _.reject(mmex.dropDownOptions.accounts, (a) => a.id === parseInt(id));
-
-                $("#to_account").data("kendoDropDownList").dataSource.transport.data = accounts;
-                $("#to_account").data("kendoDropDownList").dataSource.read();
-            }
-        }));
-
-        $("#to_account").data("kendoDropDownList", new kendo.ui.DropDownList($("#to_account"), {
-            enable: false,
-            dataSource: {
-                data: mmex.dropDownOptions.accounts
-            },
-        }));
-
-        $("#category").data("kendoDropDownList", new kendo.ui.DropDownList($("#category"), {
-            height: 300,
-            dataSource: {
-                serverFiltering: false,
-                transport: {
-                    read: "/api/v1/category/"
-                },
-                schema: {
-                    data: "data"
-                }
-            }
-        }));
-
-        $("#subcategory").data("kendoDropDownList", new kendo.ui.DropDownList($("#subcategory"), {
-            autoBind: false,
-            cascadeFrom: "category",
-            optionLabel: Lang.get("Please Choose"),
-            height: 300,
-            dataSource: {
-                serverFiltering: true,
-                transport: {
-                    read: {
-                        dataType: "json",
-                        url: function () {
-                            return "/api/v1/category/" + $("#category").data("kendoDropDownList").value() + "/subcategories"
-                        }
-                    }
-                },
-                schema: {
-                    data: "data"
-                }
-            }
-        }));
-
-        $(".numeric-currency").each((index, elm) => {
-            new kendo.ui.NumericTextBox($(elm), {
-                format: "c",
-                decimals: 2
-            });
-        });
-    });
-</script>
+<script type="text/javascript" src="{{mix('js/transaction-form.js')}}"></script>
 
 @endpush
 
@@ -177,7 +36,7 @@
            id="transaction_status"/>
 </div>
 <div class="form-group label-static is-empty">
-    <label for="transaction_type" class="control-label">@lang('Type')</label>
+    <label for="transaction_type" class="control-label label-required">@lang('Type')</label>
     <input type="text"
            value="{{old('transaction_type', $transaction ? $transaction->type_id: null)}}"
            name="transaction_type"
@@ -185,7 +44,7 @@
 </div>
 
 <div class="form-group label-static is-empty">
-    <label for="account" class="control-label">@lang('Account')</label>
+    <label for="account" class="control-label label-required">@lang('Account')</label>
     <input type="text"
            value="{{old('account',$transaction ? $transaction->account_id : null)}}"
            name="account"
@@ -201,7 +60,7 @@
 </div>
 
 <div class="form-group label-static is-empty">
-    <label for="payee" class="control-label">@lang('Payee')</label>
+    <label for="payee" class="control-label label-required">@lang('Payee')</label>
     <input type="text"
            value="{{old('payee', $transaction ? $transaction->payee_id : null)}}"
            name="payee"
@@ -209,7 +68,7 @@
 </div>
 
 <div class="form-group label-static is-empty">
-    <label for="category" class="control-label">@lang('Category')</label>
+    <label for="category" class="control-label label-required">@lang('Category')</label>
     <input value="{{old('category', $transaction ? $transaction->category_id : null)}}"
            name="category"
            id="category">
@@ -221,7 +80,7 @@
            id="subcategory">
 </div>
 <div class="form-group label-static is-empty">
-    <label for="amount" class="control-label">@lang('Amount')</label>
+    <label for="amount" class="control-label label-required">@lang('Amount')</label>
     <input name="amount" type="number" title="currency"
            value="{{old('amount', $transaction ? $transaction->amount : null)}}"
            min="0"

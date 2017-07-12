@@ -17,6 +17,7 @@ declare global {
     const moment: typeof _moment;
     const Lang: ILaravelJsLocalization;
     const axios: AxiosStatic;
+    const mmex: any;
 }
 
 interface ILaravelJsLocalization {

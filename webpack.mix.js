@@ -30,6 +30,7 @@ mix.webpackConfig({
 
 mix.js('resources/assets/js/app.ts', 'public/js')
     .js('resources/assets/js/vendor.js', 'public/js')
+    .js('resources/assets/js/transaction-form.ts', 'public/js')
     .js('resources/assets/js/i18n/messages-de_CH.js', 'public/js/i18n')
     .js('resources/assets/js/i18n/messages-de_DE.js', 'public/js/i18n')
     .js('resources/assets/js/i18n/messages-en_US.js', 'public/js/i18n')
