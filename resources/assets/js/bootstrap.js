@@ -47,11 +47,13 @@ if (token) {
 // });
 
 // Material Buttons
-$.material.init();
-
-autosize($('textarea'));
-
 $(document).ready(() => {
+
+    $.material.init();
+
+    autosize($('textarea'));
+
+    $("[autofocus]").focus();
 
     $("[type=date-local]").each((index, elm) => {
         new kendo.ui.DateInput($(elm), {
