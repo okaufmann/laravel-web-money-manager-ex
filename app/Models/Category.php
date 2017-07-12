@@ -31,6 +31,18 @@ class Category extends Model
     }
 
     /**
+     * Returns categories of the given user.
+     *
+     * @param $query
+     * @param User $user
+     * @return mixed
+     */
+    public function scopeOfUser($query, User $user)
+    {
+        return $query->where('user_id', $user->id);
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function parentCategory()
