@@ -31,7 +31,7 @@
                             @isset($transaction)
                                 <button type="submit" class="btn btn-primary btn-raised">
                                     <i class="fa fa-floppy-o"></i> @lang('Update')</button>
-                                <a href="/" class="btn btn-warning">
+                                <a href="/" class="btn btn-default">
                                     <i class="fa fa-times"></i> @lang('Cancel')</a>
                             @endisset
                         </div>

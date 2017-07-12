@@ -53,6 +53,10 @@ body {
     cursor: pointer;
 }
 
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
+
 /* Sticky footer styles */
 html {
     position: relative;

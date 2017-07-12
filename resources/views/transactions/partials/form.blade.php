@@ -4,18 +4,23 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
+        kendo.ui.DropDownList.prototype.options =
+            $.extend(kendo.ui.DropDownList.prototype.options, {
+                noDataTemplate: Lang.get('No Data found.'),
+                optionLabel: Lang.get("Please Choose"),
+            });
+
         $("#to_account").data("kendoDropDownList", new kendo.ui.DropDownList($("#to_account"), {
             filter: "startswith",
-            optionLabel: Lang.get("Please Choose")
         }));
 
         $("#to_account").data("kendoDropDownList").enable(false);
 
         $("#category").data("kendoDropDownList", new kendo.ui.DropDownList($("#category"), {
             filter: "startswith",
-            optionLabel: Lang.get("Please Choose"),
             dataTextField: "name",
             dataValueField: "id",
+            height: 300,
             dataSource: {
                 serverFiltering: false,
                 transport: {
@@ -27,13 +32,14 @@
             }
         }));
 
-        new kendo.ui.DropDownList($("#subcategory"), {
+        $("#subcategory").data("kendoDropDownList", new kendo.ui.DropDownList($("#subcategory"), {
             autoBind: false,
             cascadeFrom: "category",
             filter: "startswith",
             optionLabel: Lang.get("Please Choose"),
             dataTextField: "name",
             dataValueField: "id",
+            height: 300,
             dataSource: {
                 serverFiltering: true,
                 transport: {
@@ -48,7 +54,7 @@
                     data: "data"
                 }
             }
-        });
+        }));
 
         $(".numeric-currency").each((index, elm) => {
             new kendo.ui.NumericTextBox($(elm), {
