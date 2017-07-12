@@ -7,7 +7,7 @@ class Category extends Model
     protected $fillable = ['name'];
 
     protected $casts = [
-        'parent_id' => 'integer'
+        'parent_id' => 'integer',
     ];
 
     /**
@@ -39,6 +39,7 @@ class Category extends Model
      *
      * @param $query
      * @param User $user
+     *
      * @return mixed
      */
     public function scopeOfUser($query, User $user)
