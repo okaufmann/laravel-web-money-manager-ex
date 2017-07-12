@@ -5,7 +5,6 @@
 'types' => $fieldValues->getValues(App\Models\TransactionType::class),
 'status' => $fieldValues->getValues(App\Models\TransactionStatus::class),
 'accounts' => $fieldValues->getValues(App\Models\Account::class),
-'payees' => $fieldValues->getValues(App\Models\Payee::class),
 
 ])
 <script id="noDataAddNewTemplate" type="text/x-kendo-tmpl">
@@ -14,8 +13,6 @@
         </div>
         <br />
         <button class="k-button" onclick="mmex.addPayee('#: instance.element[0].id #', '#: instance.filterInput.val() #')">Add new item</button>
-
-
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -55,18 +52,15 @@
             let widget = $("#" + widgetId).data("kendoDropDownList");
             let dataSource = widget.dataSource;
 
-            if (confirm("Are you sure?")) {
-                dataSource.add({
-                    ProductID: 0,
-                    ProductName: value
-                });
+            dataSource.add({
+                name: value
+            });
 
-                dataSource.one("sync", function () {
-                    widget.select(dataSource.view().length - 1);
-                });
+            dataSource.one("sync", () => {
+                widget.select(dataSource.view().length - 1);
+            });
 
-                dataSource.sync();
-            }
+            dataSource.sync();
         };
 
         $("#payee").data("kendoDropDownList", new kendo.ui.DropDownList($("#payee"), {
@@ -74,16 +68,15 @@
             dataSource: {
                 batch: true,
                 transport: {
-                    read: (options) => {
-                        options.success(mmex.dropDownOptions.payees)
-                    },
+                    read: '/api/v1/payee',
                     create: {
-                        url: "/payees",
-                        dataType: "json"
+                        url: "/api/v1/payee",
+                        dataType: "json",
+                        method: "POST"
                     },
                     parameterMap: function (options, operation) {
                         if (operation !== "read" && options.models) {
-                            return {models: kendo.stringify(options.models)};
+                            return _.first(options.models);
                         }
                     }
                 },
@@ -94,7 +87,8 @@
                             id: {type: "number"},
                             name: {type: "string"}
                         }
-                    }
+                    },
+                    data: "data"
                 }
             },
 
