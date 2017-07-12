@@ -30,6 +30,7 @@ class TransactionRequest extends FormRequest
             'transaction_status' => 'integer',
             'transaction_type'   => 'required|integer',
             'account'            => 'required|integer',
+            'to_account'         => 'integer',
             'payee'              => 'required|integer',
             'category'           => 'required|integer',
             'subcategory'        => 'integer',
@@ -48,13 +49,13 @@ class TransactionRequest extends FormRequest
 
             switch ($metric) {
                 case 'K':
-                    return (int) $item * 1024;
+                    return (int)$item * 1024;
                 case 'M':
-                    return (int) $item * 1048576;
+                    return (int)$item * 1048576;
                 case 'G':
-                    return (int) $item * 1073741824;
+                    return (int)$item * 1073741824;
                 default:
-                    return (int) $item;
+                    return (int)$item;
             }
         }, $uploadSizes);
 

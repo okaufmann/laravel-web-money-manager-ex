@@ -148,6 +148,11 @@ class TransactionController extends Controller
             $transaction->account_name = $account->name;
         }
 
+        $toaccount = Account::find($request->input('to_account'));
+        if ($toaccount) {
+            $transaction->to_account_name = $toaccount->name;
+        }
+
         $payee = Payee::find($request->input('payee'));
         if ($payee) {
             $transaction->payee_name = $payee->name;

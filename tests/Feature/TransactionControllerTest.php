@@ -9,8 +9,6 @@ use App\Models\Transaction;
 use App\Models\TransactionStatus;
 use App\Models\TransactionType;
 use Carbon\Carbon;
-use Illuminate\Http\UploadedFile;
-use Storage;
 use Tests\Features\FeatureTestCase;
 
 class TransactionControllerTest extends FeatureTestCase
@@ -115,6 +113,7 @@ class TransactionControllerTest extends FeatureTestCase
             'account_name'      => $account->name,
             'to_account_name'   => null,
             'payee_name'        => $payee->name,
+            'category_name'     => $category->name,
             'sub_category_name' => $subcategory->name,
             'amount'            => 13.37,
             'notes'             => 'Some notes',
@@ -128,7 +127,7 @@ class TransactionControllerTest extends FeatureTestCase
     /**
      * @test
      */
-    public function it_store_last_used_category_by_payee_in_payees_table_on_create()
+    public function it_stores_last_used_category_by_payee_in_payees_table_on_create()
     {
         // Arrange
         $type = factory(TransactionType::class)->create();
@@ -156,7 +155,7 @@ class TransactionControllerTest extends FeatureTestCase
     /**
      * @test
      */
-    public function it_store_last_used_category_by_payee_in_payees_table_on_update()
+    public function it_stores_last_used_category_by_payee_in_payees_table_on_update()
     {
         // Arrange
         $transaction = factory(Transaction::class)->create(['user_id' => $this->user->id]);
@@ -186,7 +185,7 @@ class TransactionControllerTest extends FeatureTestCase
     /**
      * @test
      */
-    public function it_store_last_used_subcategory_by_payee_in_payees_table_on_create()
+    public function it_stores_last_used_subcategory_by_payee_in_payees_table_on_create()
     {
         // Arrange
         $transaction = factory(Transaction::class)->create(['user_id' => $this->user->id]);
@@ -218,7 +217,7 @@ class TransactionControllerTest extends FeatureTestCase
     /**
      * @test
      */
-    public function it_store_last_used_subcategory_by_payee_in_payees_table_on_update()
+    public function it_stores_last_used_subcategory_by_payee_in_payees_table_on_update()
     {
         // Arrange
         $transaction = factory(Transaction::class)->create(['user_id' => $this->user->id]);
@@ -245,5 +244,45 @@ class TransactionControllerTest extends FeatureTestCase
         // Assert
         $response->assertRedirect('/');
         $this->assertDatabaseHas('payees', ['id' => $payee->id, 'last_category_id' => $subcategory->id]);
+    }
+
+    /**
+     * @test
+     */
+    public function it_stores_account_to_on_transfer_transactions()
+    {
+        // Arrange
+        $type = factory(TransactionType::class)->create();
+        $account = factory(Account::class)->create(['user_id' => $this->user->id]);
+        $toaccount = factory(Account::class)->create(['user_id' => $this->user->id]);
+        $payee = factory(Payee::class)->create(['user_id' => $this->user->id]);
+        $category = factory(Category::class)->create(['user_id' => $this->user->id]);
+        $subcategory = factory(Category::class)->create(['user_id' => $this->user->id, 'parent_id' => $category->id]);
+
+        $data = [
+            'transaction_type' => $type->id,
+            'account'          => $account->id,
+            'to_account'       => $toaccount->id,
+            'payee'            => $payee->id,
+            'category'         => $category->id,
+            'subcategory'      => $subcategory->id,
+            'amount'           => 13.37,
+        ];
+
+        // Act
+        $this->ensureAuthenticated();
+        $response = $this->post('/transactions', $data);
+
+        // Assert
+        $response->assertRedirect('/');
+        $this->assertDatabaseHas('transactions', [
+            'user_id'           => $this->user->id,
+            'type_id'           => $type->id,
+            'account_name'      => $account->name,
+            'to_account_name'   => $toaccount->name,
+            'payee_name'        => $payee->name,
+            'category_name'     => $category->name,
+            'sub_category_name' => $subcategory->name,
+        ]);
     }
 }
