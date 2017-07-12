@@ -18,9 +18,10 @@ class TransactionControllerTest extends FeatureTestCase
     {
         // Arrange
         $url = '/api/v1/transactions';
-        $transaction = factory(Transaction::class)->create();
+        $transaction = factory(Transaction::class)->create(['user_id' => $this->user->id]);
 
         // Act
+        $this->ensureAuthenticated();
         $response = $this->get($url);
 
         // Assert
