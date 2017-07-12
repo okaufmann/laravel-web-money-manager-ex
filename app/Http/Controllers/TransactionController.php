@@ -86,7 +86,8 @@ class TransactionController extends Controller
      * Update the specified resource in storage.
      *
      * @param TransactionRequest|Request $request
-     * @param int $id
+     * @param int                        $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(TransactionRequest $request, $id)

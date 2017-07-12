@@ -96,7 +96,6 @@ class Transaction extends Model implements HasMedia
         return null;
     }
 
-
     /**
      * @param $file string|UploadedFile
      * @param bool $keepOriginal
@@ -137,6 +136,4 @@ class Transaction extends Model implements HasMedia
     {
         return $this->belongsTo(TransactionType::class);
     }
-
-
 }
