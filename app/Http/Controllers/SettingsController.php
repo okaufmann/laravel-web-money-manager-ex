@@ -33,7 +33,7 @@ class SettingsController extends Controller
         $version = GitVersionHelper::getVersion();
         $apiVersion = \App\Services\Mmex\MmexConstants::$api_version;
         $user = Auth::user();
-        $authGuid = $user->mmex_guid;
+        $authGuid = $user->mmex_guid ?? mmex_guid();
         $userLocale = $user->locale;
 
         return view('setting.index', compact('packages', 'version', 'userLocale', 'apiVersion', 'authGuid'));
