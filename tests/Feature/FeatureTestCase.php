@@ -39,7 +39,9 @@ abstract class FeatureTestCase extends \Tests\TestCase
      */
     protected function ensureUser($properties = [])
     {
-        $this->user = factory(User::class)->create($properties);
+        if (!$this->user) {
+            $this->user = factory(User::class)->create($properties);
+        }
     }
 
     protected function ensureAuthenticated()
