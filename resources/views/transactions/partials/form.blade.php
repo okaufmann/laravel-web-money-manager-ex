@@ -2,8 +2,8 @@
 
 @push('footer')
 @javascript('dropDownOptions', [
-'types' => $fieldValues->getValues(App\Models\TransactionType::class),
-'status' => $fieldValues->getValues(App\Models\TransactionStatus::class),
+'types' => $fieldValues->getValues(App\Models\TransactionType::class, true),
+'status' => $fieldValues->getValues(App\Models\TransactionStatus::class, true),
 'accounts' => $fieldValues->getValues(App\Models\Account::class),
 
 ])

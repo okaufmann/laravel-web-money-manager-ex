@@ -10,12 +10,17 @@
 
 namespace App\Services;
 
+use Auth;
+
 class FormFieldOptionService
 {
-    public function getValues($model)
+    public function getValues($model, $all = false)
     {
-        // TODO: cache
-        $values = $model::all()->values();
+        if ($all) {
+            $values = $model::all()->values();
+        } else {
+            $values = $model::where(['user_id' => Auth::user()->id])->get()->values();
+        }
 
         return $values;
     }
