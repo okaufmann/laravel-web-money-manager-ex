@@ -49,6 +49,8 @@ class TransactionController extends Controller
 
         Auth::user()->transactions()->save($transaction);
 
+        $this->setPayeesLastUsedCategory($request);
+
         if ($request->hasFile('attachments') && is_array($request->file('attachments'))) {
             foreach ($request->file('attachments') as $file) {
                 $transaction->addAttachment($file);
@@ -86,7 +88,7 @@ class TransactionController extends Controller
      * Update the specified resource in storage.
      *
      * @param TransactionRequest|Request $request
-     * @param int                        $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -101,6 +103,8 @@ class TransactionController extends Controller
         $this->setResolvedFieldValues($request, $transaction);
 
         $transaction->save();
+
+        $this->setPayeesLastUsedCategory($request);
 
         if ($request->hasFile('attachments') && is_array($request->file('attachments'))) {
             foreach ($request->file('attachments') as $file) {
@@ -157,6 +161,24 @@ class TransactionController extends Controller
             if ($subcategory) {
                 $transaction->sub_category_name = $subcategory->name;
             }
+        }
+    }
+
+    /**
+     * @param TransactionRequest $request
+     */
+    protected function setPayeesLastUsedCategory(TransactionRequest $request)
+    {
+        if ($request->input('subcategory')) {
+            $lastCategory = Category::find($request->input('subcategory'));
+        } else {
+            $lastCategory = Category::find($request->input('category'));
+        }
+
+        if ($lastCategory) {
+            $payee = Payee::find($request->input('payee'));
+            $payee->lastCategoryUsed()->associate($lastCategory);
+            $payee->save();
         }
     }
 }
