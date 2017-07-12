@@ -8,14 +8,16 @@
                   @vuetable:pagination-data="onPaginationData"
         >
             <template slot="actions" scope="props">
-                <a
-                        :href="'/' + props.rowData.id">
-                    <i class="fa fa-edit"></i>
-                </a>
-                <button class="btn btn-danger"
-                        @click="onAction('delete-item', props.rowData, props.index)">
-                    <i class="fa fa-remove"></i>
-                </button>
+                <div class="form-inline">
+                    <a class="btn btn-success btn-raised btn-sm"
+                       :href="'/' + props.rowData.id">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <button class="btn btn-danger btn-raised btn-sm"
+                            @click="onAction('delete-item', props.rowData, props.index)">
+                        <i class="fa fa-remove"></i>
+                    </button>
+                </div>
             </template>
         </vuetable>
         <div class="vuetable-pagination">
