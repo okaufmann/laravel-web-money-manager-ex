@@ -8,16 +8,14 @@
                   @vuetable:pagination-data="onPaginationData"
         >
             <template slot="actions" scope="props">
-                <div class="btn-group ">
-                    <a class="btn btn-sm btn-primary"
-                       :href="'/' + props.rowData.id">
-                        <i class="fa fa-edit"></i>
-                    </a>
-                    <button class="btn btn-sm btn-danger"
-                            @click="onAction('delete-item', props.rowData, props.index)">
-                        <i class="fa fa-remove"></i>
-                    </button>
-                </div>
+                <a
+                        :href="'/' + props.rowData.id">
+                    <i class="fa fa-edit"></i>
+                </a>
+                <button class="btn btn-danger"
+                        @click="onAction('delete-item', props.rowData, props.index)">
+                    <i class="fa fa-remove"></i>
+                </button>
             </template>
         </vuetable>
         <div class="vuetable-pagination">
@@ -76,6 +74,11 @@
                         callback: 'formatCurrency',
                     },
                     {
+                        title: '',
+                        name: 'has_attachments',
+                        callback: 'hasAttachments',
+                    },
+                    {
                         name: '__slot:actions',
                         title: Lang.get('Actions'),
                         titleClass: 'center aligned',
@@ -99,7 +102,21 @@
         },
         methods: {
             onAction (action, data, index) {
-                console.log('slot) action: ' + action, data, index)
+                console.log('slot) action: ' + action, data, index);
+                if (action === 'delete-item') {
+                    let result = confirm(Lang.get('You really wanna delete this transaction?'));
+                    if (result === true) {
+                        axios.delete('transactions/' + data.id).then(() => {
+                            this.$refs.vuetable.reload();
+                        })
+                    }
+                }
+            },
+            hasAttachments(value){
+                if (!value) {
+                    return '';
+                }
+                return '<i class="fa fa-paperclip"></i>';
             },
             formatCurrency(value){
                 if (value == null) {

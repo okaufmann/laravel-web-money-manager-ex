@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -31,7 +32,12 @@ class Transaction extends Model implements HasMedia
      */
     public function setTransactionDateAttribute($value)
     {
-        $date = Carbon::createFromFormat('m/d/Y', $value);
+        $format = 'm/d/Y';
+        if (App::getLocale() == 'de') {
+            $format = 'd.m.Y';
+        }
+
+        $date = Carbon::createFromFormat($format, $value);
         $this->attributes['transaction_date'] = $date;
     }
 
@@ -90,15 +96,6 @@ class Transaction extends Model implements HasMedia
         return null;
     }
 
-    public function status()
-    {
-        return $this->belongsTo(TransactionStatus::class);
-    }
-
-    public function type()
-    {
-        return $this->belongsTo(TransactionType::class);
-    }
 
     /**
      * @param $file string|UploadedFile
@@ -125,4 +122,21 @@ class Transaction extends Model implements HasMedia
 
         $media->toMediaCollection('attachments');
     }
+
+    public function hasAttachments()
+    {
+        return $this->hasMedia('attachments');
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(TransactionStatus::class);
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(TransactionType::class);
+    }
+
+
 }
