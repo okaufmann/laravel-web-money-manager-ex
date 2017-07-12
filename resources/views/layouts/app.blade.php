@@ -63,20 +63,25 @@
     <script src="{{asset('js/messages.js')}}"></script>
 @endif
 <script src="{{mix('js/vendor.js')}}"></script>
-<script src="{{mix('js/i18n/messages-'.$globalUser->locale.'.js')}}"></script>
 <script src="{{mix('js/app.js')}}"></script>
 
-<script>
-    @if(isset($globalUser))
-    Lang.setLocale("{{$globalUser->language}}");
-    kendo.culture("{{$globalUser->localeKendo}}");
-    moment.locale('{{$globalUser->localeMoment}}');
-    @else
-    Lang.setLocale("en");
-    kendo.culture("en-US");
-    moment.locale('en');
-    @endif
-</script>
+
+@if(isset($globalUser))
+    <script src="{{mix('js/i18n/messages-'.$globalUser->locale.'.js')}}"></script>
+    <script type="text/javascript">
+        Lang.setLocale("{{$globalUser->language}}");
+        kendo.culture("{{$globalUser->localeKendo}}");
+        moment.locale('{{$globalUser->localeMoment}}');
+    </script>
+@else
+    <script src="{{mix('js/i18n/messages-en_US.js')}}"></script>
+    <script type="text/javascript">
+        Lang.setLocale("en");
+        kendo.culture("en-US");
+        moment.locale('en');
+    </script>
+@endif
+
 
 
 @yield('footer')
