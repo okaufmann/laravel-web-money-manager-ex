@@ -12,7 +12,7 @@ class TransactionController extends Controller
     public function index()
     {
         $column = 'created_at';
-        $direction = 'asc';
+        $direction = 'desc';
 
         // add support for sorting in vuetable-2
         $sort = request()->get('sort');

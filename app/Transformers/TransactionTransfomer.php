@@ -21,6 +21,7 @@ class TransactionTransfomer extends TransformerAbstract
             'payee_name'        => $item->payee_name,
             'category_name'     => $item->category_name,
             'sub_category_name' => $item->sub_category_name,
+            'category_names'    => $item->sub_category_name ? $item->category_name.' / '.$item->sub_category_name : $item->category_name,
             'amount'            => round($item->amount, 2),
             'notes'             => $item->notes,
             'transaction_date'  => $item->transaction_date ? $item->transaction_date->toIso8601String() : null,

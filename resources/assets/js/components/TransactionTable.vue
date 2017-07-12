@@ -66,8 +66,8 @@
                     },
                     {
                         title: Lang.get('Category'),
-                        name: 'category_name',
-                        sortField: 'category_name',
+                        name: 'category_names',
+                        sortField: 'category_names',
                     },
                     {
                         title: Lang.get('Amount'),
