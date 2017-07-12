@@ -41,7 +41,6 @@ class TransactionControllerTest extends FeatureTestCase
             //'attachments'        => [UploadedFile::fake()->image('receipt.jpg')]
         ];
 
-
         // Act
         $this->ensureAuthenticated();
         $response = $this->post('/transactions', $data);

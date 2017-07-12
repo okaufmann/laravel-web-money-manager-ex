@@ -90,7 +90,7 @@ class PayeeControllerTest extends FeatureTestCase
         $response->assertJsonFragment([
             'id'          => $payee->id,
             'name'        => $payee->name,
-            'category_id' => $category->id
+            'category_id' => $category->id,
         ]);
     }
 
@@ -117,7 +117,7 @@ class PayeeControllerTest extends FeatureTestCase
             'id'              => $payee->id,
             'name'            => $payee->name,
             'category_id'     => $category->id,
-            'sub_category_id' => $subcategory->id
+            'sub_category_id' => $subcategory->id,
         ]);
     }
 }
