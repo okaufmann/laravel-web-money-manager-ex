@@ -25,7 +25,7 @@ class CreateTransactionsTable extends Migration
             $table->string('category_name');
             $table->string('sub_category_name')->nullable();
             $table->decimal('amount');
-            $table->text('notes');
+            $table->text('notes')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
