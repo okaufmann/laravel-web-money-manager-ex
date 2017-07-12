@@ -1,6 +1,22 @@
 @inject('fieldValues', 'App\Services\FormFieldOptionService')
 
 @push('footer')
+@javascript('dropDownOptions', [
+'types' => $fieldValues->getValues(App\Models\TransactionType::class),
+'status' => $fieldValues->getValues(App\Models\TransactionStatus::class),
+'accounts' => $fieldValues->getValues(App\Models\Account::class),
+'payees' => $fieldValues->getValues(App\Models\Payee::class),
+
+])
+<script id="noDataAddNewTemplate" type="text/x-kendo-tmpl">
+        <div>
+            No data found. Do you want to add new item - '#: instance.filterInput.val() #' ?
+        </div>
+        <br />
+        <button class="k-button" onclick="mmex.addPayee('#: instance.element[0].id #', '#: instance.filterInput.val() #')">Add new item</button>
+
+
+</script>
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -8,18 +24,103 @@
             $.extend(kendo.ui.DropDownList.prototype.options, {
                 noDataTemplate: Lang.get('No Data found.'),
                 optionLabel: Lang.get("Please Choose"),
+                filter: "startswith",
+                dataTextField: "name",
+                dataValueField: "id",
             });
 
-        $("#to_account").data("kendoDropDownList", new kendo.ui.DropDownList($("#to_account"), {
-            filter: "startswith",
+        $("#transaction_type").data("kendoDropDownList", new kendo.ui.DropDownList($("#transaction_type"), {
+            dataSource: {
+                data: mmex.dropDownOptions.types
+            },
+            change: (e) => {
+                let id = e.sender.value();
+                let item = e.sender.dataSource.get(id);
+                if (item.slug === "Transfer") {
+                    $("#to_account").data("kendoDropDownList").enable();
+                } else {
+                    $("#to_account").data("kendoDropDownList").reset();
+                    $("#to_account").data("kendoDropDownList").enable(false);
+                }
+            }
         }));
 
-        $("#to_account").data("kendoDropDownList").enable(false);
+        $("#transaction_status").data("kendoDropDownList", new kendo.ui.DropDownList($("#transaction_status"), {
+            dataSource: {
+                data: mmex.dropDownOptions.status
+            },
+        }));
+
+        mmex.addPayee = (widgetId, value) => {
+            let widget = $("#" + widgetId).data("kendoDropDownList");
+            let dataSource = widget.dataSource;
+
+            if (confirm("Are you sure?")) {
+                dataSource.add({
+                    ProductID: 0,
+                    ProductName: value
+                });
+
+                dataSource.one("sync", function () {
+                    widget.select(dataSource.view().length - 1);
+                });
+
+                dataSource.sync();
+            }
+        };
+
+        $("#payee").data("kendoDropDownList", new kendo.ui.DropDownList($("#payee"), {
+            noDataTemplate: $("#noDataAddNewTemplate").html(),
+            dataSource: {
+                batch: true,
+                transport: {
+                    read: (options) => {
+                        options.success(mmex.dropDownOptions.payees)
+                    },
+                    create: {
+                        url: "/payees",
+                        dataType: "json"
+                    },
+                    parameterMap: function (options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return {models: kendo.stringify(options.models)};
+                        }
+                    }
+                },
+                schema: {
+                    model: {
+                        id: "id",
+                        fields: {
+                            id: {type: "number"},
+                            name: {type: "string"}
+                        }
+                    }
+                }
+            },
+
+        }));
+
+        $("#account").data("kendoDropDownList", new kendo.ui.DropDownList($("#account"), {
+            dataSource: {
+                data: mmex.dropDownOptions.accounts
+            },
+            change: (e) => {
+                let id = e.sender.value();
+                let accounts = _.reject(mmex.dropDownOptions.accounts, (a) => a.id === parseInt(id));
+
+                $("#to_account").data("kendoDropDownList").dataSource.transport.data = accounts;
+                $("#to_account").data("kendoDropDownList").dataSource.read();
+            }
+        }));
+
+        $("#to_account").data("kendoDropDownList", new kendo.ui.DropDownList($("#to_account"), {
+            enable: false,
+            dataSource: {
+                data: mmex.dropDownOptions.accounts
+            },
+        }));
 
         $("#category").data("kendoDropDownList", new kendo.ui.DropDownList($("#category"), {
-            filter: "startswith",
-            dataTextField: "name",
-            dataValueField: "id",
             height: 300,
             dataSource: {
                 serverFiltering: false,
@@ -35,10 +136,7 @@
         $("#subcategory").data("kendoDropDownList", new kendo.ui.DropDownList($("#subcategory"), {
             autoBind: false,
             cascadeFrom: "category",
-            filter: "startswith",
             optionLabel: Lang.get("Please Choose"),
-            dataTextField: "name",
-            dataValueField: "id",
             height: 300,
             dataSource: {
                 serverFiltering: true,
@@ -64,6 +162,7 @@
         });
     });
 </script>
+
 @endpush
 
 @include('partials.form-errors')
@@ -72,69 +171,60 @@
 
 <div class="form-group label-static is-empty">
     <label for="transaction_date" class="control-label">@lang('Date')</label>
-    <input type="date-local" name="transaction_date" placeholder="Von"
-           value="{{old('transaction_date', $transaction ? $transaction->transaction_date : null)}}">
+    <input type="date-local" value="{{old('transaction_date', $transaction ? $transaction->transaction_date : null)}}"
+           name="transaction_date">
 </div>
 
 <div class="form-group label-static is-empty">
     <label for="transaction_status" class="control-label">@lang('Status')</label>
-    <select name="transaction_status" class="common-dropdown-list">
-        <option value="">@lang('Choose Status')</option>
-        @foreach($fieldValues->getValues(App\Models\TransactionStatus::class) as $value)
-            <option @if (old('transaction_status', $transaction ? $transaction->status_id : null) == $value->id) selected=""
-                    @endif value="{{$value->id}}">{{$value->name}}</option>
-        @endforeach
-    </select>
+    <input type="text"
+           value="{{old('transaction_status', $transaction ? $transaction->status_id : null)}}"
+           name="transaction_status"
+           id="transaction_status"/>
 </div>
 <div class="form-group label-static is-empty">
     <label for="transaction_type" class="control-label">@lang('Type')</label>
-    <select name="transaction_type" class="common-dropdown-list">
-        @foreach($fieldValues->getValues(App\Models\TransactionType::class) as $value)
-            <option @if (old('transaction_type', $transaction ? $transaction->type_id: null) == $value->id) selected=""
-                    @endif value="{{$value->id}}">{{$value->name}}</option>
-        @endforeach
-    </select>
+    <input type="text"
+           value="{{old('transaction_type', $transaction ? $transaction->type_id: null)}}"
+           name="transaction_type"
+           id="transaction_type"/>
 </div>
 
 <div class="form-group label-static is-empty">
     <label for="account" class="control-label">@lang('Account')</label>
-    <select name="account" class="common-dropdown-list">
-        @foreach($fieldValues->getValues(App\Models\Account::class) as $value)
-            <option @if (old('account',$transaction ? $transaction->account_id : null) == $value->id) selected=""
-                    @endif value="{{$value->id}}">{{$value->name}}</option>
-        @endforeach
-    </select>
+    <input type="text"
+           value="{{old('account',$transaction ? $transaction->account_id : null)}}"
+           name="account"
+           id="account"/>
 </div>
 
 <div class="form-group label-static is-empty">
     <label for="to_account" class="control-label">@lang('to Account')</label>
-    <select id="to_account" name="to_account">
-        <option value="">@lang('Choose Account')</option>
-        @foreach($fieldValues->getValues(App\Models\Account::class) as $value)
-            <option @if (old('to_account', $transaction ? $transaction->to_account_id : null) == $value->id) selected=""
-                    @endif value="{{$value->id}}">{{$value->name}}</option>
-        @endforeach
-    </select>
+    <input type="text"
+           value="{{old('to_account', $transaction ? $transaction->to_account_id : null)}}"
+           name="to_account"
+           id="to_account"/>
 </div>
 
 <div class="form-group label-static is-empty">
     <label for="payee" class="control-label">@lang('Payee')</label>
-    <select name="payee" class="common-dropdown-list">
-        @foreach($fieldValues->getValues(App\Models\Payee::class) as $value)
-            <option @if (old('payee', $transaction ? $transaction->payee_id : null) == $value->id) selected=""
-                    @endif value="{{$value->id}}">{{$value->name}}</option>
-        @endforeach
-    </select>
+    <input type="text"
+           value="{{old('payee', $transaction ? $transaction->payee_id : null)}}"
+           name="payee"
+           id="payee"/>
 </div>
 
 <div class="form-group label-static is-empty">
     <label for="category" class="control-label">@lang('Category')</label>
-    <input id="category" name="category" value="{{old('category', $transaction ? $transaction->category_id : null)}}">
+    <input value="{{old('category', $transaction ? $transaction->category_id : null)}}"
+           name="category"
+           id="category">
 </div>
 <div class="form-group label-static is-empty">
     <label for="subcategory" class="control-label">@lang('Subcategory')</label>
-    <input id="subcategory" name="subcategory"
-           value="{{old('subcategory', $transaction ? $transaction->sub_category_id : null)}}">
+    <input value="{{old('subcategory', $transaction ? $transaction->sub_category_id : null)}}"
+           name="subcategory"
+           id="subcategory">
 </div>
 <div class="form-group label-static is-empty">
     <label for="amount" class="control-label">@lang('Amount')</label>
