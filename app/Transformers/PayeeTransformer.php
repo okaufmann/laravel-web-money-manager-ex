@@ -2,6 +2,7 @@
 
 namespace App\Transformers;
 
+use App\Models\Category;
 use App\Models\Payee;
 use League\Fractal\TransformerAbstract;
 
@@ -14,9 +15,23 @@ class PayeeTransformer extends TransformerAbstract
      */
     public function transform(Payee $payee)
     {
-        return [
+        $data = [
             'id'   => $payee->id,
-            'name' => $payee->name
+            'name' => $payee->name,
         ];
+
+        $category = null;
+        if ($category = Category::find($payee->last_category_id)) {
+            if ($category) {
+                if ($category->parent_id) {
+                    $data['category_id'] = $category->parent_id;
+                    $data['sub_category_id'] = $category->id;
+                } else {
+                    $data['category_id'] = $category->id;
+                }
+            }
+        }
+
+        return $data;
     }
 }

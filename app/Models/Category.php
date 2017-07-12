@@ -6,6 +6,10 @@ class Category extends Model
 {
     protected $fillable = ['name'];
 
+    protected $casts = [
+        'parent_id' => 'integer'
+    ];
+
     /**
      * Scope a query to only include sub categories.
      *

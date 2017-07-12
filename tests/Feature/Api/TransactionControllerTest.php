@@ -5,7 +5,7 @@ namespace Tests\Feature\Api;
 use App\Models\Transaction;
 use Tests\Features\FeatureTestCase;
 
-class TransactionController extends FeatureTestCase
+class TransactionControllerTest extends FeatureTestCase
 {
     /**
      * A basic test example.

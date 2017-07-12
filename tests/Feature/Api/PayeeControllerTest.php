@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api;
 
+use App\Models\Category;
 use App\Models\Payee;
 use App\Models\User;
 use Tests\Features\FeatureTestCase;
@@ -65,8 +66,58 @@ class PayeeControllerTest extends FeatureTestCase
 
         // Assert
         $response->assertStatus(200);
-
         $this->assertDatabaseHas('payees', ['name' => '7-Eleven']);
+    }
 
+    /**
+     * @test
+     */
+    public function it_returns_last_used_category_for_payee()
+    {
+        // Arrange
+        $url = '/api/v1/payee';
+
+        $category = factory(Category::class)->create(['user_id' => $this->user->id]);
+        $payee = factory(Payee::class)->create(['user_id' => $this->user->id, 'last_category_id' => $category->id]);
+
+        // Act
+        $this->ensureAuthenticated();
+        $response = $this->get($url);
+
+        // Assert
+        $response->assertStatus(200);
+
+        $response->assertJsonFragment([
+            'id'          => $payee->id,
+            'name'        => $payee->name,
+            'category_id' => $category->id
+        ]);
+    }
+
+    /**
+     * @test
+     */
+    public function it_returns_last_used_subcategory_for_payee()
+    {
+        // Arrange
+        $url = '/api/v1/payee';
+
+        $category = factory(Category::class)->create(['user_id' => $this->user->id]);
+        $subcategory = factory(Category::class)->create(['user_id' => $this->user->id, 'parent_id' => $category->id]);
+        $payee = factory(Payee::class)->create(['user_id' => $this->user->id, 'last_category_id' => $subcategory->id]);
+
+        // Act
+        $this->ensureAuthenticated();
+        $response = $this->get($url);
+
+        // Assert
+        $response->assertStatus(200);
+
+        $response->assertJsonFragment([
+            'id'              => $payee->id,
+            'name'            => $payee->name,
+            'category_id'     => $category->id,
+            'sub_category_id' => $subcategory->id
+        ]);
     }
 }
