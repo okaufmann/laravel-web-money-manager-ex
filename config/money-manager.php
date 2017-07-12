@@ -2,8 +2,8 @@
 
 return [
     'locales' => [
-        'de_DE' => 'Swiss German',
-        'de_CH' => 'German',
+        'de_CH' => 'Swiss German',
+        'de_DE' => 'German',
         'en_US' => 'English (USA)',
         'en_GB' => 'English (GB)',
     ],

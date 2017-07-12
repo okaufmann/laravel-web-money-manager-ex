@@ -23,14 +23,11 @@ window.axios = require('axios');
  * Setup moment.js
  */
 window.moment = require('moment');
-require('moment/locale/de-ch.js');
 
 /**
  * Kendo UI
  */
 require('kendo-ui-core');
-require('kendo-ui-core/js/messages/kendo.messages.de-DE');
-require('kendo-ui-core/js/cultures/kendo.culture.de');
 
 /**
  * Autosize

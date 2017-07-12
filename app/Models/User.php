@@ -41,6 +41,29 @@ class User extends Authenticatable
         return $locale;
     }
 
+    public function getLocaleKendoAttribute()
+    {
+        $locale = $this->locale;
+
+        $locale = str_replace('_', '-', $locale);
+
+        return $locale;
+    }
+
+    public function getLocaleMomentAttribute()
+    {
+        $locale = $this->locale;
+
+        $locale = str_replace('_', '-', $locale);
+        $locale = strtolower($locale);
+
+        // TODO: ugly workaround for different locale styles
+        $locale = $locale == 'de-de' ? 'de' : $locale;
+        $locale = $locale == 'en-us' ? 'en' : $locale;
+
+        return $locale;
+    }
+
     public function getLanguageAttribute()
     {
         $locale = $this->locale;
