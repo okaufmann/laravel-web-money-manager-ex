@@ -15,7 +15,7 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned();
             $table->timestamp('transaction_date')->nullable();
             $table->integer('status_id')->unsigned()->nullable();
             $table->integer('type_id')->unsigned();
@@ -34,11 +34,6 @@ class CreateTransactionsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('status_id')->references('id')->on('transaction_status');
             $table->foreign('type_id')->references('id')->on('transaction_types');
-            $table->foreign('account_id')->references('id')->on('transaction_types')->onDelete('set null');
-            $table->foreign('to_account_id')->references('id')->on('transaction_types')->onDelete('set null');
-            $table->foreign('payee_id')->references('id')->on('transaction_types')->onDelete('set null');
-            $table->foreign('category_id')->references('id')->on('transaction_types')->onDelete('set null');
-            $table->foreign('sub_category_id')->references('id')->on('transaction_types')->onDelete('set null');
         });
     }
 
