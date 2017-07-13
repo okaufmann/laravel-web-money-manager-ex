@@ -91,7 +91,6 @@ class ManageUsers extends Command
             if (!$user) {
                 $this->error(sprintf('User %s does not exist!', $email));
             } else {
-
                 $user->is_admin = $admin || $noadmin;
                 $user->save();
 
