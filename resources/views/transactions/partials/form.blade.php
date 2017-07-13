@@ -13,6 +13,7 @@
         </div>
         <br />
         <button class="k-button" onclick="mmex.addPayee('#: instance.element[0].id #', '#: instance.filterInput.val() #')">#= Lang.get("Add new Payee") #</button>
+
 </script>
 <script type="text/javascript" src="{{mix('js/transaction-form.js')}}"></script>
 
@@ -89,13 +90,13 @@
 
 <div class="form-group label-static is-empty">
     <label for="notes" class="control-label">@lang('Notes')</label>
-    <textarea name="notes" class="form-control" rows="5"
-              placeholder="@lang('New transaction notes')">{{old('notes', $transaction ? $transaction->notes : null)}}</textarea>
+    <textarea name="notes" class="form-control"
+              rows="5">{{old('notes', $transaction ? $transaction->notes : null)}}</textarea>
 </div>
 <div class="form-group label-static is-empty">
     <label for="inputFile" class="control-label">@lang('Take a picture or upload attachments')</label>
 
-    <input type="text" readonly="" class="form-control" placeholder="Browse...">
+    <input type="text" readonly="" class="form-control" placeholder="@lang("Browse...")">
     <input type="file" multiple="" name="attachments[]">
     <span class="help-block">
         {{ini_get('upload_max_filesize')}}/{{ini_get('post_max_size')}}

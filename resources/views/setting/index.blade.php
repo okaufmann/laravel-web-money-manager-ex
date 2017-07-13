@@ -24,7 +24,7 @@
                             @endif
 
                             <div class="form-group">
-                                <label class="control-label col-md-3">@lang('Auth GUID')</label>
+                                <label class="control-label col-md-3">@lang('WebApp GUID')</label>
                                 <div class="col-md-9">
                                     <input name="mmex_guid" class="form-control" value="{{old('authGuid',$authGuid)}}">
                                 </div>
@@ -34,7 +34,7 @@
                                 <div class="col-md-9">
                                     <select name="user_locale" class="common-dropdown-list">
                                         @if(!$userLocale)
-                                            <option>@lang('Please choose...')</option>
+                                            <option>@lang('Please choose')</option>
                                         @endif
                                         @foreach(config('money-manager.locales') as $code => $name)
                                             <option value="{{$code}}"

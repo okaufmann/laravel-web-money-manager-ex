@@ -22,6 +22,12 @@ class FormFieldOptionService
             $values = $model::where(['user_id' => Auth::user()->id])->get()->values();
         }
 
+        $values->only(['id', 'name', 'slug'])
+            ->transform(function ($value) {
+                $value['name'] = _($value['name']);
+                return $value;
+            });
+
         return $values;
     }
 }
