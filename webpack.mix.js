@@ -39,9 +39,7 @@ mix.js('resources/assets/js/app.ts', 'public/js')
     .sass('resources/assets/css/vendor.scss', 'public/css')
     .less('resources/assets/css/kendo.less', 'public/css');
 
-if (mix.inProduction) {
+if (mix.inProduction()) {
     mix.version();
     mix.version('public/js/messages.js');
-} else {
-    // mix.sourceMaps();
 }
