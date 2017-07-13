@@ -25,6 +25,7 @@ class FormFieldOptionService
         $values->only(['id', 'name', 'slug'])
             ->transform(function ($value) {
                 $value['name'] = _($value['name']);
+
                 return $value;
             });
 
