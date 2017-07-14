@@ -10,7 +10,7 @@
             @include('transactions.partials.form')
 
             <div class="form-group label-static is-empty">
-                <button type="button" class="btn btn-primary btn-raised">@lang('Add')</button>
+                <button type="button" class="btn btn-primary btn-raised">@lang('mmex.add')</button>
             </div>
         </form>
     </div>

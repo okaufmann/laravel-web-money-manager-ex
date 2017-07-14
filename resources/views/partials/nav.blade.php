@@ -14,10 +14,10 @@
             @if(Auth::check())
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="{{url('/')}}"><i class="fa fa-usd"></i> Transactions</a>
+                        <a href="{{url('/')}}"><i class="fa fa-usd"></i> @lang('mmex.transactions')</a>
                     </li>
                     <li>
-                        <a href="{{url('/settings')}}"><i class="fa fa-cogs"></i> Settings</a>
+                        <a href="{{url('/settings')}}"><i class="fa fa-cogs"></i> @lang('mmex.settings')</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

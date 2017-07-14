@@ -1,8 +1,8 @@
 $(document).ready(function () {
     kendo.ui.DropDownList.prototype.options =
         $.extend(kendo.ui.DropDownList.prototype.options, {
-            noDataTemplate: Lang.get('No Data found.'),
-            optionLabel: Lang.get("Please Choose"),
+            noDataTemplate: Lang.get('mmex.no-data-found'),
+            optionLabel: Lang.get("mmex.please-choose"),
             filter: "startswith",
             dataTextField: "name",
             dataValueField: "id",
@@ -126,7 +126,6 @@ $(document).ready(function () {
     $("#subcategory").data("kendoDropDownList", new kendo.ui.DropDownList($("#subcategory")[0], {
         autoBind: false,
         cascadeFrom: "category",
-        optionLabel: Lang.get("Please Choose"),
         height: 300,
         dataSource: {
             serverFiltering: true,
