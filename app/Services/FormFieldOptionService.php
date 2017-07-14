@@ -14,13 +14,10 @@ use Auth;
 
 class FormFieldOptionService
 {
-    public function getValues($model, $all = false)
+    public function getMasterData($model)
     {
-        if ($all) {
-            $values = $model::all();
-        } else {
-            $values = $model::where(['user_id' => Auth::user()->id])->get();
-        }
+
+        $values = $model::all();
 
         $values = $values->values()
             ->map(function ($value) {
@@ -29,7 +26,15 @@ class FormFieldOptionService
                     'id'   => $value->id,
                     'slug' => $value->slug,
                 ];
-            });
+            })
+            ->values();
+
+        return $values;
+    }
+
+    public function getUserData($model)
+    {
+        $values = $model::where(['user_id' => Auth::user()->id])->get()->values();
 
         return $values;
     }
