@@ -17,16 +17,18 @@ class FormFieldOptionService
     public function getValues($model, $all = false)
     {
         if ($all) {
-            $values = $model::all()->values();
+            $values = $model::all();
         } else {
-            $values = $model::where(['user_id' => Auth::user()->id])->get()->values();
+            $values = $model::where(['user_id' => Auth::user()->id])->get();
         }
 
-        $values->only(['id', 'name', 'slug'])
-            ->transform(function ($value) {
-                $value['name'] = _($value['name']);
-
-                return $value;
+        $values = $values->values()
+            ->map(function ($value) {
+                return [
+                    'name' => __('mmex.'.$value->name),
+                    'id'   => $value->id,
+                    'slug' => $value->slug,
+                ];
             });
 
         return $values;

@@ -4,6 +4,7 @@
                   :api-url="url"
                   :fields="fields"
                   :css="css.table"
+                  :noDataTemplate="noData()"
                   pagination-path="meta.pagination"
                   @vuetable:pagination-data="onPaginationData"
         >
@@ -45,32 +46,32 @@
                 url: "/api/v1/transactions?api_token=" + Laravel.apiToken,
                 fields: [
                     {
-                        title: Lang.get('Date'),
+                        title: Lang.get('mmex.date'),
                         name: 'transaction_date',
                         sortField: 'transaction_date',
                         callback: 'formatDate'
                     },
                     {
-                        title: Lang.get('Account'),
+                        title: Lang.get('mmex.account'),
                         name: 'account_name',
                         sortField: 'account_name',
                     },
                     {
-                        title: Lang.get('Type'),
+                        title: Lang.get('mmex.type'),
                         name: 'type.name',
                     },
                     {
-                        title: Lang.get('Payee'),
+                        title: Lang.get('mmex.payee'),
                         name: 'payee_name',
                         sortField: 'payee_name',
                     },
                     {
-                        title: Lang.get('Category'),
+                        title: Lang.get('mmex.category'),
                         name: 'category_names',
                         sortField: 'category_names',
                     },
                     {
-                        title: Lang.get('Amount'),
+                        title: Lang.get('mmex.amount'),
                         name: 'amount',
                         sortField: 'amount',
                         callback: 'formatCurrency',
@@ -82,7 +83,7 @@
                     },
                     {
                         name: '__slot:actions',
-                        title: Lang.get('Actions'),
+                        title: Lang.get('mmex.actions'),
                         titleClass: 'center aligned',
                     }
                 ],
@@ -103,10 +104,13 @@
             }
         },
         methods: {
+            noData()  {
+                return Lang.get('mmex.no-data-found');
+            },
             onAction (action, data, index) {
                 console.log('slot) action: ' + action, data, index);
                 if (action === 'delete-item') {
-                    let result = confirm(Lang.get('You really wanna delete this transaction?'));
+                    let result = confirm(Lang.get('mmex.delete-transaction'));
                     if (result === true) {
                         axios.delete('transactions/' + data.id).then(() => {
                             this.$refs.vuetable.reload();

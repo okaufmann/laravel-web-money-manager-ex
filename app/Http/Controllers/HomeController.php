@@ -19,11 +19,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Transaction $transaction = null)
+    public function index($id = null)
     {
-        if (!$transaction->exists) {
-            $transaction = null;
-        }
+        $transaction = Transaction::find($id);
 
         return view('home', compact('transaction'));
     }

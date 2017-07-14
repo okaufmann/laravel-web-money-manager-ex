@@ -1,8 +1,8 @@
 $(document).ready(function () {
     kendo.ui.DropDownList.prototype.options =
         $.extend(kendo.ui.DropDownList.prototype.options, {
-            noDataTemplate: Lang.get('No Data found.'),
-            optionLabel: Lang.get("Please choose"),
+            noDataTemplate: Lang.get('mmex.no-data-found'),
+            optionLabel: Lang.get("mmex.please-choose"),
             filter: "startswith",
             dataTextField: "name",
             dataValueField: "id",

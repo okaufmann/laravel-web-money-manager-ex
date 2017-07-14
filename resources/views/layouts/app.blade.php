@@ -63,8 +63,6 @@
     <script src="{{asset('js/messages.js')}}"></script>
 @endif
 <script src="{{mix('js/vendor.js')}}"></script>
-<script src="{{mix('js/app.js')}}"></script>
-
 
 @if(isset($globalUser))
     <script src="{{mix('js/i18n/messages-'.$globalUser->locale.'.js')}}"></script>
@@ -82,7 +80,7 @@
     </script>
 @endif
 
-
+<script src="{{mix('js/app.js')}}"></script>
 
 @yield('footer')
 @stack('footer')
