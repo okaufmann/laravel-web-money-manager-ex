@@ -34,7 +34,7 @@ return [
     'Withdrawal'          => 'Zahlung',
     'Deposit'             => 'Gutschrift',
     'Transfer'            => 'Übertrag',
-    'amount'              => "Betrag",
+    'amount'              => 'Betrag',
     'account'             => 'Konto',
     'to-account'          => 'zu Konto',
     'payee'               => 'Zahlungsempfänger/Zahler',
