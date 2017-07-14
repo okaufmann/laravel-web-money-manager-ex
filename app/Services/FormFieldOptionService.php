@@ -16,7 +16,6 @@ class FormFieldOptionService
 {
     public function getMasterData($model)
     {
-
         $values = $model::all();
 
         $values = $values->values()
