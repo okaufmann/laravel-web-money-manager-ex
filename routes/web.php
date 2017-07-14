@@ -13,6 +13,7 @@
 
 Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
+Route::pattern('id', '[0-9]+');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@index')->name('home');
@@ -25,5 +26,5 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     // must be at the end of the definitions
-    Route::get('/{transaction?}', 'HomeController@index');
+    Route::get('/{id?}', 'HomeController@index');
 });
