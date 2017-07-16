@@ -23,7 +23,8 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if(Auth::check())
                         <li>
-                            <p class="navbar-text"><i class="fa fa-user"></i> {{$globalUser->name}}</p>
+                            <a href="{{url('/user')}}"><i
+                                        class="fa fa-user"></i> {{$globalUser->name}}</a>
                         </li>
                     @endif
                     {{--<li>--}}
