@@ -11,6 +11,7 @@
 namespace App\Services;
 
 
+use App;
 use App\Models\Account;
 use App\Models\Category;
 use App\Models\Payee;
@@ -92,9 +93,11 @@ class TransactionService
      */
     public function createTransaction(User $user, Collection $data, array $files = null)
     {
+        $this->parseTransactionDate($data);
+
         $transaction = new Transaction($data->all());
 
-        $this->setResolvedFieldValues($data, $transaction);
+        $this->setResolvedFieldValues($user, $data, $transaction);
 
         $user->transactions()->save($transaction);
 
@@ -128,13 +131,14 @@ class TransactionService
 
     public function updateTransaction(User $user, $id, Collection $data, array $files = null)
     {
+        $this->parseTransactionDate($data);
+
         $transaction = $user->transactions()->findOrFail($id);
 
         $transaction->amount = $data->get('amount');
         $transaction->notes = $data->get('notes');
-        $transaction->transaction_date = $data->get('transaction_date');
 
-        $this->setResolvedFieldValues($data, $transaction);
+        $this->setResolvedFieldValues($user, $data, $transaction);
 
         $transaction->save();
 
@@ -178,7 +182,7 @@ class TransactionService
      * @param $transaction
      * @internal param TransactionRequest $request
      */
-    private function setResolvedFieldValues(Collection $data, $transaction)
+    private function setResolvedFieldValues(User $user, Collection $data, $transaction)
     {
         $type = TransactionType::findOrFail($data->get('transaction_type'));
         $transaction->type()->associate($type);
@@ -188,29 +192,23 @@ class TransactionService
             $transaction->status()->associate($status);
         }
 
-        $account = Account::find($data->get('account'));
-        if ($account) {
-            $transaction->account_name = $account->name;
-        }
+        $account = $user->accounts()->findOrFail($data->get('account'));
+        $transaction->account_name = $account->name;
 
-        $toaccount = Account::find($data->get('to_account'));
+        $toaccount = $user->accounts()->find($data->get('to_account'));
         if ($toaccount) {
             $transaction->to_account_name = $toaccount->name;
         }
 
-        $payee = Payee::find($data->get('payee'));
-        if ($payee) {
-            $transaction->payee_name = $payee->name;
-        }
+        $payee = $user->payees()->findOrFail($data->get('payee'));
+        $transaction->payee_name = $payee->name;
 
-        $category = Category::rootCategories()->find($data->get('category'));
-        if ($category) {
-            $transaction->category_name = $category->name;
+        $category = $user->categories()->rootCategories()->findOrFail($data->get('category'));
+        $transaction->category_name = $category->name;
 
-            $subcategory = Category::subCategories()->find($data->get('subcategory'));
-            if ($subcategory) {
-                $transaction->sub_category_name = $subcategory->name;
-            }
+        $subcategory = $user->categories()->subCategories()->find($data->get('subcategory'));
+        if ($subcategory) {
+            $transaction->sub_category_name = $subcategory->name;
         }
     }
 
@@ -242,5 +240,32 @@ class TransactionService
             $payee->last_used_at = Carbon::now();
             $payee->save();
         }
+    }
+
+    private function parseTransactionDate($data)
+    {
+        $date = null;
+        $transactionDate = $data->pull('transaction_date');
+
+        if (!$transactionDate) {
+            return;
+        }
+
+        if (str_is('*/*/*', $transactionDate)) {
+
+            $format = 'm/d/Y';
+            if (App::getLocale() == 'de') {
+                $format = 'd.m.Y';
+            }
+
+            $date = Carbon::createFromFormat($format, $transactionDate);
+            $date->hour(0);
+            $date->minute(0);
+            $date->second(0);
+        } else {
+            $date = Carbon::parse($transactionDate);
+        }
+
+        $data['transaction_date'] = $date;
     }
 }

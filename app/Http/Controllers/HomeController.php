@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use App\Services\TransactionService;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -29,7 +30,10 @@ class HomeController extends Controller
      */
     public function index($id = null)
     {
-        $transaction = $this->transactionService->getTransaction($id);
+        $transaction = null;
+        if ($id) {
+            $transaction = $this->transactionService->getTransaction(Auth::user(), $id);
+        }
 
         return view('home', compact('transaction'));
     }

@@ -2,12 +2,9 @@
 
 namespace App\Models;
 
-use App;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Transaction extends Model implements HasMedia
 {
@@ -22,31 +19,6 @@ class Transaction extends Model implements HasMedia
      * @var array
      */
     protected $dates = ['deleted_at', 'created_at', 'updated_at', 'transaction_date'];
-
-    /**
-     * Set the user's first name.
-     *
-     * @param string $value
-     *
-     * @return void
-     */
-    public function setTransactionDateAttribute($value)
-    {
-        if (!$value) {
-            return;
-        }
-
-        $format = 'm/d/Y';
-        if (App::getLocale() == 'de') {
-            $format = 'd.m.Y';
-        }
-
-        $date = Carbon::createFromFormat($format, $value);
-        $date->hour(0);
-        $date->minute(0);
-        $date->second(0);
-        $this->attributes['transaction_date'] = $date;
-    }
 
     public function hasAttachments()
     {
