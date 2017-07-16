@@ -18,8 +18,8 @@ class TransactionTransformer extends TransformerAbstract
     public function transform(Transaction $item)
     {
         return [
-            'ID'          => $item->id,
-            'Date'        => $item->date,
+            'ID'          => (string)$item->id,
+            'Date'        => $item->transaction_date ? $item->transaction_date->toDateString() : null,
             'Account'     => $item->account_name,
             'ToAccount'   => $item->to_account_name,
             'Status'      => $item->status ? $item->status->slug : null,
@@ -27,11 +27,11 @@ class TransactionTransformer extends TransformerAbstract
             'Payee'       => $item->payee_name,
             'Category'    => $item->category_name,
             'SubCategory' => $item->sub_category_name,
-            'Amount'      => (string) floatval($item->amount),
+            'Amount'      => (string)floatval($item->amount),
             'Notes'       => $item->notes,
             'Attachments' => $item->getMedia('attachments')
                 ->map(function (Media $mediaItem) {
                     return $mediaItem->file_name;
-                })->implode(';'), ];
+                })->implode(';'),];
     }
 }

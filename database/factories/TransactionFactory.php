@@ -19,6 +19,7 @@ $factory->define(App\Models\Transaction::class, function (Faker\Generator $faker
         'type_id' => function () {
             return factory(App\Models\TransactionType::class)->create()->id;
         },
+        'transaction_date'  => $faker->dateTimeBetween('-2 years'),
         'account_name'      => $faker->word,
         'to_account_name'   => null,
         'payee_name'        => $faker->name,
