@@ -51,27 +51,31 @@ class ClientApiService
     {
         Log::debug('MmexController.importPayees(), $payees', [$postData->Payees]);
 
-        foreach ($postData->Payees as $payee) {
-            $categoryName = $payee->DefCateg;
-            $subCategoryName = $payee->DefSubCateg;
+        foreach ($postData->Payees as $payeeData) {
+            $categoryName = $payeeData->DefCateg;
+            $subCategoryName = $payeeData->DefSubCateg;
 
             $category = $user->categories()->where('name', $subCategoryName)->whereHas('parentCategory', function ($query) use ($categoryName) {
                 $query->where('name', $categoryName);
             })->first();
 
-            if ($category) {
-                $payee = $user->payees()->create([
-                    'name' => $payee->PayeeName,
-                ]);
+            $existingPayee = $user->payees()->onlyTrashed()->where('name', $payeeData->PayeeName)->first();
 
-                $category->defaultForPayees()->save($payee);
+            if ($existingPayee) {
+                $existingPayee->restore();
+                $payee = $existingPayee;
             } else {
-                // ignore default/last category and just create entry
-                $user->payees()->create([
-                    'name' => $payee->PayeeName,
+                $payee = $user->payees()->create([
+                    'name' => $payeeData->PayeeName,
                 ]);
             }
+
+            if ($category) {
+                $category->defaultForPayees()->save($payee);
+            }
         }
+
+        $user->payees()->onlyTrashed()->forceDelete();
     }
 
     public function deleteCategories(User $user)

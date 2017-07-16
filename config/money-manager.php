@@ -7,4 +7,5 @@ return [
         'en_US' => 'English (USA)',
         'en_GB' => 'English (GB)',
     ],
+    'https'   => env('MMEX_ENABLE_HTTPS', true),
 ];

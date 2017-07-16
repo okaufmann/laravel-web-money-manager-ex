@@ -19,8 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->boolean('is_admin')->default(false);
-            $table->string('mmex_guid')->nullable();
-            $table->string('api_token')->nullable();
+            $table->string('mmex_guid')->unique()->nullable();
+            $table->string('api_token')->unique()->nullable();
             $table->string('locale')->nullable();
             $table->rememberToken();
             $table->timestamps();

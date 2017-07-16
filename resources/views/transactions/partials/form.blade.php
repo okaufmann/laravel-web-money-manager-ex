@@ -2,9 +2,9 @@
 
 @push('footer')
 @javascript('dropDownOptions', [
-'types' => $fieldValues->getValues(App\Models\TransactionType::class, true),
-'status' => $fieldValues->getValues(App\Models\TransactionStatus::class, true),
-'accounts' => $fieldValues->getValues(App\Models\Account::class),
+'types' => $fieldValues->getMasterData(App\Models\TransactionType::class),
+'status' => $fieldValues->getMasterData(App\Models\TransactionStatus::class),
+'accounts' => $fieldValues->getUserData(App\Models\Account::class),
 ])
 <script id="noDataAddNewTemplate" type="text/x-kendo-tmpl">
         <div>
@@ -18,6 +18,7 @@
 @endpush
 
 @include('partials.form-errors')
+@include('partials.form-status')
 
 <div class="form-group label-static is-empty">
     <label for="transaction_date" class="control-label">@lang('mmex.type')</label>

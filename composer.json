@@ -11,6 +11,7 @@
         "mariuzzo/laravel-js-localization": "^1.4",
         "okaufmann/laravel-git-version": "^1.1",
         "rap2hpoutre/laravel-log-viewer": "^0.10",
+        "sentry/sentry-laravel": "^0.7.0",
         "spatie/laravel-blade-javascript": "^1.1",
         "spatie/laravel-fractal": "^4.0",
         "spatie/laravel-medialibrary": "^5.0",

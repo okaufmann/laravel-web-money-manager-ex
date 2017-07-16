@@ -17,6 +17,8 @@ Route::pattern('id', '[0-9]+');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/user', 'Auth\UserController@show')->name('user');
+    Route::post('/user/password', 'Auth\UserController@password')->name('user-password');
     Route::resource('transactions', 'TransactionController');
     Route::get('settings', 'SettingsController@index');
     Route::post('settings', 'SettingsController@update');

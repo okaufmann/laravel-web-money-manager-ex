@@ -78,7 +78,7 @@ class MmexController extends Controller
                     ->toArray();
 
                 // encodes the array as it its (with it keys "0"=> {}, as needed by client)
-                $responseText = json_encode($result, JSON_FORCE_OBJECT);
+                $responseText = $this->toJson($result);
             }
 
             return $this->returnText($responseText);
@@ -208,5 +208,10 @@ class MmexController extends Controller
     {
         return response($text, 200)
             ->header('Content-Type', 'text/plain; charset=UTF-8');
+    }
+
+    private function toJson($data)
+    {
+        return json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_FORCE_OBJECT);
     }
 }

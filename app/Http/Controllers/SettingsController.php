@@ -53,6 +53,6 @@ class SettingsController extends Controller
 
         $user->save();
 
-        return back()->with('status', trans('Update successful!'));
+        return back()->with('status', __('mmex.updated'));
     }
 }

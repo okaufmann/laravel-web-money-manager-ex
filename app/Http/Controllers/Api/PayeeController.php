@@ -14,7 +14,7 @@ class PayeeController extends Controller
      */
     public function index()
     {
-        $data = Auth::user()->payees()->orderBy('name')->get();
+        $data = Auth::user()->payees()->orderBy('last_used_at', 'desc')->orderBy('name')->get();
 
         return fractal()
             ->collection($data)

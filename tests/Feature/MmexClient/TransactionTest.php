@@ -12,6 +12,7 @@
 namespace Tests\Feature\MmexClient;
 
 use App\Models\Transaction;
+use App\Services\TransactionService;
 
 class TransactionTest extends MmexTestCase
 {
@@ -103,8 +104,10 @@ class TransactionTest extends MmexTestCase
      */
     protected function addReceiptsToTransaction(Transaction $transaction)
     {
-        $transaction->addAttachment(base_path('tests/data/test-receipt.png'), true);
-        $transaction->addAttachment(base_path('tests/data/test-receipt-2.png'), true);
-        $transaction->addAttachment(base_path('tests/data/test-receipt-3.png'), true);
+        $transactionService = resolve(TransactionService::class);
+
+        $transactionService->addAttachment($transaction, base_path('tests/data/test-receipt.png'), true);
+        $transactionService->addAttachment($transaction, base_path('tests/data/test-receipt-2.png'), true);
+        $transactionService->addAttachment($transaction, base_path('tests/data/test-receipt-3.png'), true);
     }
 }

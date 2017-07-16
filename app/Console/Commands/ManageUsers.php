@@ -60,7 +60,7 @@ class ManageUsers extends Command
         if (empty($email) && empty($password)) {
             $headers = ['Name', 'Email', 'Admin', 'MMEX Guid', 'Locale', 'API Key', 'Created at'];
 
-            $users = User::all(['name', 'email', 'is_admin', 'mmex_guid', 'locale', 'api_key', 'created_at'])->toArray();
+            $users = User::all(['name', 'email', 'is_admin', 'mmex_guid', 'locale', 'api_token', 'created_at'])->toArray();
 
             $this->info(sprintf('%d users found', count($users)));
 
