@@ -58,7 +58,7 @@ class TransactionController extends Controller
 
         // ensure payee exists
         $payeeName = $request->input('payee');
-        $payee = Auth::user()->payees()->where($payeeName)->first();
+        $payee = Auth::user()->payees()->whereName($payeeName)->first();
         if (!empty($payeeName) && !$payee) {
             $payee = Auth::user()->payees()->create(['name' => $payeeName]);
         }

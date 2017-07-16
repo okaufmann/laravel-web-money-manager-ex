@@ -18,8 +18,8 @@ class TransactionTransformer extends TransformerAbstract
     public function transform(Transaction $item)
     {
         return [
-            'ID'          => $item->id,
-            'Date'        => $item->date,
+            'ID'          => (string) $item->id,
+            'Date'        => $item->transaction_date ? $item->transaction_date->toDateString() : null,
             'Account'     => $item->account_name,
             'ToAccount'   => $item->to_account_name,
             'Status'      => $item->status ? $item->status->slug : null,

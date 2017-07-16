@@ -69,7 +69,7 @@ Visit your user profile under `/user` to get the api key.
 
 Append `?api_token={your api key}` to each request (as query parameter). Also you have to set the Headers `Accept` and `Content-Type` to `application/json`.
 
-####Create Transaction
+#### Create Transaction
  
 **POST** data with the following schema to `api/v1/transactions`
 ```json
@@ -108,7 +108,7 @@ You can receive all created transactions under `api/v1/transactions`.
 - `sort`: _(Optional)_ Sort by a column (e.g. `sort=created_at|desc`).
 - `page`: _(Optional)_ Page to fetch data from (e.g. `page=2`).
 
-####Edit Transaction
+#### Edit Transaction
 TODO
 
 ## Contributing

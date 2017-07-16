@@ -58,8 +58,8 @@ class TransactionTest extends MmexTestCase
         $response->assertStatus(200)
             ->assertJsonFragment(
                 [
-                    'ID'          => $transaction->id,
-                    'Date'        => $transaction->date,
+                    'ID'          => (string) $transaction->id,
+                    'Date'        => $transaction->transaction_date->toDateString(),
                     'Account'     => $transaction->account_name,
                     'ToAccount'   => $transaction->to_account_name,
                     'Status'      => $transaction->status->slug,
