@@ -18,8 +18,6 @@ class CreatePayeesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('last_category_id')->unsigned()->nullable();
             $table->string('name');
-            $table->timestamp('last_used_at')->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
 
