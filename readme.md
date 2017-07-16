@@ -26,7 +26,7 @@ composer create-project --prefer-dist okaufmann/laravel-web-money-manager-ex .
 ```
 
 **BETA**
-When you want the latest beta version, use the following command:
+If you want the latest beta version, use the following command:
 
 ```commandline
 composer create-project --prefer-dist --stability=dev okaufmann/laravel-web-money-manager-ex .
@@ -59,6 +59,57 @@ location = /services.php {
     }
 
 ```
+
+## Transaction API
+
+You can add and get transactions via API.
+
+**Authentication**
+Visit your user profile under `/user` to get the api key.
+
+Append `?api_token={your api key}` to each request (as query parameter). Also you have to set the Headers `Accept` and `Content-Type` to `application/json`.
+
+####Create Transaction
+ 
+**POST** data with the following schema to `api/v1/transactions`
+```json
+{
+    "transaction_date": "2017-07-16T12:00:00+00:00",
+    "transaction_type": "Deposit",
+    "transaction_status": "Reconciled",
+    "account" : "Primary Account",
+    "to_account":  "Secondary Account",
+    "payee": "Neo",
+    "category": "Bills",
+    "subcategory": "Internet",
+    "amount" : 13.37,
+    "notes" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+}
+```
+
+**Properties:**
+
+- `transaction_date`: _(Optional)_ Date of the transaction in Iso 8601 format.
+- `transaction_type`: Type of the transaction (`Withdrawal`, `Deposit` , `Transfer`).
+- `transaction_status`: _(Optional)_ Status of the transaction (`Reconciled`, `Void`, `Follow Up`, `Duplicate`) 
+- `to_account`: _(Optional*)_ Account where to transfer the amount. **Only considered if `transaction_type` is set to `Transfer`
+- `payee`: Person who who gets or give the money (If the person was not found in your payees, it will be created automatically).
+- `category`: Category of your transaction. See your Categories in the Money Manager EX Client. 
+- `subcategory`: _(Optional)_ Same as Categories.
+- `account`: Amount of the Transaction (e.g. `15`, `19.19`)
+- `notes`: (Optional) Additional notes for your Transaction. 
+
+#### Get Transactions
+
+You can receive all created transactions under `api/v1/transactions`.
+
+**Parameters**
+
+- `sort`: _(Optional)_ Sort by a column (e.g. `sort=created_at|desc`).
+- `page`: _(Optional)_ Page to fetch data from (e.g. `page=2`).
+
+####Edit Transaction
+TODO
 
 ## Contributing
 
