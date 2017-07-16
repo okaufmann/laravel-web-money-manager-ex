@@ -25,37 +25,38 @@ use Illuminate\Support\Collection;
 class TransactionService
 {
     /**
+     * Gets a transaction and set all related entities's ids if possible
      * @param $id
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
+     * @return Transaction
      */
-    public function getTransaction(int $id)
+    public function getTransaction(User $user, int $id)
     {
-        $transaction = Transaction::find($id);
+        $transaction = $user->transactions()->find($id);
 
         if (!$transaction) {
             return null;
         }
 
-        $account = Account::where('name', $this->account_name)->first();
+        $account = $user->accounts()->where('name', $this->account_name)->first();
         if ($account) {
             $transaction->account_id = $account->id;
         }
-        $account = Account::where('name', $this->to_account_name)->first();
+        $account = $user->accounts()->where('name', $this->to_account_name)->first();
         if ($account) {
             $transaction->to_account_id = $account->id;
         }
 
-        $payee = Payee::where('name', $this->payee_name)->first();
+        $payee = $user->payees()->where('name', $this->payee_name)->first();
         if ($payee) {
             $transaction->payee_id = $payee->id;
         }
 
-        $category = Category::where('name', $this->category_name)->first();
+        $category = $user->categories()->where('name', $this->category_name)->first();
         if ($category) {
             $transaction->category_id = $category->id;
         }
 
-        $category = Category::where('name', $this->sub_category_name)->first();
+        $category = $user->categories()->where('name', $this->sub_category_name)->first();
 
         if ($category) {
             $transaction->sub_category_id = $category->id;
@@ -64,6 +65,31 @@ class TransactionService
         return $transaction;
     }
 
+    /**
+     * Creates a new transaction and touch last used payee and payee's category.
+     * @param User $user
+     * @param Collection $data
+     * @param array|null $files
+     * @return Transaction
+     */
+    public function createTransactionWithUsage(User $user, Collection $data, array $files = null)
+    {
+        $transaction = $this->createTransaction($user, $data, $files);
+
+        $this->setPayeesLastUsedCategory($user, $data);
+        $this->setPayeesLastUsedDate($user, $data);
+
+        return $transaction;
+    }
+
+    /**
+     * Creates a new transaction.
+     *
+     * @param User $user
+     * @param Collection $data
+     * @param array|null $files
+     * @return Transaction
+     */
     public function createTransaction(User $user, Collection $data, array $files = null)
     {
         $transaction = new Transaction($data->all());
@@ -72,15 +98,32 @@ class TransactionService
 
         $user->transactions()->save($transaction);
 
-        $this->setPayeesLastUsedCategory($data);
-        $this->setPayessLastUsedDate($data);
-
         if ($files) {
             foreach ($files as $file) {
                 $this->addAttachment($transaction, $file);
             }
         }
 
+        return $transaction;
+    }
+
+    /**
+     * Updates a existing transaction and touch last used payee and payee's category.
+     *
+     * @param User $user
+     * @param $id
+     * @param Collection $data
+     * @param array|null $files
+     * @return mixed
+     */
+    public function updateTransactionWithUsage(User $user, $id, Collection $data, array $files = null)
+    {
+        $transaction = $this->updateTransaction($user, $id, $data, $files);
+
+        $this->setPayeesLastUsedCategory($user, $data);
+        $this->setPayeesLastUsedDate($user, $data);
+
+        return $transaction;
     }
 
     public function updateTransaction(User $user, $id, Collection $data, array $files = null)
@@ -94,9 +137,6 @@ class TransactionService
         $this->setResolvedFieldValues($data, $transaction);
 
         $transaction->save();
-
-        $this->setPayeesLastUsedCategory($data);
-        $this->setPayessLastUsedDate($data);
 
         if ($files) {
             foreach ($files as $file) {
@@ -177,24 +217,26 @@ class TransactionService
     /**
      * @param Collection $data
      */
-    private function setPayeesLastUsedCategory(Collection $data)
+    private function setPayeesLastUsedCategory(User $user, Collection $data)
     {
         if ($data->get('subcategory')) {
-            $lastCategory = Category::find($data->get('subcategory'));
+            $lastCategory = $user->categories()->find($data->get('subcategory'));
         } else {
-            $lastCategory = Category::find($data->get('category'));
+            $lastCategory = $user->categories()->find($data->get('category'));
         }
 
         if ($lastCategory) {
-            $payee = Payee::find($data->get('payee'));
-            $payee->lastCategoryUsed()->associate($lastCategory);
-            $payee->save();
+            $payee = $user->payees()->find($data->get('payee'));
+            if ($payee) {
+                $payee->lastCategoryUsed()->associate($lastCategory);
+                $payee->save();
+            }
         }
     }
 
-    private function setPayessLastUsedDate(Collection $data)
+    private function setPayeesLastUsedDate(User $user, Collection $data)
     {
-        $payee = Payee::find($data->get('payee'));
+        $payee = $user->payees()->find($data->get('payee'));
 
         if ($payee) {
             $payee->last_used_at = Carbon::now();

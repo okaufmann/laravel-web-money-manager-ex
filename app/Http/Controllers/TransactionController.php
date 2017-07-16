@@ -53,7 +53,7 @@ class TransactionController extends Controller
         $files = $request->file('attachments');
 
         $data = collect($request->all());
-        $this->transactionService->createTransaction(Auth::user(), $data, $files);
+        $this->transactionService->createTransactionWithUsage(Auth::user(), $data, $files);
 
         return redirect()->back();
     }
@@ -71,7 +71,7 @@ class TransactionController extends Controller
         $files = $request->file('attachments');
 
         $data = collect($request->all());
-        $this->transactionService->updateTransaction(Auth::user(), $id, $data, $files);
+        $this->transactionService->updateTransactionWithUsage(Auth::user(), $id, $data, $files);
 
         return redirect()->route('home');
     }
