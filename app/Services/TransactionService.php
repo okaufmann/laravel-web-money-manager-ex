@@ -10,7 +10,6 @@
 
 namespace App\Services;
 
-
 use App;
 use App\Models\Account;
 use App\Models\Category;
@@ -26,8 +25,10 @@ use Illuminate\Support\Collection;
 class TransactionService
 {
     /**
-     * Gets a transaction and set all related entities's ids if possible
+     * Gets a transaction and set all related entities's ids if possible.
+     *
      * @param $id
+     *
      * @return Transaction
      */
     public function getTransaction(User $user, int $id)
@@ -68,9 +69,11 @@ class TransactionService
 
     /**
      * Creates a new transaction and touch last used payee and payee's category.
-     * @param User $user
+     *
+     * @param User       $user
      * @param Collection $data
      * @param array|null $files
+     *
      * @return Transaction
      */
     public function createTransactionWithUsage(User $user, Collection $data, array $files = null)
@@ -86,9 +89,10 @@ class TransactionService
     /**
      * Creates a new transaction.
      *
-     * @param User $user
+     * @param User       $user
      * @param Collection $data
      * @param array|null $files
+     *
      * @return Transaction
      */
     public function createTransaction(User $user, Collection $data, array $files = null)
@@ -117,6 +121,7 @@ class TransactionService
      * @param $id
      * @param Collection $data
      * @param array|null $files
+     *
      * @return mixed
      */
     public function updateTransactionWithUsage(User $user, $id, Collection $data, array $files = null)
@@ -181,6 +186,7 @@ class TransactionService
     /**
      * @param Collection $data
      * @param $transaction
+     *
      * @internal param TransactionRequest $request
      */
     private function setResolvedFieldValues(User $user, Collection $data, $transaction)
@@ -253,7 +259,6 @@ class TransactionService
         }
 
         if (str_is('*/*/*', $transactionDate)) {
-
             $format = 'm/d/Y';
             if (App::getLocale() == 'de') {
                 $format = 'd.m.Y';

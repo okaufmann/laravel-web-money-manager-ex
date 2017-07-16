@@ -15,6 +15,7 @@ class HomeController extends Controller
 
     /**
      * Create a new controller instance.
+     *
      * @param TransactionService $transactionService
      */
     public function __construct(TransactionService $transactionService)

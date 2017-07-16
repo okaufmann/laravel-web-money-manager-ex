@@ -20,11 +20,11 @@ class TransactionController extends Controller
 
     /**
      * TransactionController constructor.
+     *
      * @param TransactionService $transactionService
      */
     public function __construct(TransactionService $transactionService)
     {
-
         $this->transactionService = $transactionService;
     }
 
@@ -84,6 +84,6 @@ class TransactionController extends Controller
 
         $this->transactionService->createTransaction(Auth::user(), $data);
 
-        return response("", 201);
+        return response('', 201);
     }
 }

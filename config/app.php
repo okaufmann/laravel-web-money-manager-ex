@@ -238,7 +238,7 @@ return [
          */
         'Fractal'      => Spatie\Fractal\FractalFacade::class,
         'Uuid'         => Webpatser\Uuid\Uuid::class,
-        'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
+        'Sentry'       => Sentry\SentryLaravel\SentryFacade::class,
     ],
 
 ];
