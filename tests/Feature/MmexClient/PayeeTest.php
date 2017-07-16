@@ -18,7 +18,7 @@ class PayeeTest extends MmexTestCase
 
         // Assert
         $this->assertSeeMmexSuccess($response);
-        $this->assertDatabaseMissing('payees', ['user_id' => $this->user->id, 'name' => $payee->name]);
+        $this->assertIsSoftDeletedInDatabase('payees', ['user_id' => $this->user->id, 'name' => $payee->name]);
     }
 
     public function testImportPayees()
@@ -30,7 +30,7 @@ class PayeeTest extends MmexTestCase
         $billsServices = factory(Category::class)->create(['user_id' => $this->user->id, 'name' => 'Services', 'parent_id' => $bills->id]);
 
         $data = ['MMEX_Post' => '{ "Payees" : [ { "PayeeName" : "Mc Donalds", "DefCateg" : "'.$food->name.'", "DefSubCateg" : "'.$foodPurchases->name.'" },'.
-            '{ "PayeeName" : "Spotify", "DefCateg" : "'.$bills->name.'", "DefSubCateg" : "'.$billsServices->name.'" } ] }', ];
+            '{ "PayeeName" : "Spotify", "DefCateg" : "'.$bills->name.'", "DefSubCateg" : "'.$billsServices->name.'" } ] }',];
 
         $url = $this->buildUrl(['import_payee' => 'true']);
 
@@ -41,5 +41,29 @@ class PayeeTest extends MmexTestCase
         $this->assertSeeMmexSuccess($response);
         $this->assertDatabaseHas('payees', ['user_id' => $this->user->id, 'name' => 'Mc Donalds', 'last_category_id' => $foodPurchases->id]);
         $this->assertDatabaseHas('payees', ['user_id' => $this->user->id, 'name' => 'Spotify', 'last_category_id' => $billsServices->id]);
+    }
+
+    public function testEnsureSoftDeletedPayeesWillBeRestored()
+    {
+        // Arrange
+        $payee1 = factory(Payee::class)->create(['user_id' => $this->user->id, 'name' => 'Luke Skywalker']);
+        $payee2 = factory(Payee::class)->create(['user_id' => $this->user->id, 'name' => 'Yoda']);
+
+        // will soft delete entries
+        $payee1->delete();
+        $payee2->delete();
+
+        $data = ['MMEX_Post' => '{ "Payees" : [ { "PayeeName" : "Luke Skywalker", "DefCateg" : "None", "DefSubCateg" : "None" },'.
+            '{ "PayeeName" : "Yoda", "DefCateg" : "None", "DefSubCateg" : "None" } ] }',];
+
+        $url = $this->buildUrl(['import_payee' => 'true']);
+
+        // Act
+        $response = $this->postJson($url, $data);
+
+        // Assert
+        $this->assertSeeMmexSuccess($response);
+        $this->assertDatabaseHas('payees', ['user_id' => $this->user->id, 'name' => 'Luke Skywalker', 'deleted_at' => null]);
+        $this->assertDatabaseHas('payees', ['user_id' => $this->user->id, 'name' => 'Yoda', 'deleted_at' => null]);
     }
 }

@@ -187,8 +187,6 @@ class TransactionControllerTest extends FeatureTestCase
     public function it_stores_last_used_subcategory_by_payee_in_payees_table_on_create()
     {
         // Arrange
-        $transaction = factory(Transaction::class)->create(['user_id' => $this->user->id]);
-
         $type = factory(TransactionType::class)->create();
         $account = factory(Account::class)->create(['user_id' => $this->user->id]);
         $payee = factory(Payee::class)->create(['user_id' => $this->user->id]);
@@ -206,7 +204,7 @@ class TransactionControllerTest extends FeatureTestCase
 
         // Act
         $this->ensureAuthenticated();
-        $response = $this->put('/transactions/'.$transaction->id, $data);
+        $response = $this->post('/transactions', $data);
 
         // Assert
         $response->assertRedirect('/');
@@ -283,5 +281,73 @@ class TransactionControllerTest extends FeatureTestCase
             'category_name'     => $category->name,
             'sub_category_name' => $subcategory->name,
         ]);
+    }
+
+    /**
+     * @test
+     */
+    public function it_stores_last_used_date_by_payee_in_payees_table_on_create()
+    {
+        // Arrange
+        $knownDate = Carbon::create(2017, 07, 16, 12);
+        Carbon::setTestNow($knownDate);
+
+        $type = factory(TransactionType::class)->create();
+        $account = factory(Account::class)->create(['user_id' => $this->user->id]);
+        $payee = factory(Payee::class)->create(['user_id' => $this->user->id]);
+        $category = factory(Category::class)->create(['user_id' => $this->user->id]);
+        $subcategory = factory(Category::class)->create(['user_id' => $this->user->id, 'parent_id' => $category->id]);
+
+        $data = [
+            'transaction_type' => $type->id,
+            'account'          => $account->id,
+            'payee'            => $payee->id,
+            'category'         => $category->id,
+            'subcategory'      => $subcategory->id,
+            'amount'           => 13.37,
+        ];
+
+        // Act
+        $this->ensureAuthenticated();
+        $response = $this->post('/transactions', $data);
+
+        // Assert
+        $response->assertRedirect('/');
+        $this->assertDatabaseHas('payees', ['id' => $payee->id, 'last_used_at' => Carbon::now()->toDateTimeString()]);
+    }
+
+    /**
+     * @test
+     */
+    public function it_stores_last_used_date_by_payee_in_payees_table_on_update()
+    {
+        // Arrange
+        $knownDate = Carbon::create(2017, 07, 16, 12);
+        Carbon::setTestNow($knownDate);
+
+        $transaction = factory(Transaction::class)->create(['user_id' => $this->user->id]);
+
+        $type = factory(TransactionType::class)->create();
+        $account = factory(Account::class)->create(['user_id' => $this->user->id]);
+        $payee = factory(Payee::class)->create(['user_id' => $this->user->id]);
+        $category = factory(Category::class)->create(['user_id' => $this->user->id]);
+        $subcategory = factory(Category::class)->create(['user_id' => $this->user->id, 'parent_id' => $category->id]);
+
+        $data = [
+            'transaction_type' => $type->id,
+            'account'          => $account->id,
+            'payee'            => $payee->id,
+            'category'         => $category->id,
+            'subcategory'      => $subcategory->id,
+            'amount'           => 13.37,
+        ];
+
+        // Act
+        $this->ensureAuthenticated();
+        $response = $this->put('/transactions/'.$transaction->id, $data);
+
+        // Assert
+        $response->assertRedirect('/');
+        $this->assertDatabaseHas('payees', ['id' => $payee->id, 'last_used_at' => Carbon::now()->toDateTimeString()]);
     }
 }

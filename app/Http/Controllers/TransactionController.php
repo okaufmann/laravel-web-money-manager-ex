@@ -10,6 +10,7 @@ use App\Models\Transaction;
 use App\Models\TransactionStatus;
 use App\Models\TransactionType;
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -51,6 +52,8 @@ class TransactionController extends Controller
 
         $this->setPayeesLastUsedCategory($request);
 
+        $this->setPayessLastUsedDate($request);
+
         if ($request->hasFile('attachments') && is_array($request->file('attachments'))) {
             foreach ($request->file('attachments') as $file) {
                 $transaction->addAttachment($file);
@@ -88,7 +91,7 @@ class TransactionController extends Controller
      * Update the specified resource in storage.
      *
      * @param TransactionRequest|Request $request
-     * @param int                        $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -105,6 +108,7 @@ class TransactionController extends Controller
         $transaction->save();
 
         $this->setPayeesLastUsedCategory($request);
+        $this->setPayessLastUsedDate($request);
 
         if ($request->hasFile('attachments') && is_array($request->file('attachments'))) {
             foreach ($request->file('attachments') as $file) {
@@ -183,6 +187,16 @@ class TransactionController extends Controller
         if ($lastCategory) {
             $payee = Payee::find($request->input('payee'));
             $payee->lastCategoryUsed()->associate($lastCategory);
+            $payee->save();
+        }
+    }
+
+    private function setPayessLastUsedDate($request)
+    {
+        $payee = Payee::find($request->input('payee'));
+
+        if ($payee) {
+            $payee->last_used_at = Carbon::now();
             $payee->save();
         }
     }
