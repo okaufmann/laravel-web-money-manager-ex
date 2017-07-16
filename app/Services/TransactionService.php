@@ -39,26 +39,26 @@ class TransactionService
             return null;
         }
 
-        $account = $user->accounts()->where('name', $this->account_name)->first();
+        $account = $user->accounts()->where('name', $transaction->account_name)->first();
         if ($account) {
             $transaction->account_id = $account->id;
         }
-        $account = $user->accounts()->where('name', $this->to_account_name)->first();
+        $account = $user->accounts()->where('name', $transaction->to_account_name)->first();
         if ($account) {
             $transaction->to_account_id = $account->id;
         }
 
-        $payee = $user->payees()->where('name', $this->payee_name)->first();
+        $payee = $user->payees()->where('name', $transaction->payee_name)->first();
         if ($payee) {
             $transaction->payee_id = $payee->id;
         }
 
-        $category = $user->categories()->where('name', $this->category_name)->first();
+        $category = $user->categories()->where('name', $transaction->category_name)->first();
         if ($category) {
             $transaction->category_id = $category->id;
         }
 
-        $category = $user->categories()->where('name', $this->sub_category_name)->first();
+        $category = $user->categories()->where('name', $transaction->sub_category_name)->first();
 
         if ($category) {
             $transaction->sub_category_id = $category->id;
@@ -70,7 +70,7 @@ class TransactionService
     /**
      * Creates a new transaction and touch last used payee and payee's category.
      *
-     * @param User       $user
+     * @param User $user
      * @param Collection $data
      * @param array|null $files
      *
@@ -89,7 +89,7 @@ class TransactionService
     /**
      * Creates a new transaction.
      *
-     * @param User       $user
+     * @param User $user
      * @param Collection $data
      * @param array|null $files
      *
