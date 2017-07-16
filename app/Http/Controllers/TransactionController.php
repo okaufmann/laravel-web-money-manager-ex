@@ -9,6 +9,7 @@ use App\Models\Payee;
 use App\Models\Transaction;
 use App\Models\TransactionStatus;
 use App\Models\TransactionType;
+use App\Services\TransactionService;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,13 +17,18 @@ use Illuminate\Http\Request;
 class TransactionController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @var TransactionService
      */
-    public function index()
+    private $transactionService;
+
+    /**
+     * TransactionController constructor.
+     * @param TransactionService $transactionService
+     */
+    public function __construct(TransactionService $transactionService)
     {
-        //
+
+        $this->transactionService = $transactionService;
     }
 
     /**
@@ -44,47 +50,12 @@ class TransactionController extends Controller
      */
     public function store(TransactionRequest $request)
     {
-        $transaction = new Transaction($request->all());
+        $files = $request->file('attachments');
 
-        $this->setResolvedFieldValues($request, $transaction);
-
-        Auth::user()->transactions()->save($transaction);
-
-        $this->setPayeesLastUsedCategory($request);
-
-        $this->setPayessLastUsedDate($request);
-
-        if ($request->hasFile('attachments') && is_array($request->file('attachments'))) {
-            foreach ($request->file('attachments') as $file) {
-                $transaction->addAttachment($file);
-            }
-        }
+        $data = collect($request->all());
+        $this->transactionService->createTransaction(Auth::user(), $data, $files);
 
         return redirect()->back();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -97,24 +68,10 @@ class TransactionController extends Controller
      */
     public function update(TransactionRequest $request, $id)
     {
-        $transaction = Transaction::findOrFail($id);
+        $files = $request->file('attachments');
 
-        $transaction->amount = $request->input('amount');
-        $transaction->notes = $request->input('notes');
-        $transaction->transaction_date = $request->input('transaction_date');
-
-        $this->setResolvedFieldValues($request, $transaction);
-
-        $transaction->save();
-
-        $this->setPayeesLastUsedCategory($request);
-        $this->setPayessLastUsedDate($request);
-
-        if ($request->hasFile('attachments') && is_array($request->file('attachments'))) {
-            foreach ($request->file('attachments') as $file) {
-                $transaction->addAttachment($file);
-            }
-        }
+        $data = collect($request->all());
+        $this->transactionService->updateTransaction(Auth::user(), $id, $data, $files);
 
         return redirect()->route('home');
     }
@@ -131,73 +88,5 @@ class TransactionController extends Controller
         abort_unless(Auth::user()->transactions()->whereId($id)->exists(), 403);
 
         Transaction::destroy($id);
-    }
-
-    /**
-     * @param TransactionRequest $request
-     * @param $transaction
-     */
-    protected function setResolvedFieldValues(TransactionRequest $request, $transaction)
-    {
-        $type = TransactionType::findOrFail($request->input('transaction_type'));
-        $transaction->type()->associate($type);
-
-        $status = TransactionStatus::find($request->input('transaction_status'));
-        if ($status) {
-            $transaction->status()->associate($status);
-        }
-
-        $account = Account::find($request->input('account'));
-        if ($account) {
-            $transaction->account_name = $account->name;
-        }
-
-        $toaccount = Account::find($request->input('to_account'));
-        if ($toaccount) {
-            $transaction->to_account_name = $toaccount->name;
-        }
-
-        $payee = Payee::find($request->input('payee'));
-        if ($payee) {
-            $transaction->payee_name = $payee->name;
-        }
-
-        $category = Category::rootCategories()->find($request->input('category'));
-        if ($category) {
-            $transaction->category_name = $category->name;
-
-            $subcategory = Category::subCategories()->find($request->input('subcategory'));
-            if ($subcategory) {
-                $transaction->sub_category_name = $subcategory->name;
-            }
-        }
-    }
-
-    /**
-     * @param TransactionRequest $request
-     */
-    protected function setPayeesLastUsedCategory(TransactionRequest $request)
-    {
-        if ($request->input('subcategory')) {
-            $lastCategory = Category::find($request->input('subcategory'));
-        } else {
-            $lastCategory = Category::find($request->input('category'));
-        }
-
-        if ($lastCategory) {
-            $payee = Payee::find($request->input('payee'));
-            $payee->lastCategoryUsed()->associate($lastCategory);
-            $payee->save();
-        }
-    }
-
-    private function setPayessLastUsedDate($request)
-    {
-        $payee = Payee::find($request->input('payee'));
-
-        if ($payee) {
-            $payee->last_used_at = Carbon::now();
-            $payee->save();
-        }
     }
 }

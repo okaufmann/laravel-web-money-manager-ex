@@ -3,15 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Services\TransactionService;
 
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
+     * @var TransactionService
      */
-    public function __construct()
+    private $transactionService;
+
+    /**
+     * Create a new controller instance.
+     * @param TransactionService $transactionService
+     */
+    public function __construct(TransactionService $transactionService)
     {
         $this->middleware('auth');
+        $this->transactionService = $transactionService;
     }
 
     /**
@@ -21,7 +29,7 @@ class HomeController extends Controller
      */
     public function index($id = null)
     {
-        $transaction = Transaction::find($id);
+        $transaction = $this->transactionService->getTransaction($id);
 
         return view('home', compact('transaction'));
     }
