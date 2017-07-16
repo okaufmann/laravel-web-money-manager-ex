@@ -173,6 +173,7 @@ return [
         Mariuzzo\LaravelJsLocalization\LaravelJsLocalizationServiceProvider::class,
         Tremby\LaravelGitVersion\GitVersionServiceProvider::class,
         Spatie\BladeJavaScript\BladeJavaScriptServiceProvider::class,
+        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -237,6 +238,7 @@ return [
          */
         'Fractal'      => Spatie\Fractal\FractalFacade::class,
         'Uuid'         => Webpatser\Uuid\Uuid::class,
+        'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
     ],
 
 ];
