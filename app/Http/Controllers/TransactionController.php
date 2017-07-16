@@ -17,11 +17,11 @@ class TransactionController extends Controller
 
     /**
      * TransactionController constructor.
+     *
      * @param TransactionService $transactionService
      */
     public function __construct(TransactionService $transactionService)
     {
-
         $this->transactionService = $transactionService;
     }
 
@@ -56,7 +56,7 @@ class TransactionController extends Controller
      * Update the specified resource in storage.
      *
      * @param TransactionRequest|Request $request
-     * @param int $id
+     * @param int                        $id
      *
      * @return \Illuminate\Http\Response
      */

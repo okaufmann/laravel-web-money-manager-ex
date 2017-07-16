@@ -91,7 +91,6 @@ class TransactionControllerTest extends FeatureTestCase
         $this->ensureAuthenticated();
         $response = $this->json('POST', $url, $data);
 
-
         // Assert
         $response->assertStatus(201);
         $this->assertDatabaseHas('payees', [
