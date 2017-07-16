@@ -148,7 +148,7 @@ class TransactionControllerTest extends FeatureTestCase
 
         // Assert
         $response->assertRedirect('/');
-        $this->assertDatabaseHas('payees', ['id' => $payee->id, 'last_category_id' => $category->id]);
+        $this->assertDatabaseHas('payees', ['user_id' => $this->user->id, 'id' => $payee->id, 'last_category_id' => $category->id]);
     }
 
     /**
@@ -178,7 +178,7 @@ class TransactionControllerTest extends FeatureTestCase
 
         // Assert
         $response->assertRedirect('/');
-        $this->assertDatabaseHas('payees', ['id' => $payee->id, 'last_category_id' => $category->id]);
+        $this->assertDatabaseHas('payees', ['user_id' => $this->user->id, 'id' => $payee->id, 'last_category_id' => $category->id]);
     }
 
     /**
@@ -208,7 +208,7 @@ class TransactionControllerTest extends FeatureTestCase
 
         // Assert
         $response->assertRedirect('/');
-        $this->assertDatabaseHas('payees', ['id' => $payee->id, 'last_category_id' => $subcategory->id]);
+        $this->assertDatabaseHas('payees', ['user_id' => $this->user->id, 'id' => $payee->id, 'last_category_id' => $subcategory->id]);
     }
 
     /**
@@ -240,7 +240,7 @@ class TransactionControllerTest extends FeatureTestCase
 
         // Assert
         $response->assertRedirect('/');
-        $this->assertDatabaseHas('payees', ['id' => $payee->id, 'last_category_id' => $subcategory->id]);
+        $this->assertDatabaseHas('payees', ['user_id' => $this->user->id, 'id' => $payee->id, 'last_category_id' => $subcategory->id]);
     }
 
     /**
@@ -313,7 +313,7 @@ class TransactionControllerTest extends FeatureTestCase
 
         // Assert
         $response->assertRedirect('/');
-        $this->assertDatabaseHas('payees', ['id' => $payee->id, 'last_used_at' => Carbon::now()->toDateTimeString()]);
+        $this->assertDatabaseHas('payees', ['user_id' => $this->user->id, 'id' => $payee->id, 'last_used_at' => Carbon::now()->toDateTimeString()]);
     }
 
     /**
@@ -348,6 +348,6 @@ class TransactionControllerTest extends FeatureTestCase
 
         // Assert
         $response->assertRedirect('/');
-        $this->assertDatabaseHas('payees', ['id' => $payee->id, 'last_used_at' => Carbon::now()->toDateTimeString()]);
+        $this->assertDatabaseHas('payees', ['user_id' => $this->user->id, 'id' => $payee->id, 'last_used_at' => Carbon::now()->toDateTimeString()]);
     }
 }
