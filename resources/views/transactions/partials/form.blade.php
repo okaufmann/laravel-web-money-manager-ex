@@ -18,6 +18,7 @@
 @endpush
 
 @include('partials.form-errors')
+@include('partials.form-status')
 
 <div class="form-group label-static is-empty">
     <label for="transaction_date" class="control-label">@lang('mmex.type')</label>

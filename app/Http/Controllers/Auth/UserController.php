@@ -32,7 +32,7 @@ class UserController extends Controller
         if ($validator->passes() && Hash::check($ensureCurrentPassword, $currentPassword)) {
             $user->password = Hash::make($request->input('new_password'));
             $user->save();
-            session(['status' => __('Update successful!')]);
+            session(['status' => __('mmex.updated')]);
 
             return view('user.show', compact('user'));
         } else {
