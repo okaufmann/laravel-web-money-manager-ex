@@ -58,7 +58,7 @@ class TransactionTest extends MmexTestCase
         $response->assertStatus(200)
             ->assertJsonFragment(
                 [
-                    'ID'          => (string)$transaction->id,
+                    'ID'          => (string) $transaction->id,
                     'Date'        => $transaction->transaction_date->toDateString(),
                     'Account'     => $transaction->account_name,
                     'ToAccount'   => $transaction->to_account_name,
@@ -67,7 +67,7 @@ class TransactionTest extends MmexTestCase
                     'Payee'       => $transaction->payee_name,
                     'Category'    => $transaction->category_name,
                     'SubCategory' => $transaction->sub_category_name,
-                    'Amount'      => (string)$transaction->amount,
+                    'Amount'      => (string) $transaction->amount,
                     'Notes'       => $transaction->notes,
                     'Attachments' => 'Transaction_'.$transaction->id.'_test-receipt.png;Transaction_'.$transaction->id
                         .'_test-receipt-2.png;Transaction_'.$transaction->id.'_test-receipt-3.png',
