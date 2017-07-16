@@ -137,6 +137,7 @@ class TransactionService
 
         $transaction->amount = $data->get('amount');
         $transaction->notes = $data->get('notes');
+        $transaction->transaction_date = $data->get('transaction_date');
 
         $this->setResolvedFieldValues($user, $data, $transaction);
 
