@@ -56,4 +56,6 @@ return [
     'repeat-new-password'    => 'Repeat new Password',
     'current-password-wrong' => 'Current Password is wrong!',
     'api-token'              => 'Api Key',
+    'updated'                => 'Changes applied',
+    'created'                => 'Successfully created',
 ];

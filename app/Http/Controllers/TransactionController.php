@@ -49,14 +49,14 @@ class TransactionController extends Controller
         $data = collect($request->all());
         $this->transactionService->createTransactionWithUsage(Auth::user(), $data, $files);
 
-        return redirect()->back();
+        return redirect()->route('home')->with('status', __('mmex.created'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param TransactionRequest|Request $request
-     * @param int                        $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -67,7 +67,7 @@ class TransactionController extends Controller
         $data = collect($request->all());
         $this->transactionService->updateTransactionWithUsage(Auth::user(), $id, $data, $files);
 
-        return redirect()->route('home');
+        return redirect()->route('home')->with('status', __('mmex.updated'));
     }
 
     /**

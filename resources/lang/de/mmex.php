@@ -56,4 +56,6 @@ return [
     'repeat-new-password'    => 'Neues Passwort wiederholen',
     'current-password-wrong' => 'Aktuelles Passwort ist falsch!',
     'api-token'              => 'Api Key',
+    'updated'                => 'Änderungen übernommen',
+    'created'                => 'Erfolgreich erstellt',
 ];
