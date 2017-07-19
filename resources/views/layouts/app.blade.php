@@ -7,6 +7,11 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="MMEX - WebApp">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    
+    <script src="https://ft-polyfill-service.herokuapp.com/v2/polyfill.min.js?features=default,Array.prototype.includes"></script>
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
