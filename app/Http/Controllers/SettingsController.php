@@ -36,8 +36,9 @@ class SettingsController extends Controller
         $authGuid = $user->mmex_guid ?? mmex_guid();
         $userLocale = $user->locale;
         $disableStatus = $user->disable_status;
+        $useDatepicker = $user->use_datepicker;
 
-        return view('setting.index', compact('packages', 'version', 'userLocale', 'apiVersion', 'authGuid', 'disableStatus'));
+        return view('setting.index', compact('packages', 'version', 'userLocale', 'apiVersion', 'authGuid', 'disableStatus', 'useDatepicker'));
     }
 
     /**
@@ -52,6 +53,7 @@ class SettingsController extends Controller
         $user->locale = $request->user_locale;
         $user->mmex_guid = $request->mmex_guid;
         $user->disable_status = $request->disable_status == "true" ?? false;
+        $user->use_datepicker = $request->use_datepicker == "true" ?? false;
 
         $user->save();
 

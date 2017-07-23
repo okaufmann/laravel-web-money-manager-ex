@@ -59,4 +59,5 @@ return [
     'updated'                => 'Änderungen übernommen',
     'created'                => 'Erfolgreich erstellt',
     'disable_status'         => 'Status Verwaltung deaktivieren',
+    'use_datepicker'         => 'Datumpicker verwenden',
 ];

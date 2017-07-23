@@ -59,4 +59,5 @@ return [
     'updated'                => 'Changes applied',
     'created'                => 'Successfully created',
     'disable_status'         => 'Disable status management',
+    'use_datepicker'         => 'Use Datepicker',
 ];
