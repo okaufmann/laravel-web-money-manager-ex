@@ -25,12 +25,14 @@ $(document).ready(function () {
         }
     }));
 
-    $("#transaction_status").data("kendoDropDownList", new kendo.ui.DropDownList($("#transaction_status")[0], {
-        dataSource: {
-            data: mmex.dropDownOptions.status
-        },
-        optionLabel: Lang.get("mmex.please-choose"),
-    }));
+    if ($("#transaction_status").length > 0) {
+        $("#transaction_status").data("kendoDropDownList", new kendo.ui.DropDownList($("#transaction_status")[0], {
+            dataSource: {
+                data: mmex.dropDownOptions.status
+            },
+            optionLabel: Lang.get("mmex.please-choose"),
+        }));
+    }
 
     mmex.addPayee = (widgetId, value) => {
         let widget = $("#" + widgetId).data("kendoDropDownList");

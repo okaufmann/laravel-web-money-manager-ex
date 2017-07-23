@@ -16,7 +16,7 @@ return [
     'settings'               => 'Settings',
     'user-settings'          => 'User Settings',
     'webpapp-guid'           => 'WebApp GUID',
-    'ui-language'            => 'UI Language',
+    'ui-language'            => 'Locale',
     'please-choose'          => 'Please choose',
     'save'                   => 'Save',
     'common'                 => 'Common',
@@ -58,4 +58,5 @@ return [
     'api-token'              => 'Api Key',
     'updated'                => 'Changes applied',
     'created'                => 'Successfully created',
+    'disable_status'         => 'Disable status management',
 ];

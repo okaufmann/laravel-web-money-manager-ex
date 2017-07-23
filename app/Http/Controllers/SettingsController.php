@@ -35,8 +35,9 @@ class SettingsController extends Controller
         $user = Auth::user();
         $authGuid = $user->mmex_guid ?? mmex_guid();
         $userLocale = $user->locale;
+        $disableStatus = $user->disable_status;
 
-        return view('setting.index', compact('packages', 'version', 'userLocale', 'apiVersion', 'authGuid'));
+        return view('setting.index', compact('packages', 'version', 'userLocale', 'apiVersion', 'authGuid', 'disableStatus'));
     }
 
     /**
@@ -50,6 +51,7 @@ class SettingsController extends Controller
 
         $user->locale = $request->user_locale;
         $user->mmex_guid = $request->mmex_guid;
+        $user->disable_status = $request->disable_status == "true" ?? false;
 
         $user->save();
 

@@ -39,6 +39,17 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">@lang('mmex.disable_status')</label>
+                                    <div class="col-md-9">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="disable_status" value="true"
+                                                       @if($disableStatus)checked @endif>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-group label-static is-empty">
                                     <button type="submit" class="btn btn-primary btn-raised"><i
                                                 class="fa fa-floppy-o"></i> @lang('mmex.save')</button>
