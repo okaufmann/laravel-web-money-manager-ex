@@ -27,7 +27,7 @@
            name="transaction_date">
 </div>
 
-@if(Auth::user()->disable_status)
+@if(Auth::user()->disable_status != true)
     <div class="form-group label-static is-empty">
         <label for="transaction_status" class="control-label">@lang('mmex.status')</label>
         <input type="text"
