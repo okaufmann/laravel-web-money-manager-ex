@@ -12,9 +12,6 @@
         </div>
         <br />
         <button class="k-button" onclick="mmex.addPayee('#: instance.element[0].id #', '#: instance.filterInput.val() #')">#= Lang.get("mmex.add-payee") #</button>
-
-
-
     </script>
     <script type="text/javascript" src="{{mix('js/transaction-form.js')}}"></script>
 
@@ -26,7 +23,7 @@
 <div class="form-group label-static is-empty">
     <label for="transaction_date" class="control-label">@lang('mmex.type')</label>
     <input type="date-local" class="@if(Auth::user()->use_datepicker) common-datepicker @else common-dateinput @endif"
-           value="{{old('transaction_date', $transaction ? $transaction->transaction_date : null)}}"
+           value="{{old('transaction_date', $transaction ? $transaction->transaction_date : \Carbon\Carbon::now())}}"
            name="transaction_date">
 </div>
 

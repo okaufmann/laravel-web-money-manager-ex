@@ -57,13 +57,11 @@ $(document).ready(() => {
 
     $(".common-dateinput").each((index, elm) => {
         new kendo.ui.DateInput($(elm), {
-            value: new Date()
         });
     });
 
     $(".common-datepicker").each((index, elm) => {
         new kendo.ui.DatePicker($(elm), {
-            value: new Date()
         });
     });
 
