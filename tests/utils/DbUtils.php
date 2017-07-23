@@ -11,7 +11,6 @@
 namespace Tests\utils;
 
 use App\Models\Model;
-use Illuminate\Foundation\Testing\Constraints\HasInDatabase;
 
 trait DbUtils
 {
@@ -20,7 +19,7 @@ trait DbUtils
      * From: http://stackoverflow.com/questions/33117746/laravel-unit-testing-how-to-seeindatabase-soft-deleted-row.
      *
      * @param string $table
-     * @param array $data
+     * @param array  $data
      * @param string $connection
      *
      * @return $this
@@ -49,7 +48,7 @@ trait DbUtils
      * From: http://stackoverflow.com/questions/33117746/laravel-unit-testing-how-to-seeindatabase-soft-deleted-row.
      *
      * @param string $table
-     * @param array $data
+     * @param array  $data
      * @param string $connection
      *
      * @return $this
@@ -76,9 +75,10 @@ trait DbUtils
     /**
      * Assert that a given where condition exists in the database and return the first occurrence.
      *
-     * @param  string $table
-     * @param  array $data
-     * @param  string $connection
+     * @param string $table
+     * @param array  $data
+     * @param string $connection
+     *
      * @return Model
      */
     protected function assertDatabaseHasOnceAndReturnFirst($table, array $data, $connection = null)
