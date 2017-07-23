@@ -17,9 +17,11 @@ $(document).ready(function () {
             let item = e.sender.dataSource.get(id);
             if (item["slug"] === "Transfer") {
                 $("#to_account").data("kendoDropDownList").enable(true);
+                $("#payee").data("kendoDropDownList").enable(false);
             } else {
                 $("#to_account").data("kendoDropDownList").select(null);
                 $("#to_account").data("kendoDropDownList").enable(false);
+                $("#payee").data("kendoDropDownList").enable(true);
             }
         }
     }));

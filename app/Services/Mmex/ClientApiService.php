@@ -52,12 +52,6 @@ class ClientApiService
         Log::debug('MmexController.importPayees(), $payees', [$postData->Payees]);
 
         foreach ($postData->Payees as $payeeData) {
-            $categoryName = $payeeData->DefCateg;
-            $subCategoryName = $payeeData->DefSubCateg;
-
-            $category = $user->categories()->where('name', $subCategoryName)->whereHas('parentCategory', function ($query) use ($categoryName) {
-                $query->where('name', $categoryName);
-            })->first();
 
             $existingPayee = $user->payees()->onlyTrashed()->where('name', $payeeData->PayeeName)->first();
 
@@ -70,7 +64,16 @@ class ClientApiService
                 ]);
             }
 
-            if ($category) {
+            $categoryName = $payeeData->DefCateg;
+            $subCategoryName = $payeeData->DefSubCateg;
+
+            if (!empty($categoryName)) {
+                $category = $this->createOrGetCategory($user, $categoryName);
+
+                if (!empty($subCategoryName)) {
+                    $category = $this->createOrGetSubCategory($user, $category, $subCategoryName);
+                }
+
                 $category->defaultForPayees()->save($payee);
             }
         }
@@ -97,6 +100,8 @@ class ClientApiService
                 $this->createOrGetSubCategory($user, $category, $subCategory->SubCategoryName);
             }
         }
+
+        $user->categories()->onlyTrashed()->forceDelete();
     }
 
     public function deleteTransactions(User $user, $transactionId)
@@ -133,9 +138,10 @@ class ClientApiService
      */
     private function createOrGetCategory(User $user, $name)
     {
-        $existingCategory = $user->categories()->whereName($name)->first();
+        $existingCategory = $user->categories()->withTrashed()->whereName($name)->first();
 
         if ($existingCategory) {
+            $existingCategory->restore();
             return $existingCategory;
         }
 
@@ -148,9 +154,10 @@ class ClientApiService
 
     private function createOrGetSubCategory(User $user, Category $parentCategory, $name)
     {
-        $existingCategory = $user->categories()->whereName($name)->first();
+        $existingCategory = $user->categories()->withTrashed()->whereHas('parentCategory')->whereName($name)->first();
 
         if ($existingCategory) {
+            $existingCategory->restore();
             return $existingCategory;
         }
 
