@@ -33,7 +33,7 @@ class TransactionRequest extends FormRequest
             'payee'              => 'required|string',
             'category'           => 'required|string',
             'subcategory'        => 'string',
-            'amount'             => 'required|numeric|min:0',
+            'amount'             => 'required|numeric|min:0|max:999999',
             'notes'              => 'string|nullable',
         ];
     }

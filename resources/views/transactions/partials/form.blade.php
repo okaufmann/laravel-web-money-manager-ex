@@ -79,7 +79,7 @@
 </div>
 <div class="form-group label-static is-empty">
     <label for="amount" class="control-label label-required">@lang('mmex.amount')</label>
-    <input name="amount" type="number" title="currency"
+    <input id="amount" name="amount"
            value="{{old('amount', $transaction ? $transaction->amount : null)}}"
            min="0"
            class="numeric-currency"/>
