@@ -74,7 +74,7 @@ class PayeeTest extends MmexTestCase
     {
         // Arrange
         $data = ['MMEX_Post' => '{ "Payees" : [ { "PayeeName" : "Mc Donalds", "DefCateg" : "Food", "DefSubCateg" : "Purchase" },'.
-            '{ "PayeeName" : "Spotify", "DefCateg" : "Bills", "DefSubCateg" : "Services" } ] }',];
+            '{ "PayeeName" : "Spotify", "DefCateg" : "Bills", "DefSubCateg" : "Services" } ] }', ];
 
         $url = $this->buildUrl(['import_payee' => 'true']);
 

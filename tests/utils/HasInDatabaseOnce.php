@@ -10,7 +10,6 @@
 
 namespace Tests\utils;
 
-
 use Illuminate\Foundation\Testing\Constraints\HasInDatabase;
 
 class HasInDatabaseOnce extends HasInDatabase
@@ -20,7 +19,8 @@ class HasInDatabaseOnce extends HasInDatabase
     /**
      * Check if the data is found in the given table once and set the entry to private field.
      *
-     * @param  string $table
+     * @param string $table
+     *
      * @return bool
      */
     public function matches($table)

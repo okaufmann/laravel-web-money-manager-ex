@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
 use Illuminate\Foundation\Http\Middleware\TransformsRequest;
 
 class SanitizePrices extends TransformsRequest
@@ -19,8 +18,9 @@ class SanitizePrices extends TransformsRequest
     /**
      * Transform the given value.
      *
-     * @param  string $key
-     * @param  mixed $value
+     * @param string $key
+     * @param mixed  $value
+     *
      * @return mixed
      */
     protected function transform($key, $value)
@@ -33,6 +33,7 @@ class SanitizePrices extends TransformsRequest
 
         if (count($matches) == 1) {
             $value = str_replace(',', '.', $value);
+
             return $value;
         }
 

@@ -52,7 +52,6 @@ class ClientApiService
         Log::debug('MmexController.importPayees(), $payees', [$postData->Payees]);
 
         foreach ($postData->Payees as $payeeData) {
-
             $existingPayee = $user->payees()->onlyTrashed()->where('name', $payeeData->PayeeName)->first();
 
             if ($existingPayee) {
@@ -142,6 +141,7 @@ class ClientApiService
 
         if ($existingCategory) {
             $existingCategory->restore();
+
             return $existingCategory;
         }
 
@@ -158,6 +158,7 @@ class ClientApiService
 
         if ($existingCategory) {
             $existingCategory->restore();
+
             return $existingCategory;
         }
 
