@@ -2,8 +2,7 @@ $(document).ready(function () {
     kendo.ui.DropDownList.prototype.options =
         $.extend(kendo.ui.DropDownList.prototype.options, {
             noDataTemplate: Lang.get('mmex.no-data-found'),
-            optionLabel: Lang.get("mmex.please-choose"),
-            filter: "startswith",
+            filter: "contains",
             dataTextField: "name",
             dataValueField: "id",
         });
@@ -30,6 +29,7 @@ $(document).ready(function () {
         dataSource: {
             data: mmex.dropDownOptions.status
         },
+        optionLabel: Lang.get("mmex.please-choose"),
     }));
 
     mmex.addPayee = (widgetId, value) => {
@@ -49,6 +49,7 @@ $(document).ready(function () {
 
     $("#payee").data("kendoDropDownList", new kendo.ui.DropDownList($("#payee")[0], {
         noDataTemplate: $("#noDataAddNewTemplate").html(),
+        optionLabel: Lang.get("mmex.please-choose"),
         change: (e) => {
             let id = e.sender.value();
             let item = e.sender.dataSource.get(id);
@@ -96,6 +97,7 @@ $(document).ready(function () {
         dataSource: {
             data: mmex.dropDownOptions.accounts
         },
+        optionLabel: Lang.get("mmex.please-choose"),
         change: (e) => {
             let id = e.sender.value();
             let accounts = _.reject(mmex.dropDownOptions.accounts, (a) => a["id"] === parseInt(id));
@@ -107,6 +109,7 @@ $(document).ready(function () {
 
     $("#to_account").data("kendoDropDownList", new kendo.ui.DropDownList($("#to_account")[0], {
         enable: false,
+        optionLabel: Lang.get("mmex.please-choose"),
         dataSource: {
             data: mmex.dropDownOptions.accounts
         },
@@ -114,6 +117,7 @@ $(document).ready(function () {
 
     $("#category").data("kendoDropDownList", new kendo.ui.DropDownList($("#category")[0], {
         height: 300,
+        optionLabel: Lang.get("mmex.please-choose"),
         dataSource: {
             serverFiltering: false,
             transport: {
@@ -129,6 +133,7 @@ $(document).ready(function () {
         autoBind: false,
         cascadeFrom: "category",
         height: 300,
+        optionLabel: Lang.get("mmex.please-choose"),
         dataSource: {
             serverFiltering: true,
             transport: {
