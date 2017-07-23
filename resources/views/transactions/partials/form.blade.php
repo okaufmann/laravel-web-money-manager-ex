@@ -1,19 +1,19 @@
 @inject('fieldValues', 'App\Services\FormFieldOptionService')
 
 @push('footer')
-@javascript('dropDownOptions', [
-'types' => $fieldValues->getMasterData(App\Models\TransactionType::class),
-'status' => $fieldValues->getMasterData(App\Models\TransactionStatus::class),
-'accounts' => $fieldValues->getUserData(App\Models\Account::class),
-])
-<script id="noDataAddNewTemplate" type="text/x-kendo-tmpl">
+    @javascript('dropDownOptions', [
+    'types' => $fieldValues->getMasterData(App\Models\TransactionType::class),
+    'status' => $fieldValues->getMasterData(App\Models\TransactionStatus::class),
+    'accounts' => $fieldValues->getUserData(App\Models\Account::class),
+    ])
+    <script id="noDataAddNewTemplate" type="text/x-kendo-tmpl">
         <div>
             #= Lang.get("mmex.no-data-add-new") #
         </div>
         <br />
         <button class="k-button" onclick="mmex.addPayee('#: instance.element[0].id #', '#: instance.filterInput.val() #')">#= Lang.get("mmex.add-payee") #</button>
-</script>
-<script type="text/javascript" src="{{mix('js/transaction-form.js')}}"></script>
+    </script>
+    <script type="text/javascript" src="{{mix('js/transaction-form.js')}}"></script>
 
 @endpush
 
@@ -22,17 +22,21 @@
 
 <div class="form-group label-static is-empty">
     <label for="transaction_date" class="control-label">@lang('mmex.type')</label>
-    <input type="date-local" value="{{old('transaction_date', $transaction ? $transaction->transaction_date : null)}}"
+    <input type="date-local" class="@if(Auth::user()->use_datepicker) common-datepicker @else common-dateinput @endif"
+           value="{{old('transaction_date', $transaction ? $transaction->transaction_date : \Carbon\Carbon::now())}}"
            name="transaction_date">
 </div>
 
-<div class="form-group label-static is-empty">
-    <label for="transaction_status" class="control-label">@lang('mmex.status')</label>
-    <input type="text"
-           value="{{old('transaction_status', $transaction ? $transaction->status_id : null)}}"
-           name="transaction_status"
-           id="transaction_status"/>
-</div>
+@if(Auth::user()->disable_status)
+    <div class="form-group label-static is-empty">
+        <label for="transaction_status" class="control-label">@lang('mmex.status')</label>
+        <input type="text"
+               value="{{old('transaction_status', $transaction ? $transaction->status_id : null)}}"
+               name="transaction_status"
+               id="transaction_status"/>
+    </div>
+@endif
+
 <div class="form-group label-static is-empty">
     <label for="transaction_type" class="control-label label-required">@lang('mmex.type')</label>
     <input type="text"
@@ -79,7 +83,7 @@
 </div>
 <div class="form-group label-static is-empty">
     <label for="amount" class="control-label label-required">@lang('mmex.amount')</label>
-    <input name="amount" type="number" title="currency"
+    <input id="amount" name="amount"
            value="{{old('amount', $transaction ? $transaction->amount : null)}}"
            min="0"
            class="numeric-currency"/>

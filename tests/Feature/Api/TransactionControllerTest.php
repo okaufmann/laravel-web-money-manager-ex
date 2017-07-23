@@ -36,12 +36,12 @@ class TransactionControllerTest extends FeatureTestCase
                 'id'                => $transaction->id,
                 'status'            => [
                     'id'   => $transaction->status->id,
-                    'name' => $transaction->status->name,
+                    'name' => 'mmex.'.$transaction->status->name,
                     'slug' => $transaction->status->slug,
                 ],
                 'type'              => [
                     'id'   => $transaction->type->id,
-                    'name' => $transaction->type->name,
+                    'name' => 'mmex.'.$transaction->type->name,
                     'slug' => $transaction->type->slug,
                 ],
                 'account_name'      => $transaction->account_name,

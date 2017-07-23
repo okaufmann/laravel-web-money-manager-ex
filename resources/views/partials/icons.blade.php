@@ -1,17 +1,12 @@
-<link rel="apple-touch-icon" sizes="57x57" href="{{asset('images/icons/apple-icon-57x57.png')}}">
-<link rel="apple-touch-icon" sizes="60x60" href="{{asset('images/icons/apple-icon-60x60.png')}}">
-<link rel="apple-touch-icon" sizes="72x72" href="{{asset('images/icons/apple-icon-72x72.png')}}">
-<link rel="apple-touch-icon" sizes="76x76" href="{{asset('images/icons/apple-icon-76x76.png')}}">
-<link rel="apple-touch-icon" sizes="114x114" href="{{asset('images/icons/apple-icon-114x114.png')}}">
-<link rel="apple-touch-icon" sizes="120x120" href="{{asset('images/icons/apple-icon-120x120.png')}}">
-<link rel="apple-touch-icon" sizes="144x144" href="{{asset('images/icons/apple-icon-144x144.png')}}">
-<link rel="apple-touch-icon" sizes="152x152" href="{{asset('images/icons/apple-icon-152x152.png')}}">
-<link rel="apple-touch-icon" sizes="180x180" href="{{asset('images/icons/apple-icon-180x180.png')}}">
-<link rel="icon" type="image/png" sizes="192x192" href="{{asset('images/icons/android-icon-192x192.png')}}">
-<link rel="icon" type="image/png" sizes="32x32" href="{{asset('images/icons/favicon-32x32.png')}}">
-<link rel="icon" type="image/png" sizes="96x96" href="{{asset('images/icons/favicon-96x96.png')}}">
-<link rel="icon" type="image/png" sizes="16x16" href="{{asset('images/icons/favicon-16x16.png')}}">
-<link rel="manifest" href="{{asset('images/icons/manifest.json')}}">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage" content="{{asset('images/icons/ms-icon-144x144.png')}}">
-<meta name="theme-color" content="#ffffff">
+<link rel="apple-touch-icon" sizes="180x180" href="{{asset('icons/apple-touch-icon.png?v=00ryjm8Ywl')}}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{asset('icons/favicon-32x32.png?v=00ryjm8Ywl')}}">
+<link rel="icon" type="image/png" sizes="192x192" href="{{asset('icons/android-chrome-192x192.png?v=00ryjm8Ywl')}}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{asset('icons/favicon-16x16.png?v=00ryjm8Ywl')}}">
+<link rel="manifest" href="{{asset('icons/manifest.json?v=00ryjm8Ywl')}}">
+<link rel="mask-icon" href="{{asset('icons/safari-pinned-tab.svg?v=00ryjm8Ywl')}}" color="#5bbad5">
+<link rel="shortcut icon" href="{{asset('icons/favicon.ico?v=00ryjm8Ywl')}}">
+<meta name="apple-mobile-web-app-title" content="MMEX - WebApp">
+<meta name="application-name" content="MMEX - WebApp">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="{{asset('icons/mstile-144x144.png?v=00ryjm8Ywl')}}">
+<meta name="theme-color" content="#419641">

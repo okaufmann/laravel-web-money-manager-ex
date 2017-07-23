@@ -33,7 +33,7 @@ class TransactionTransfomer extends TransformerAbstract
         if ($item->status) {
             $data['status'] = [
                 'id'   => $item->status->id,
-                'name' => $item->status->name,
+                'name' => __('mmex.'.$item->status->name),
                 'slug' => $item->status->slug,
             ];
         }
@@ -41,7 +41,7 @@ class TransactionTransfomer extends TransformerAbstract
         if ($item->type()) {
             $data['type'] = [
                 'id'   => $item->type->id,
-                'name' => $item->type->name,
+                'name' => __('mmex.'.$item->type->name),
                 'slug' => $item->type->slug,
             ];
         }

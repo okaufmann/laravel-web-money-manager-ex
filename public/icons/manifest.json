@@ -1,0 +1,19 @@
+{
+    "name": "MMEX - WebApp",
+    "icons": [
+        {
+            "src": "/icons/android-chrome-192x192.png?v=00ryjm8Ywl",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icons/android-chrome-256x256.png?v=00ryjm8Ywl",
+            "sizes": "256x256",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#419641",
+    "background_color": "#ffffff",
+    "start_url": "https://mmex.okaufmann.ch",
+    "display": "standalone"
+}

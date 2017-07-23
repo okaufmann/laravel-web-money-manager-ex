@@ -16,7 +16,7 @@ return [
     'settings'               => 'Einstellungen',
     'user-settings'          => 'Benutzer-Einstellungen',
     'webpapp-guid'           => 'WebApp GUID',
-    'ui-language'            => 'UI Sprache',
+    'ui-language'            => 'Lokalität',
     'please-choose'          => 'Bitte wählen',
     'save'                   => 'Speichern',
     'common'                 => 'Allgemein',
@@ -58,4 +58,6 @@ return [
     'api-token'              => 'Api Key',
     'updated'                => 'Änderungen übernommen',
     'created'                => 'Erfolgreich erstellt',
+    'disable_status'         => 'Status Verwaltung deaktivieren',
+    'use_datepicker'         => 'Datumpicker verwenden',
 ];

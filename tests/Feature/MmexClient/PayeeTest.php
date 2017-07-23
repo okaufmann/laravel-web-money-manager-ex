@@ -66,4 +66,30 @@ class PayeeTest extends MmexTestCase
         $this->assertDatabaseHas('payees', ['user_id' => $this->user->id, 'name' => 'Luke Skywalker', 'deleted_at' => null]);
         $this->assertDatabaseHas('payees', ['user_id' => $this->user->id, 'name' => 'Yoda', 'deleted_at' => null]);
     }
+
+    /**
+     * @test
+     */
+    public function it_creates_default_categories_for_payees()
+    {
+        // Arrange
+        $data = ['MMEX_Post' => '{ "Payees" : [ { "PayeeName" : "Mc Donalds", "DefCateg" : "Food", "DefSubCateg" : "Purchase" },'.
+            '{ "PayeeName" : "Spotify", "DefCateg" : "Bills", "DefSubCateg" : "Services" } ] }', ];
+
+        $url = $this->buildUrl(['import_payee' => 'true']);
+
+        // Act
+        $response = $this->postJson($url, $data);
+
+        // Assert
+        $this->assertSeeMmexSuccess($response);
+        $category1 = $this->assertDatabaseHasOnceAndReturnFirst('categories', ['user_id' => $this->user->id, 'name' => 'Food']);
+        $category2 = $this->assertDatabaseHasOnceAndReturnFirst('categories', ['user_id' => $this->user->id, 'name' => 'Bills']);
+
+        $subcategory1 = $this->assertDatabaseHasOnceAndReturnFirst('categories', ['user_id' => $this->user->id, 'name' => 'Purchase', 'parent_id' => $category1->id]);
+        $subcategory2 = $this->assertDatabaseHasOnceAndReturnFirst('categories', ['user_id' => $this->user->id, 'name' => 'Services', 'parent_id' => $category2->id]);
+
+        $this->assertDatabaseHas('payees', ['user_id' => $this->user->id, 'name' => 'Mc Donalds', 'last_category_id' => $subcategory1->id]);
+        $this->assertDatabaseHas('payees', ['user_id' => $this->user->id, 'name' => 'Spotify', 'last_category_id' => $subcategory2->id]);
+    }
 }

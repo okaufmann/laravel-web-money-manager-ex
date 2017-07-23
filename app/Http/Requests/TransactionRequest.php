@@ -35,7 +35,7 @@ class TransactionRequest extends FormRequest
             'category'           => 'required|integer',
             'subcategory'        => 'integer',
             'amount'             => 'required|numeric',
-            'notes'              => 'string|nullable',
+            'amount'             => 'required|numeric|min:0|max:999999',
             'attachments.*'      => 'max:'.$size,
         ];
     }
