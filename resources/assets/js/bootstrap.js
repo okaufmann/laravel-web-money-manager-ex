@@ -56,12 +56,16 @@ $(document).ready(() => {
     $("[autofocus]").focus();
 
     $(".common-dateinput").each((index, elm) => {
+        let val = $(elm).val();
         new kendo.ui.DateInput($(elm), {
+            value: val ? moment(val).toDate() : new Date()
         });
     });
 
     $(".common-datepicker").each((index, elm) => {
+        let val = $(elm).val();
         new kendo.ui.DatePicker($(elm), {
+            value: val ? moment(val).toDate() : new Date()
         });
     });
 
