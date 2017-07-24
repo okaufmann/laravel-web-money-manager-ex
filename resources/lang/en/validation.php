@@ -112,6 +112,18 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'username' => 'Username',
+        'password' => 'Password',
+        'email'    => 'E-Mail Address',
+        'account'  => 'Account',
+        'amount'   => 'Amount',
+        'payee'    => 'Payee',
+        'to_account'        =>  'to Account',
+        'transaction_status'=>  'Status',
+        'transaction_type'  =>  'Type',
+        'transaction_date'  =>  'Date',
+        'category'          =>  'Category',
+    ],
 
 ];
