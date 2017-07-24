@@ -48,6 +48,23 @@ if (token) {
 
 // Material Buttons
 $(document).ready(() => {
+    window['mmex'] = window['mmex'] || {};
+    window['mmex']['momentLocal'] = (date) => {
+        if (!date || _.isEmpty(date)) {
+            return moment();
+        }
+
+        let m = moment(date);
+        if (m.isValid()) {
+            return m;
+        }
+        m = moment(date, "DD.MM.YYYY");
+        if (m.isValid()) {
+            return m;
+        }
+
+        throw new Error("No supported date format found for ", date);
+    };
 
     $.material.init();
 
@@ -57,15 +74,19 @@ $(document).ready(() => {
 
     $(".common-dateinput").each((index, elm) => {
         let val = $(elm).val();
+        let date = mmex.momentLocal(val).toDate();
+        console.log("set date ", date, " out of ", val);
         new kendo.ui.DateInput($(elm), {
-            value: val ? moment(val).toDate() : new Date()
+            value: val ? date : new Date()
         });
     });
 
     $(".common-datepicker").each((index, elm) => {
         let val = $(elm).val();
+        let date = mmex.momentLocal(val).toDate();
+        console.log("set date ", date, " out of ", val);
         new kendo.ui.DatePicker($(elm), {
-            value: val ? moment(val).toDate() : new Date()
+            value: val ? date : new Date()
         });
     });
 

@@ -14,7 +14,6 @@
         <button class="k-button" onclick="mmex.addPayee('#: instance.element[0].id #', '#: instance.filterInput.val() #')">#= Lang.get("mmex.add-payee") #</button>
     </script>
     <script type="text/javascript" src="{{mix('js/transaction-form.js')}}"></script>
-
 @endpush
 
 @include('partials.form-errors')
