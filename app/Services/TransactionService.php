@@ -70,7 +70,7 @@ class TransactionService
     /**
      * Creates a new transaction and touch last used payee and payee's category.
      *
-     * @param User $user
+     * @param User       $user
      * @param Collection $data
      * @param array|null $files
      *
@@ -89,7 +89,7 @@ class TransactionService
     /**
      * Creates a new transaction.
      *
-     * @param User $user
+     * @param User       $user
      * @param Collection $data
      * @param array|null $files
      *
