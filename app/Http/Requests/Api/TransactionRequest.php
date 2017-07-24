@@ -30,7 +30,7 @@ class TransactionRequest extends FormRequest
             'transaction_type'   => 'required|string',
             'account'            => 'required|string',
             'to_account'         => 'string',
-            'payee'              => 'required|string',
+            'payee'              => 'sometimes|required|integer',
             'category'           => 'required|string',
             'subcategory'        => 'string',
             'amount'             => 'required|numeric|min:0|max:999999',

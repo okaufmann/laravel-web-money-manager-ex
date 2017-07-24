@@ -37,7 +37,7 @@ return [
     'amount'                 => 'Betrag',
     'account'                => 'Konto',
     'to-account'             => 'zu Konto',
-    'payee'                  => 'Zahlungsempfänger/Zahler',
+    'payee'                  => 'Empfänger/Sender',
     'category'               => 'Kategorie',
     'subcategory'            => 'Unter-Kategorie',
     'notes'                  => 'Notizen',
@@ -60,4 +60,5 @@ return [
     'created'                => 'Erfolgreich erstellt',
     'disable_status'         => 'Status Verwaltung deaktivieren',
     'use_datepicker'         => 'Datumpicker verwenden',
+    'none'                   => '(Keine/r)',
 ];

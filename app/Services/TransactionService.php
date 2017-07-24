@@ -70,7 +70,7 @@ class TransactionService
     /**
      * Creates a new transaction and touch last used payee and payee's category.
      *
-     * @param User       $user
+     * @param User $user
      * @param Collection $data
      * @param array|null $files
      *
@@ -89,7 +89,7 @@ class TransactionService
     /**
      * Creates a new transaction.
      *
-     * @param User       $user
+     * @param User $user
      * @param Collection $data
      * @param array|null $files
      *
@@ -207,8 +207,10 @@ class TransactionService
             $transaction->to_account_name = $toaccount->name;
         }
 
-        $payee = $user->payees()->findOrFail($data->get('payee'));
-        $transaction->payee_name = $payee->name;
+        $payee = $user->payees()->find($data->get('payee'));
+        if ($payee) {
+            $transaction->payee_name = $payee->name;
+        }
 
         $category = $user->categories()->rootCategories()->findOrFail($data->get('category'));
         $transaction->category_name = $category->name;
