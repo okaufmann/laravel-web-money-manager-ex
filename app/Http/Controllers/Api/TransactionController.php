@@ -55,6 +55,7 @@ class TransactionController extends Controller
     {
         $data = collect($request->all());
         $user = Auth::user();
+        $isJsonRequest = $request->isJson();
 
         // ensure payee exists
         $payeeName = $request->input('payee');
@@ -82,7 +83,7 @@ class TransactionController extends Controller
 
         $data = $data->merge($resolvedData);
 
-        $this->transactionService->createTransaction(Auth::user(), $data);
+        $this->transactionService->createTransaction(Auth::user(), $data, null, $isJsonRequest);
 
         return response('', 201);
     }

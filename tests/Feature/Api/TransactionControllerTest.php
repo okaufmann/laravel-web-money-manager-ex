@@ -62,7 +62,7 @@ class TransactionControllerTest extends FeatureTestCase
     public function it_can_create_new_transaction_with_a_new_payee()
     {
         // Arrange
-        $knownDate = Carbon::create(2017, 07, 16, 12);
+        $knownDate = Carbon::create(2017, 07, 16);
         Carbon::setTestNow($knownDate);
 
         $url = '/api/v1/transactions';
@@ -102,7 +102,7 @@ class TransactionControllerTest extends FeatureTestCase
 
         $this->assertDatabaseHas('transactions', [
             'user_id'           => $this->user->id,
-            'transaction_date'  => Carbon::create(2017, 07, 16, 12)->toDateTimeString(),
+            'transaction_date'  => Carbon::create(2017, 07, 16, 0, 0, 0)->toDateTimeString(),
             'status_id'         => $status->id,
             'type_id'           => $type->id,
             'account_name'      => $account->name,
@@ -120,7 +120,7 @@ class TransactionControllerTest extends FeatureTestCase
     public function it_can_create_a_new_transaction_with_a_existing_payee()
     {
         // Arrange
-        $knownDate = Carbon::create(2017, 07, 16, 12);
+        $knownDate = Carbon::create(2017, 07, 16);
         Carbon::setTestNow($knownDate);
 
         $url = '/api/v1/transactions';
@@ -159,7 +159,7 @@ class TransactionControllerTest extends FeatureTestCase
 
         $this->assertDatabaseHas('transactions', [
             'user_id'           => $this->user->id,
-            'transaction_date'  => Carbon::create(2017, 07, 16, 12)->toDateTimeString(),
+            'transaction_date'  => Carbon::create(2017, 07, 16, 0, 0, 0)->toDateTimeString(),
             'status_id'         => $status->id,
             'type_id'           => $type->id,
             'account_name'      => $account->name,

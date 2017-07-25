@@ -25,6 +25,8 @@ $(document).ready(function () {
         }
     }));
 
+    let selectedType = $("#transaction_type").data("kendoDropDownList").dataItem();
+
     if ($("#transaction_status").length > 0) {
         $("#transaction_status").data("kendoDropDownList", new kendo.ui.DropDownList($("#transaction_status")[0], {
             dataSource: {
@@ -51,6 +53,7 @@ $(document).ready(function () {
 
     $("#payee").data("kendoDropDownList", new kendo.ui.DropDownList($("#payee")[0], {
         noDataTemplate: $("#noDataAddNewTemplate").html(),
+        enable: selectedType ? selectedType.slug != "Transfer" : true,
         optionLabel: Lang.get("mmex.please-choose"),
         change: (e) => {
             let id = e.sender.value();
@@ -110,7 +113,7 @@ $(document).ready(function () {
     }));
 
     $("#to_account").data("kendoDropDownList", new kendo.ui.DropDownList($("#to_account")[0], {
-        enable: false,
+        enable: selectedType ? selectedType.slug == "Transfer" : false,
         optionLabel: Lang.get("mmex.please-choose"),
         dataSource: {
             data: mmex.dropDownOptions.accounts

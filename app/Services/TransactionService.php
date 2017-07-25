@@ -10,7 +10,6 @@
 
 namespace App\Services;
 
-use App;
 use App\Models\Account;
 use App\Models\Category;
 use App\Models\Payee;
@@ -95,9 +94,9 @@ class TransactionService
      *
      * @return Transaction
      */
-    public function createTransaction(User $user, Collection $data, array $files = null)
+    public function createTransaction(User $user, Collection $data, array $files = null, $jsonRequest = false)
     {
-        $this->parseTransactionDate($data);
+        $this->parseTransactionDate($data, $jsonRequest);
 
         $transaction = new Transaction($data->all());
 
@@ -207,8 +206,10 @@ class TransactionService
             $transaction->to_account_name = $toaccount->name;
         }
 
-        $payee = $user->payees()->findOrFail($data->get('payee'));
-        $transaction->payee_name = $payee->name;
+        $payee = $user->payees()->find($data->get('payee'));
+        if ($payee) {
+            $transaction->payee_name = $payee->name;
+        }
 
         $category = $user->categories()->rootCategories()->findOrFail($data->get('category'));
         $transaction->category_name = $category->name;
@@ -249,7 +250,7 @@ class TransactionService
         }
     }
 
-    private function parseTransactionDate($data)
+    private function parseTransactionDate($data, $jsonRequest = false)
     {
         $date = null;
         $transactionDate = $data->pull('transaction_date');
@@ -258,19 +259,12 @@ class TransactionService
             return;
         }
 
-        if (str_is('*/*/*', $transactionDate)) {
-            $format = 'm/d/Y';
-            if (App::getLocale() == 'de') {
-                $format = 'd.m.Y';
-            }
+        $format = $jsonRequest ? Carbon::ATOM : locale_dateformat();
 
-            $date = Carbon::createFromFormat($format, $transactionDate);
-            $date->hour(0);
-            $date->minute(0);
-            $date->second(0);
-        } else {
-            $date = Carbon::parse($transactionDate);
-        }
+        $date = Carbon::createFromFormat($format, $transactionDate);
+        $date->hour(0);
+        $date->minute(0);
+        $date->second(0);
 
         $data['transaction_date'] = $date;
     }

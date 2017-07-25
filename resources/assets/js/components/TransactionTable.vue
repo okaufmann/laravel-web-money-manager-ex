@@ -40,7 +40,7 @@
             VuetablePaginationBootstrap,
             VuetablePaginationInfo
         },
-        data () {
+        data() {
             return {
                 // Hack api token to url cause axios is not using global config
                 url: "/api/v1/transactions?api_token=" + Laravel.apiToken,
@@ -64,6 +64,7 @@
                         title: Lang.get('mmex.payee'),
                         name: 'payee_name',
                         sortField: 'payee_name',
+                        callback: 'formatPayee'
                     },
                     {
                         title: Lang.get('mmex.category'),
@@ -104,10 +105,10 @@
             }
         },
         methods: {
-            noData()  {
+            noData() {
                 return Lang.get('mmex.no-data-found');
             },
-            onAction (action, data, index) {
+            onAction(action, data, index) {
                 console.log('slot) action: ' + action, data, index);
                 if (action === 'delete-item') {
                     let result = confirm(Lang.get('mmex.delete-transaction'));
@@ -118,30 +119,33 @@
                     }
                 }
             },
-            hasAttachments(value){
+            hasAttachments(value) {
                 if (!value) {
                     return '';
                 }
                 return '<i class="fa fa-paperclip"></i>';
             },
-            formatCurrency(value){
+            formatCurrency(value) {
                 if (value == null) {
                     return '';
                 }
 
                 return kendo.toString(value, 'c');
             },
-            formatDate (value) {
+            formatDate(value) {
                 if (value == null) {
                     return '';
                 }
 
                 return moment(value).format('L');
             },
-            onChangePage (page) {
+            formatPayee(value) {
+                return value ? value : Lang.get('mmex.none');
+            },
+            onChangePage(page) {
                 this.$refs.vuetable.changePage(page)
             },
-            onPaginationData (paginationData) {
+            onPaginationData(paginationData) {
                 // Transform data from api to match vuetable-2 pagination data structure
                 // See: https://github.com/ratiw/vuetable-2-tutorial/wiki/lesson-07#pagination-data-structure
                 paginationData.next_page_url = paginationData.links.next;

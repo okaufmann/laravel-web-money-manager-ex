@@ -117,9 +117,17 @@ return [
     */
 
     'attributes' => [
-        'username' => 'Benutzername',
-        'password' => 'Passwort',
-        'email'    => 'E-Mail-Adresse',
+        'username'          => 'Benutzername',
+        'password'          => 'Passwort',
+        'email'             => 'E-Mail-Adresse',
+        'account'           => 'Konto',
+        'amount'            => 'Betrag',
+        'payee'             => 'Empfänger/Sender',
+        'to_account'        => 'zu Konto',
+        'transaction_status'=> 'Status',
+        'transaction_type'  => 'Typ',
+        'transaction_date'  => 'Datum',
+        'category'          => 'Kategorie',
     ],
 
 ];
