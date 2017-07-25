@@ -102,7 +102,7 @@ class TransactionControllerTest extends FeatureTestCase
 
         $this->assertDatabaseHas('transactions', [
             'user_id'           => $this->user->id,
-            'transaction_date'  => Carbon::create(2017, 07, 16,0,0,0)->toDateTimeString(),
+            'transaction_date'  => Carbon::create(2017, 07, 16, 0, 0, 0)->toDateTimeString(),
             'status_id'         => $status->id,
             'type_id'           => $type->id,
             'account_name'      => $account->name,
@@ -159,7 +159,7 @@ class TransactionControllerTest extends FeatureTestCase
 
         $this->assertDatabaseHas('transactions', [
             'user_id'           => $this->user->id,
-            'transaction_date'  => Carbon::create(2017, 07, 16,0,0,0)->toDateTimeString(),
+            'transaction_date'  => Carbon::create(2017, 07, 16, 0, 0, 0)->toDateTimeString(),
             'status_id'         => $status->id,
             'type_id'           => $type->id,
             'account_name'      => $account->name,
