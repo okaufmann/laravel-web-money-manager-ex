@@ -26,11 +26,11 @@ class TransactionRequest extends FormRequest
         $size = $this->getMaxFileUploadSizeInKb();
 
         return [
-            'transaction_date'   => 'date|nullable',
+            'transaction_date'   => 'date_format:'.locale_dateformat().'|nullable',
             'transaction_status' => 'integer',
             'transaction_type'   => 'required|integer',
             'account'            => 'required|integer',
-            'to_account'         => 'integer',
+            'to_account'         => 'sometimes|required|integer',
             'payee'              => 'sometimes|required|integer',
             'category'           => 'required|integer',
             'subcategory'        => 'integer',

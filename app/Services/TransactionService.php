@@ -95,9 +95,9 @@ class TransactionService
      *
      * @return Transaction
      */
-    public function createTransaction(User $user, Collection $data, array $files = null)
+    public function createTransaction(User $user, Collection $data, array $files = null, $jsonRequest = false)
     {
-        $this->parseTransactionDate($data);
+        $this->parseTransactionDate($data, $jsonRequest);
 
         $transaction = new Transaction($data->all());
 
@@ -251,7 +251,7 @@ class TransactionService
         }
     }
 
-    private function parseTransactionDate($data)
+    private function parseTransactionDate($data, $jsonRequest = false)
     {
         $date = null;
         $transactionDate = $data->pull('transaction_date');
@@ -260,19 +260,12 @@ class TransactionService
             return;
         }
 
-        if (str_is('*/*/*', $transactionDate)) {
-            $format = 'm/d/Y';
-            if (App::getLocale() == 'de') {
-                $format = 'd.m.Y';
-            }
+        $format = $jsonRequest ? Carbon::ATOM : locale_dateformat();
 
-            $date = Carbon::createFromFormat($format, $transactionDate);
-            $date->hour(0);
-            $date->minute(0);
-            $date->second(0);
-        } else {
-            $date = Carbon::parse($transactionDate);
-        }
+        $date = Carbon::createFromFormat($format, $transactionDate);
+        $date->hour(0);
+        $date->minute(0);
+        $date->second(0);
 
         $data['transaction_date'] = $date;
     }

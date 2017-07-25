@@ -19,8 +19,8 @@ class SetLocale
     {
         /** @var App\Models\User $user */
         if ($user = $request->user()) {
-            if ($user->language) {
-                App::setLocale($user->language);
+            if ($user->locale) {
+                App::setLocale($user->locale);
             }
         }
 
