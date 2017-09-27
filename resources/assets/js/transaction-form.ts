@@ -9,7 +9,7 @@ $(document).ready(function () {
 
     $("#transaction_type").data("kendoDropDownList", new kendo.ui.DropDownList($("#transaction_type")[0], {
         dataSource: {
-            data: mmex.dropDownOptions.types
+            data: mmex.dropDownOptions ? mmex.dropDownOptions.types : []
         },
         change: (e) => {
             let id = e.sender.value();
@@ -30,7 +30,7 @@ $(document).ready(function () {
     if ($("#transaction_status").length > 0) {
         $("#transaction_status").data("kendoDropDownList", new kendo.ui.DropDownList($("#transaction_status")[0], {
             dataSource: {
-                data: mmex.dropDownOptions.status
+                data: mmex.dropDownOptions ? mmex.dropDownOptions.status : []
             },
             optionLabel: Lang.get("mmex.please-choose"),
         }));
@@ -100,7 +100,7 @@ $(document).ready(function () {
 
     $("#account").data("kendoDropDownList", new kendo.ui.DropDownList($("#account")[0], {
         dataSource: {
-            data: mmex.dropDownOptions.accounts
+            data: mmex.dropDownOptions ? mmex.dropDownOptions.accounts : []
         },
         optionLabel: Lang.get("mmex.please-choose"),
         change: (e) => {
@@ -116,7 +116,7 @@ $(document).ready(function () {
         enable: selectedType ? selectedType.slug == "Transfer" : false,
         optionLabel: Lang.get("mmex.please-choose"),
         dataSource: {
-            data: mmex.dropDownOptions.accounts
+            data: mmex.dropDownOptions ? mmex.dropDownOptions.accounts : []
         },
     }));
 
