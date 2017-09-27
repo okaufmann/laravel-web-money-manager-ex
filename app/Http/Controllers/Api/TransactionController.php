@@ -65,10 +65,11 @@ class TransactionController extends Controller
         }
 
         $type = TransactionType::whereName($data->get('transaction_type'))->firstOrFail();
-        $status = TransactionStatus::whereName($data->get('transaction_status'))->first();
         $account = $user->accounts()->whereName($data->get('account'))->firstOrFail();
-        $toaccount = $user->accounts()->whereName($data->get('to_account'))->first();
         $category = $user->categories()->rootCategories()->whereName(($data->get('category')))->firstOrFail();
+
+        $toaccount = $user->accounts()->whereName($data->get('to_account'))->first();
+        $status = TransactionStatus::whereName($data->get('transaction_status'))->first();
         $subcategory = $user->categories()->subCategories()->whereName($data->get('sub_category'))->first();
 
         $resolvedData = collect([
