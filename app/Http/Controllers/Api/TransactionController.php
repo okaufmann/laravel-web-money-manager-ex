@@ -64,20 +64,9 @@ class TransactionController extends Controller
             $payee = Auth::user()->payees()->create(['name' => $payeeName]);
         }
 
-        $type = TransactionType::whereName($data->get('transaction_type'))->first();
-        if (!$type) {
-            abort(404, "Type could not be found.");
-        }
-
+        $type = TransactionType::whereName($data->get('transaction_type'))->firstOrFail();
         $account = $user->accounts()->whereName($data->get('account'))->firstOrFail();
-        if (!$account) {
-            abort(404, "Account could not be found.");
-        }
-
         $category = $user->categories()->rootCategories()->whereName(($data->get('category')))->firstOrFail();
-        if (!$category) {
-            abort(404, "Category could not be found.");
-        }
 
         $toaccount = $user->accounts()->whereName($data->get('to_account'))->first();
         $status = TransactionStatus::whereName($data->get('transaction_status'))->first();
