@@ -64,21 +64,33 @@ class TransactionController extends Controller
             $payee = Auth::user()->payees()->create(['name' => $payeeName]);
         }
 
-        $type = TransactionType::whereName($data->get('transaction_type'))->firstOrFail();
-        $status = TransactionStatus::whereName($data->get('transaction_status'))->first();
+        $type = TransactionType::whereName($data->get('transaction_type'))->first();
+        if (!$type) {
+            abort(404, "Type could not be found.");
+        }
+
         $account = $user->accounts()->whereName($data->get('account'))->firstOrFail();
-        $toaccount = $user->accounts()->whereName($data->get('to_account'))->first();
+        if (!$account) {
+            abort(404, "Account could not be found.");
+        }
+
         $category = $user->categories()->rootCategories()->whereName(($data->get('category')))->firstOrFail();
+        if (!$category) {
+            abort(404, "Category could not be found.");
+        }
+
+        $toaccount = $user->accounts()->whereName($data->get('to_account'))->first();
+        $status = TransactionStatus::whereName($data->get('transaction_status'))->first();
         $subcategory = $user->categories()->subCategories()->whereName($data->get('sub_category'))->first();
 
         $resolvedData = collect([
-            'transaction_type'   => $type->id,
+            'transaction_type' => $type->id,
             'transaction_status' => $status ? $status->id : null,
-            'account'            => $account->id,
-            'to_account'         => $toaccount ? $toaccount->id : null,
-            'payee'              => $payee->id,
-            'category'           => $category->id,
-            'subcategory'        => $subcategory ? $subcategory->id : null,
+            'account' => $account->id,
+            'to_account' => $toaccount ? $toaccount->id : null,
+            'payee' => $payee->id,
+            'category' => $category->id,
+            'subcategory' => $subcategory ? $subcategory->id : null,
         ]);
 
         $data = $data->merge($resolvedData);
