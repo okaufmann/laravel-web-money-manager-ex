@@ -26,11 +26,11 @@ class TransactionRequest extends FormRequest
     public function messages()
     {
         return [
-            'account.exists' => 'no entry found for account',
+            'account.exists'            => 'no entry found for account',
             'transaction_status.exists' => 'no entry found for transaction_status',
-            'transaction_type.exists' => 'no entry found for transaction_type',
-            'category.exists' => 'no entry found for category',
-            'subcategory.exists' => 'no entry found for subcategory'
+            'transaction_type.exists'   => 'no entry found for transaction_type',
+            'category.exists'           => 'no entry found for category',
+            'subcategory.exists'        => 'no entry found for subcategory',
         ];
     }
 

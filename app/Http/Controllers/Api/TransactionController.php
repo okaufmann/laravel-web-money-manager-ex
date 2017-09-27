@@ -73,13 +73,13 @@ class TransactionController extends Controller
         $subcategory = $user->categories()->subCategories()->whereName($data->get('sub_category'))->first();
 
         $resolvedData = collect([
-            'transaction_type' => $type->id,
+            'transaction_type'   => $type->id,
             'transaction_status' => $status ? $status->id : null,
-            'account' => $account->id,
-            'to_account' => $toaccount ? $toaccount->id : null,
-            'payee' => $payee->id,
-            'category' => $category->id,
-            'subcategory' => $subcategory ? $subcategory->id : null,
+            'account'            => $account->id,
+            'to_account'         => $toaccount ? $toaccount->id : null,
+            'payee'              => $payee->id,
+            'category'           => $category->id,
+            'subcategory'        => $subcategory ? $subcategory->id : null,
         ]);
 
         $data = $data->merge($resolvedData);
