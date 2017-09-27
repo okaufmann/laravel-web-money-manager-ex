@@ -1,14 +1,14 @@
 {
-    "/js/vendor.js": "/js/vendor.js?id=5a79998053d46e4255b4",
+    "/js/vendor.js": "/js/vendor.js?id=e45b26eebfb845b34d9d",
     "/js/i18n/messages-en_GB.js": "/js/i18n/messages-en_GB.js?id=72f9bf4bb9ccf9ea1caa",
     "/js/i18n/messages-de_DE.js": "/js/i18n/messages-de_DE.js?id=5bf74acbaa694f7c5715",
     "/js/i18n/messages-de_CH.js": "/js/i18n/messages-de_CH.js?id=4101a249cfc77d05bad7",
-    "/js/app.js": "/js/app.js?id=3346430d1c0c6e134607",
+    "/js/app.js": "/js/app.js?id=cbaa59ddde4523d5c45f",
     "/css/app.css": "/css/app.css?id=80089de4958eba2e9209",
     "/css/vendor.css": "/css/vendor.css?id=089ec5514f21500b34d9",
     "/css/kendo.css": "/css/kendo.css?id=caa8c641d6827ea74273",
     "/js/i18n/messages-en_US.js": "/js/i18n/messages-en_US.js?id=bb1fa98f1bd9eabf3831",
-    "/js/transaction-form.js": "/js/transaction-form.js?id=caaad6c907181090350a",
-    "\\js\\messages.js": "\\js\\messages.js?id=de8dadd2cef760b1d1db",
-    "/js/messages.js": "/js/messages.js?id=de8dadd2cef760b1d1db"
+    "/js/transaction-form.js": "/js/transaction-form.js?id=f8bc5775522c1a21c2ed",
+    "\\js\\messages.js": "\\js\\messages.js?id=e764016ba702bf826947",
+    "/js/messages.js": "/js/messages.js?id=e764016ba702bf826947"
 }
