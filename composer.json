@@ -1,7 +1,13 @@
 {
     "name": "okaufmann/laravel-web-money-manager-ex",
     "description": "Complete rewrite of Money Manager Ex WebApp based on Laravel for better security and more functionality.",
-    "keywords": ["framework", "laravel", "mmex", "money", "webapp"],
+    "keywords": [
+        "framework",
+        "laravel",
+        "mmex",
+        "money",
+        "webapp"
+    ],
     "license": "MIT",
     "type": "project",
     "require": {
@@ -15,9 +21,11 @@
         "spatie/laravel-blade-javascript": "^2.0",
         "spatie/laravel-fractal": "^5.0",
         "spatie/laravel-medialibrary": "^6.0",
-        "webpatser/laravel-uuid": "^3.0"
+        "webpatser/laravel-uuid": "^3.0",
+        "fideloper/proxy": "~3.3"
     },
     "require-dev": {
+        "filp/whoops": "~2.0",
         "barryvdh/laravel-debugbar": "^3.0",
         "barryvdh/laravel-ide-helper": "^2.3",
         "fzaninotto/faker": "~1.4",
@@ -43,22 +51,30 @@
             "Tests\\": "tests/"
         }
     },
+    "extra": {
+        "laravel": {
+            "dont-discover": [
+                "laravel/tinker",
+                "barryvdh/laravel-debugbar",
+                "barryvdh/laravel-ide-helper"
+            ]
+        }
+    },
     "scripts": {
         "post-root-package-install": [
-            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "php artisan key:generate"
+            "@php artisan key:generate"
         ],
-        "post-install-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "php artisan optimize"
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover"
         ],
         "post-update-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "php artisan ide-helper:generate",
-            "php artisan ide-helper:meta",
-            "php artisan optimize"
+            "@php artisan package:discover",
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta"
         ]
     },
     "config": {
