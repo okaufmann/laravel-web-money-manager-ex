@@ -47,7 +47,7 @@ if (token) {
 // });
 
 // Material Buttons
-$(document).ready(() => {
+$(() => {
     window['mmex'] = window['mmex'] || {};
     window['mmex']['momentLocal'] = (date) => {
         if (!date || _.isEmpty(date)) {
