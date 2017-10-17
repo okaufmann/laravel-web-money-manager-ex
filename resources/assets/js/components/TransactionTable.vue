@@ -6,9 +6,10 @@
                   :css="css.table"
                   :noDataTemplate="noData()"
                   pagination-path="meta.pagination"
+                  :sort-order="sortOrder"
                   @vuetable:pagination-data="onPaginationData"
         >
-            <template slot="actions" scope="props">
+            <template slot="actions" slot-scope="props">
                 <div class="form-inline">
                     <a class="btn btn-success btn-raised btn-sm"
                        :href="'/' + props.rowData.id">
@@ -33,8 +34,10 @@
     let Vuetable = require('vuetable-2/src/components/Vuetable');
     let VuetablePaginationBootstrap = require('./VuetablePaginationBootstrap');
     let VuetablePaginationInfo = require('vuetable-2/src/components/VuetablePaginationInfo');
+    import saveState from 'vue-save-state';
 
     export default {
+        mixins: [saveState],
         components: {
             Vuetable,
             VuetablePaginationBootstrap,
@@ -44,6 +47,7 @@
             return {
                 // Hack api token to url cause axios is not using global config
                 url: "/api/v1/transactions?api_token=" + Laravel.apiToken,
+                sortOrder: [],
                 fields: [
                     {
                         title: Lang.get('mmex.date'),
@@ -104,11 +108,16 @@
                 },
             }
         },
+        mounted() {
+            // ..
+        },
         methods: {
             noData() {
                 return Lang.get('mmex.no-data-found');
             },
             onAction(action, data, index) {
+                console.log(this.$refs.vuetable);
+
                 console.log('slot) action: ' + action, data, index);
                 if (action === 'delete-item') {
                     let result = confirm(Lang.get('mmex.delete-transaction'));
@@ -119,6 +128,10 @@
                     }
                 }
             },
+//            getSortParam(sortOrder) {
+//                console.log("getSortParam() : sortOrder:=", sortOrder);
+//                return this.$refs.vuetable.getDefaultSortParam();
+//            },
             hasAttachments(value) {
                 if (!value) {
                     return '';
@@ -153,7 +166,13 @@
                 paginationData.last_page = paginationData.total_pages;
                 paginationData.last_page = paginationData.total_pages;
                 this.$refs.pagination.setPaginationData(paginationData)
-            }
+            },
+            getSaveStateConfig() {
+                return {
+                    'cacheKey': 'transactionTable',
+                    'saveProperties': ['sortOrder'],
+                };
+            },
         }
     }
 </script>
