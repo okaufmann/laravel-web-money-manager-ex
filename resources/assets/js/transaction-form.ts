@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function() {
     kendo.ui.DropDownList.prototype.options =
         $.extend(kendo.ui.DropDownList.prototype.options, {
             noDataTemplate: Lang.get('mmex.no-data-found'),
@@ -106,9 +106,9 @@ $(document).ready(function () {
         change: (e) => {
             let id = e.sender.value();
             let accounts = _.reject(mmex.dropDownOptions.accounts, (a) => a["id"] === parseInt(id));
-
-            $("#to_account").data("kendoDropDownList").dataSource.transport.data = accounts;
-            $("#to_account").data("kendoDropDownList").dataSource.read();
+            let dataSource = $("#to_account").data("kendoDropDownList").dataSource as any;
+            dataSource.transport.data = accounts;
+            dataSource.read();
         }
     }));
 

@@ -34,7 +34,8 @@ require('kendo-ui-core');
  */
 window.autosize = require('autosize');
 
-window.Vue = require('vue');
+import Vue from 'vue';
+window.Vue = Vue;
 
 // import Echo from 'laravel-echo'
 

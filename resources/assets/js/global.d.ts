@@ -1,4 +1,4 @@
-import _Vue = require("vue");
+import _Vue from 'vue'
 import _moment = require("moment");
 import {AxiosStatic} from "axios";
 
