@@ -17,8 +17,8 @@ before_install:
 - travis_retry composer self-update
 
 install:
-- travis_retry composer install --no-interaction --no-suggest
 - yes | pecl install imagick
+- travis_retry composer install --no-interaction --no-suggest
 
 script:
 - phpunit
