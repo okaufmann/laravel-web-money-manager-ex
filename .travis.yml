@@ -1,25 +1,30 @@
+sudo: required
+
 language: php
-dist: trusty
 
 php:
-  - '7.0'
-  - '7.1'
+- 7.1
+- 7.2
+- 7.3
+
+cache:
+  directories:
+  - $HOME/.composer/cache
 
 notifications:
+  email:
     on_success: change
     on_failure: always
 
-before_script:
-  - phpenv config-rm xdebug.ini
-  #  TODO
-  #  - pecl install imagick
-  - composer install --no-interaction --no-suggest --ignore-platform-reqs
-  - nvm install node
-  - npm install -g yarn
-  - yarn
-  - npm run dev -- --progress=false
+before_install:
+- sudo apt-get update
+- travis_retry composer self-update
+
+install:
+- yes | pecl install imagick
+- travis_retry composer install --no-interaction --no-suggest
 
 script:
- - ./vendor/bin/phpunit
- - cat ./storage/logs/laravel.log
+- phpunit
+- cat ./storage/logs/laravel.log
 

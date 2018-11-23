@@ -2,12 +2,13 @@
 
 namespace Tests\Feature\MmexClient;
 
-use App\Models\Category;
 use App\Models\Payee;
+use App\Models\Category;
 
 class CategoryTest extends MmexTestCase
 {
-    public function testDeleteAllCategories()
+    /** @test */
+    public function it_can_delete_all_categories()
     {
         // Arrange
         $categorie = factory(Category::class)->create(['user_id' => $this->user->id]);
@@ -22,7 +23,8 @@ class CategoryTest extends MmexTestCase
         $this->assertIsSoftDeletedInDatabase('categories', ['user_id' => $this->user->id, 'name' => $categorie->name]);
     }
 
-    public function testImportCategories()
+    /** @test */
+    public function it_can_import_categories()
     {
         // Arrange
         $data = ['MMEX_Post' => '{ "Categories" : [ { "CategoryName" : "Bills", "SubCategoryName" : "Telecom" }, { "CategoryName" : "Bills", "SubCategoryName" : "Water" }, { "CategoryName" : "Automobile", "SubCategoryName" : "Maintenance" }, { "CategoryName" : "Automobile", "SubCategoryName" : "Parking" } ] }'];
@@ -41,7 +43,8 @@ class CategoryTest extends MmexTestCase
         $this->assertDatabaseHas('categories', ['user_id' => $this->user->id, 'name' => 'Parking']);
     }
 
-    public function testImportSubCategories()
+    /** @test */
+    public function it_can_import_sub_categories()
     {
         // Arrange
         $data = ['MMEX_Post' => '{ "Categories" : [ { "CategoryName" : "Bills", "SubCategoryName" : "Telecom" }, { "CategoryName" : "Bills", "SubCategoryName" : "Water" }, { "CategoryName" : "Automobile", "SubCategoryName" : "Maintenance" }, { "CategoryName" : "Automobile", "SubCategoryName" : "Parking" } ] }'];
@@ -63,9 +66,7 @@ class CategoryTest extends MmexTestCase
         $this->assertDatabaseHas('categories', ['user_id' => $this->user->id, 'name' => 'Parking', 'parent_id' => $automobile->id]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_preserves_default_categories_on_payees_table_after_importing_categories()
     {
         // Arrange

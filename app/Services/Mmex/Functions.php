@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: okaufmann
- * Date: 23.10.2016
- * Time: 01:02.
- */
 
 namespace App\Services\Mmex;
 

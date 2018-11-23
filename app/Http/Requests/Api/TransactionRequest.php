@@ -3,8 +3,8 @@
 namespace App\Http\Requests\Api;
 
 use Carbon\Carbon;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 
 class TransactionRequest extends FormRequest
 {

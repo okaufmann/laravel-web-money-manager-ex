@@ -3,13 +3,12 @@
 namespace Tests\Features;
 
 use App\Models\User;
-use Tests\UsesDatabase;
 use Tests\utils\DbUtils;
-use UsersTableSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 abstract class FeatureTestCase extends \Tests\TestCase
 {
-    use UsesDatabase;
+    use RefreshDatabase;
     use DbUtils;
 
     /** @var User */
@@ -17,15 +16,7 @@ abstract class FeatureTestCase extends \Tests\TestCase
 
     public function setUp()
     {
-        $this->prepareDatabase();
-
         parent::setUp();
-
-        $this->setUpDatabase(function () {
-            //$this->artisan('db:seed', ['--class' => UsersTableSeeder::class]);
-        });
-
-        $this->beginDatabaseTransaction();
 
         $this->ensureUser();
     }
@@ -34,13 +25,11 @@ abstract class FeatureTestCase extends \Tests\TestCase
      * Create and return a new user.
      *
      * @param array $properties
-     *
-     * @return \App\Models\User
      */
     protected function ensureUser($properties = [])
     {
-        if (!$this->user) {
-            $this->user = factory(User::class)->create($properties);
+        if (! $this->user) {
+            $this->user = count($properties) ? factory(User::class)->create($properties) : factory(User::class)->create();
         }
     }
 

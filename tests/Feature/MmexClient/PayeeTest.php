@@ -2,12 +2,13 @@
 
 namespace Tests\Feature\MmexClient;
 
-use App\Models\Category;
 use App\Models\Payee;
+use App\Models\Category;
 
 class PayeeTest extends MmexTestCase
 {
-    public function testDeleteAllPayees()
+    /** @test */
+    public function it_can_delete_all_payees()
     {
         // Arrange
         $payee = factory(Payee::class)->create(['user_id' => $this->user->id]);
@@ -21,7 +22,8 @@ class PayeeTest extends MmexTestCase
         $this->assertIsSoftDeletedInDatabase('payees', ['user_id' => $this->user->id, 'name' => $payee->name]);
     }
 
-    public function testImportPayees()
+    /** @test */
+    public function it_can_import_payees()
     {
         // Arrange
         $food = factory(Category::class)->create(['user_id' => $this->user->id, 'name' => 'Food']);
@@ -43,7 +45,8 @@ class PayeeTest extends MmexTestCase
         $this->assertDatabaseHas('payees', ['user_id' => $this->user->id, 'name' => 'Spotify', 'last_category_id' => $billsServices->id]);
     }
 
-    public function testEnsureSoftDeletedPayeesWillBeRestored()
+    /** @test */
+    public function it_can_ensure_that_soft_deleted_payees_will_be_restored()
     {
         // Arrange
         $payee1 = factory(Payee::class)->create(['user_id' => $this->user->id, 'name' => 'Luke Skywalker']);
@@ -67,9 +70,7 @@ class PayeeTest extends MmexTestCase
         $this->assertDatabaseHas('payees', ['user_id' => $this->user->id, 'name' => 'Yoda', 'deleted_at' => null]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_creates_default_categories_for_payees()
     {
         // Arrange

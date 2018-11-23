@@ -10,14 +10,14 @@
 
 namespace App\Services;
 
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Payee;
 use App\Models\Account;
 use App\Models\Category;
-use App\Models\Payee;
 use App\Models\Transaction;
-use App\Models\TransactionStatus;
 use App\Models\TransactionType;
-use App\Models\User;
-use Carbon\Carbon;
+use App\Models\TransactionStatus;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 
@@ -34,8 +34,8 @@ class TransactionService
     {
         $transaction = $user->transactions()->find($id);
 
-        if (!$transaction) {
-            return null;
+        if (! $transaction) {
+            return;
         }
 
         $account = $user->accounts()->where('name', $transaction->account_name)->first();
@@ -96,7 +96,7 @@ class TransactionService
      */
     public function createTransaction(User $user, Collection $data, array $files = null, $jsonRequest = false)
     {
-        $this->parseTransactionDate($data, $jsonRequest);
+        $this->parseTransactionDate($user, $data, $jsonRequest);
 
         $transaction = new Transaction($data->all());
 
@@ -135,7 +135,7 @@ class TransactionService
 
     public function updateTransaction(User $user, $id, Collection $data, array $files = null)
     {
-        $this->parseTransactionDate($data);
+        $this->parseTransactionDate($user, $data);
 
         $transaction = $user->transactions()->findOrFail($id);
 
@@ -250,16 +250,16 @@ class TransactionService
         }
     }
 
-    private function parseTransactionDate($data, $jsonRequest = false)
+    private function parseTransactionDate(User $user, $data, $jsonRequest = false)
     {
         $date = null;
         $transactionDate = $data->pull('transaction_date');
 
-        if (!$transactionDate) {
+        if (! $transactionDate) {
             return;
         }
 
-        $format = $jsonRequest ? Carbon::ATOM : locale_dateformat();
+        $format = $jsonRequest ? Carbon::ATOM : $user->localeDateFormat;
 
         $date = Carbon::createFromFormat($format, $transactionDate);
         $date->hour(0);

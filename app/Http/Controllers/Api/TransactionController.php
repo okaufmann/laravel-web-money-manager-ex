@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\TransactionRequest;
-use App\Models\TransactionStatus;
+use Auth;
 use App\Models\TransactionType;
+use App\Models\TransactionStatus;
+use App\Http\Controllers\Controller;
 use App\Services\TransactionService;
 use App\Transformers\TransactionTransfomer;
-use Auth;
+use App\Http\Requests\Api\TransactionRequest;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 
 class TransactionController extends Controller
@@ -60,7 +60,7 @@ class TransactionController extends Controller
         // ensure payee exists
         $payeeName = $request->input('payee');
         $payee = Auth::user()->payees()->whereName($payeeName)->first();
-        if (!empty($payeeName) && !$payee) {
+        if (! empty($payeeName) && ! $payee) {
             $payee = Auth::user()->payees()->create(['name' => $payeeName]);
         }
 

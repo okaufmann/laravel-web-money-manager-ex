@@ -11,13 +11,14 @@
 |
 */
 
-Auth::routes();
+Auth::routes(['verify' => true]);
+
 Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 Route::pattern('id', '[0-9]+');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@index')->name('home');
-    Route::get('/user', 'Auth\UserController@show')->name('user');
+    Route::get('/user', 'Auth\UserController@show')->name('user')->middleware('verified');
     Route::post('/user/password', 'Auth\UserController@password')->name('user-password');
     Route::resource('transactions', 'TransactionController');
     Route::get('settings', 'SettingsController@index');

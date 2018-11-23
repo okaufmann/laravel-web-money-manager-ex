@@ -11,16 +11,16 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.ts('resources/assets/js/app.ts', 'public/js')
-    .js('resources/assets/js/vendor.js', 'public/js')
-    .ts('resources/assets/js/transaction-form.ts', 'public/js')
-    .js('resources/assets/js/i18n/messages-de_CH.js', 'public/js/i18n')
-    .js('resources/assets/js/i18n/messages-de_DE.js', 'public/js/i18n')
-    .js('resources/assets/js/i18n/messages-en_US.js', 'public/js/i18n')
-    .js('resources/assets/js/i18n/messages-en_GB.js', 'public/js/i18n')
-    .sass('resources/assets/css/app.scss', 'public/css')
-    .sass('resources/assets/css/vendor.scss', 'public/css')
-    .less('resources/assets/css/kendo.less', 'public/css');
+mix.ts('resources/js/app.ts', 'public/js')
+    .js('resources/js/vendor.js', 'public/js')
+    .ts('resources/js/transaction-form.ts', 'public/js')
+    .js('resources/js/i18n/messages-de_CH.js', 'public/js/i18n')
+    .js('resources/js/i18n/messages-de_DE.js', 'public/js/i18n')
+    .js('resources/js/i18n/messages-en_US.js', 'public/js/i18n')
+    .js('resources/js/i18n/messages-en_GB.js', 'public/js/i18n')
+    .sass('resources/css/app.scss', 'public/css')
+    .sass('resources/css/vendor.scss', 'public/css')
+    .less('resources/css/kendo.less', 'public/css');
 
 if (mix.inProduction()) {
     mix.version();

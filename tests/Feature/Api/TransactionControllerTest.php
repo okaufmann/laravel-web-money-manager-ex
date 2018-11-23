@@ -2,13 +2,13 @@
 
 namespace Tests\Feature\Api;
 
+use Carbon\Carbon;
+use App\Models\Payee;
 use App\Models\Account;
 use App\Models\Category;
-use App\Models\Payee;
 use App\Models\Transaction;
-use App\Models\TransactionStatus;
 use App\Models\TransactionType;
-use Carbon\Carbon;
+use App\Models\TransactionStatus;
 use Tests\Features\FeatureTestCase;
 
 class TransactionControllerTest extends FeatureTestCase
@@ -56,9 +56,7 @@ class TransactionControllerTest extends FeatureTestCase
             ]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_can_create_new_transaction_with_a_new_payee()
     {
         // Arrange
@@ -114,9 +112,7 @@ class TransactionControllerTest extends FeatureTestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_can_create_a_new_transaction_with_a_existing_payee()
     {
         // Arrange
