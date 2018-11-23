@@ -12,7 +12,6 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     $guid = mmex_guid();
     \Log::debug(sprintf('creating new user with uuid: `%s`', $guid));
 
-
     return [
         'name'      => $faker->name,
         'email'     => $faker->email,
