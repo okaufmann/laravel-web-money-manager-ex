@@ -17,7 +17,7 @@ before_script:
   - nvm install node
   - npm install -g yarn
   - yarn
-  - npm run dev -- --progress=false
+  - yarn run dev
 
 script:
  - ./vendor/bin/phpunit
