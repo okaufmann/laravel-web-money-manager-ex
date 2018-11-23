@@ -25,8 +25,6 @@ abstract class FeatureTestCase extends \Tests\TestCase
      * Create and return a new user.
      *
      * @param array $properties
-     *
-     * @return \App\Models\User
      */
     protected function ensureUser($properties = [])
     {
