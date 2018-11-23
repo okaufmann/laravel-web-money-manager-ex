@@ -26,7 +26,7 @@ class MmexEnsureGuid
         Log::debug(sprintf('current url: `%s`', $request->fullUrl()));
         Log::debug(sprintf('Checking current guid: `%s`', $guid));
 
-        if ($user && $guid == $user->mmex_guid) {
+        if (!empty($guid) && $user && $guid == $user->mmex_guid) {
             // login user on api guard (simple alternative login method)
             Auth::guard('api')->setUser($user);
 
