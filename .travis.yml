@@ -10,8 +10,9 @@ php:
 - 7.3
 
 notifications:
-    on_success: change
-    on_failure: always
+    email:
+        on_success: change
+        on_failure: always
 
 before_script:
   - phpenv config-rm xdebug.ini
