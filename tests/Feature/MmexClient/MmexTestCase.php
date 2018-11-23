@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: okaufmann
- * Date: 28.10.2016
- * Time: 01:23.
- */
-
 namespace Tests\Feature\MmexClient;
 
 use App\Models\User;
