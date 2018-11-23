@@ -12,17 +12,12 @@ notifications:
     on_success: change
     on_failure: always
 
-env:
-  matrix:
-  - COMPOSER_FLAGS="--prefer-lowest"
-  - COMPOSER_FLAGS=""
-
 before_install:
 - sudo apt-get update
 - travis_retry composer self-update
 
 install:
-- travis_retry composer update --prefer-source $COMPOSER_FLAGS
+- travis_retry composer install --no-interaction --no-suggest
 - yes | pecl install imagick
 
 script:
