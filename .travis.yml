@@ -1,11 +1,13 @@
+sudo: required
+
 language: php
-dist: trusty
+
 cache: yarn
 
 php:
-  - '7.1'
-  - '7.2'
-  - '7.3'
+- 7.1
+- 7.2
+- 7.3
 
 notifications:
     on_success: change
