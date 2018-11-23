@@ -16,7 +16,7 @@ class LocalEnvironmentServiceProvider extends ServiceProvider
     protected $localProviders = [
         \Barryvdh\Debugbar\ServiceProvider::class,
         \Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-        \Laravel\Tinker\TinkerServiceProvider::class,
+        \Themsaid\MailPreview\MailPreviewServiceProvider::class,
     ];
 
     /**

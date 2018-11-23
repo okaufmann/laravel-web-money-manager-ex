@@ -25,13 +25,11 @@ abstract class FeatureTestCase extends \Tests\TestCase
      * Create and return a new user.
      *
      * @param array $properties
-     *
-     * @return \App\Models\User
      */
     protected function ensureUser($properties = [])
     {
         if (! $this->user) {
-            $this->user = factory(User::class)->create($properties);
+            $this->user = count($properties) ? factory(User::class)->create($properties) : factory(User::class)->create();
         }
     }
 

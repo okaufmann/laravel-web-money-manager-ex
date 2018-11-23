@@ -1,18 +1,12 @@
 <?php
-/**
- * CategoryFactory.php, laravel-money-manager-ex.
- *
- * This File belongs to to Project laravel-money-manager-ex
- *
- * @author Oliver Kaufmann <okaufmann91@gmail.com>
- *
- * @version 1.0
- */
+
 $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
+    static $password;
+
     return [
         'name'      => $faker->name,
         'email'     => $faker->email,
-        'password'  => bcrypt('secret'),
+        'password'  => $password ?: $password = bcrypt('secret'),
         'is_admin'  => true,
         'mmex_guid' => mmex_guid(),
         'locale'    => 'en_US',

@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -62,6 +63,13 @@ class User extends Authenticatable
         $locale = $locale == 'en-us' ? 'en' : $locale;
 
         return $locale;
+    }
+
+    public function getLocaleDateFormatAttribute()
+    {
+        $format = locale_dateformat($this->locale);
+
+        return $format;
     }
 
     public function getLanguageAttribute()

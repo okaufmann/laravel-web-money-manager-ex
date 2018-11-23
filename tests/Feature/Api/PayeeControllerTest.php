@@ -9,9 +9,7 @@ use Tests\Features\FeatureTestCase;
 
 class PayeeControllerTest extends FeatureTestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function it_can_access_all_payees_of_user()
     {
         // Arrange
@@ -50,9 +48,7 @@ class PayeeControllerTest extends FeatureTestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_can_create_new_payees_from_kendoui_control()
     {
         // Arrange
@@ -69,9 +65,7 @@ class PayeeControllerTest extends FeatureTestCase
         $this->assertDatabaseHas('payees', ['name' => '7-Eleven']);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_returns_last_used_category_for_payee()
     {
         // Arrange
@@ -94,9 +88,7 @@ class PayeeControllerTest extends FeatureTestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_returns_last_used_subcategory_for_payee()
     {
         // Arrange

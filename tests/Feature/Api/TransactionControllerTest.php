@@ -56,9 +56,7 @@ class TransactionControllerTest extends FeatureTestCase
             ]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_can_create_new_transaction_with_a_new_payee()
     {
         // Arrange
@@ -114,9 +112,7 @@ class TransactionControllerTest extends FeatureTestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_can_create_a_new_transaction_with_a_existing_payee()
     {
         // Arrange
