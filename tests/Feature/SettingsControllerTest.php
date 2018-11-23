@@ -6,13 +6,7 @@ use Tests\Features\FeatureTestCase;
 
 class SettingsControllerTest extends FeatureTestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @test
-     *
-     * @return void
-     */
+    /** @test */
     public function it_can_browse_settings_page()
     {
         // Arrange
