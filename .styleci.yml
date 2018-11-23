@@ -1,5 +1,1 @@
-preset: recommended
-
-risky: false
-
-linting: true
+preset: laravel
