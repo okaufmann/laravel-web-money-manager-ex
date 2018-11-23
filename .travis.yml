@@ -16,10 +16,6 @@ notifications:
 
 before_script:
   - composer install --no-interaction --no-suggest --ignore-platform-reqs
-  - nvm install node
-  - npm install -g yarn
-  - yarn
-  - yarn run dev
 
 script:
  - ./vendor/bin/phpunit
