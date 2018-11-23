@@ -44,7 +44,7 @@ class Handler extends ExceptionHandler
      */
     public function report(\Exception $e)
     {
-        if (!App::environment('testing') && $this->shouldReport($e)) {
+        if (! App::environment('testing') && $this->shouldReport($e)) {
             app('sentry')->captureException($e);
         }
         parent::report($e);
