@@ -2,13 +2,13 @@
 
 namespace Tests\Feature\MmexClient;
 
-use Tests\Features\FeatureTestCase;
+use App\Services\Mmex\MmexConstants;
 use Illuminate\Foundation\Testing\TestResponse;
+use Tests\Features\FeatureTestCase;
 
 abstract class MmexTestCase extends FeatureTestCase
 {
     protected $apiUri = '/services.php';
-    protected $success = 'Operation has succeeded';
 
     protected function buildUrl(array $data): string
     {
@@ -26,6 +26,6 @@ abstract class MmexTestCase extends FeatureTestCase
     protected function assertSeeMmexSuccess(TestResponse $response)
     {
         return $response->assertStatus(200)
-            ->assertSee($this->success);
+            ->assertSee(MmexConstants::$operation_succeded);
     }
 }
