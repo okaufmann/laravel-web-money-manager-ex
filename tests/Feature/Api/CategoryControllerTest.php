@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Api;
 
-use App\Models\Category;
 use App\Models\User;
+use App\Models\Category;
 use Tests\Features\FeatureTestCase;
 
 class CategoryControllerTest extends FeatureTestCase

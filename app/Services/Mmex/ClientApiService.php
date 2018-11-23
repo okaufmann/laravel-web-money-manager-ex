@@ -8,9 +8,9 @@
 
 namespace App\Services\Mmex;
 
-use App\Models\Category;
-use App\Models\User;
 use Log;
+use App\Models\User;
+use App\Models\Category;
 use Spatie\MediaLibrary\Media;
 
 class ClientApiService
@@ -66,10 +66,10 @@ class ClientApiService
             $categoryName = $payeeData->DefCateg;
             $subCategoryName = $payeeData->DefSubCateg;
 
-            if (!empty($categoryName)) {
+            if (! empty($categoryName)) {
                 $category = $this->createOrGetCategory($user, $categoryName);
 
-                if (!empty($subCategoryName)) {
+                if (! empty($subCategoryName)) {
                     $category = $this->createOrGetSubCategory($user, $category, $subCategoryName);
                 }
 

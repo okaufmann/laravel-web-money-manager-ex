@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Api;
 
-use App\Models\Category;
-use App\Models\Payee;
 use App\Models\User;
+use App\Models\Payee;
+use App\Models\Category;
 use Tests\Features\FeatureTestCase;
 
 class PayeeControllerTest extends FeatureTestCase

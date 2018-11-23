@@ -10,8 +10,8 @@
 
 namespace App\Services;
 
-use Cache;
 use Log;
+use Cache;
 use Symfony\Component\Process\Process;
 
 class VersionInfoService
@@ -35,7 +35,7 @@ class VersionInfoService
         $process->run();
         $output = $process->getOutput();
 
-        if (!$process->isSuccessful()) {
+        if (! $process->isSuccessful()) {
             Log::error($process->getErrorOutput());
 
             return [];

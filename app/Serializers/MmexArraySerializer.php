@@ -12,8 +12,8 @@
 namespace App\Serializers;
 
 use League\Fractal\Pagination\CursorInterface;
-use League\Fractal\Pagination\PaginatorInterface;
 use League\Fractal\Resource\ResourceInterface;
+use League\Fractal\Pagination\PaginatorInterface;
 use League\Fractal\Serializer\SerializerAbstract;
 
 class MmexArraySerializer extends SerializerAbstract

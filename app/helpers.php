@@ -1,6 +1,6 @@
 <?php
 
-if (!function_exists('mmex_guid')) {
+if (! function_exists('mmex_guid')) {
     /**
      * Signs a url and make it available for the given amount of hours.
      *
@@ -15,7 +15,7 @@ if (!function_exists('mmex_guid')) {
     }
 }
 
-if (!function_exists('locale_dateformat')) {
+if (! function_exists('locale_dateformat')) {
     /**
      * Signs a url and make it available for the given amount of hours.
      *

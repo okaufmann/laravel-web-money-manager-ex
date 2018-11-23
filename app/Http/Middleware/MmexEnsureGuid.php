@@ -2,10 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\User;
-use App\Services\Mmex\MmexConstants;
 use Auth;
 use Closure;
+use App\Models\User;
+use App\Services\Mmex\MmexConstants;
 
 class MmexEnsureGuid
 {

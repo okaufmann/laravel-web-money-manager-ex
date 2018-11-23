@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\App;
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 
 class LocalEnvironmentServiceProvider extends ServiceProvider

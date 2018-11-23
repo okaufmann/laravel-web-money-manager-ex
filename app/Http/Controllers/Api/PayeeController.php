@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Transformers\PayeeTransformer;
 use Auth;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Transformers\PayeeTransformer;
 
 class PayeeController extends Controller
 {

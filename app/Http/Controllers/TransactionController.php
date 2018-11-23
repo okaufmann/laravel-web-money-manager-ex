@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TransactionRequest;
-use App\Models\Transaction;
-use App\Services\TransactionService;
 use Auth;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
+use App\Services\TransactionService;
+use App\Http\Requests\TransactionRequest;
 
 class TransactionController extends Controller
 {
