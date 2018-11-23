@@ -41,6 +41,7 @@ return [
     | stay compatible with the Mailgun e-mail application by default.
     |
     */
+
     'port' => env('MAIL_PORT', 587),
 
     /*
@@ -71,6 +72,7 @@ return [
     */
 
     'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+
     /*
     |--------------------------------------------------------------------------
     | SMTP Server Username
@@ -83,6 +85,7 @@ return [
     */
 
     'username' => env('MAIL_USERNAME'),
+
     'password' => env('MAIL_PASSWORD'),
 
     /*
@@ -111,8 +114,10 @@ return [
 
     'markdown' => [
         'theme' => 'default',
+
         'paths' => [
             resource_path('views/vendor/mail'),
         ],
     ],
+
 ];
