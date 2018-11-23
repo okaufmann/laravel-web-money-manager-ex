@@ -13,7 +13,7 @@
         ]
     },
     "include": [
-        "resources/assets/js/**/*"
+        "resources/js/**/*"
     ],
     "typeAcquisition": {
         "enable": true

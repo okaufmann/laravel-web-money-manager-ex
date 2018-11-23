@@ -6,10 +6,10 @@
 @import "variables";
 
 // Font awesome
-@import "node_modules/font-awesome/scss/font-awesome";
+@import "~font-awesome/scss/font-awesome";
 
 // Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
 
 // Bootstrap Material Design
 @import "vendor/bootstrap-material-design";
