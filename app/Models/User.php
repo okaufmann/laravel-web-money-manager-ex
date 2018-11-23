@@ -65,8 +65,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $locale;
     }
 
-    public function getLocaleDateFormatAttribute() {
+    public function getLocaleDateFormatAttribute()
+    {
         $format = locale_dateformat($this->locale);
+
         return $format;
     }
 
