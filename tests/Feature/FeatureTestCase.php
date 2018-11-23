@@ -29,7 +29,7 @@ abstract class FeatureTestCase extends \Tests\TestCase
      */
     protected function ensureUser($properties = [])
     {
-        if (!$this->user) {
+        if (! $this->user) {
             $this->user = count($properties) ? factory(User::class)->create($properties) : factory(User::class)->create();
         }
         Log::debug('user set: ', ['mmex_guid' => $this->user->mmex_guid]);
