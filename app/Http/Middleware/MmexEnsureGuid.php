@@ -23,6 +23,7 @@ class MmexEnsureGuid
         $guid = $request->input('guid');
         $user = User::where('mmex_guid', $guid)->first();
 
+        Log::debug(sprintf('current url: `%s`', $request->fullUrl()));
         Log::debug(sprintf('Checking current guid: `%s`', $guid));
 
         if ($user && $guid == $user->mmex_guid) {
