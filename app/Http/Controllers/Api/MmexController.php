@@ -85,7 +85,6 @@ class MmexController extends Controller
         }
 
         if ($function == Functions::DonwloadAttachment) {
-
             // is something like: Transaction_3_test-receipt-3.png
             $fileName = $data['download_attachment'];
 
