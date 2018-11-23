@@ -1,17 +1,22 @@
 <?php
 
+use Ramsey\Uuid\Uuid;
+
 if (! function_exists('mmex_guid')) {
     /**
      * Signs a url and make it available for the given amount of hours.
      *
      * @return string
+     * @throws Exception
      */
     function mmex_guid()
     {
-        $uuid = Uuid::generate();
-        $guid = strtoupper($uuid);
+        $uuid = Uuid::uuid4();
+        $guid = mb_strtoupper($uuid);
 
-        return sprintf('{%s}', $guid);
+        $guid = sprintf('{%s}', $guid);
+
+        return $guid;
     }
 }
 

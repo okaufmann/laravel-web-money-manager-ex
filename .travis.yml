@@ -7,15 +7,24 @@ php:
 - 7.2
 - 7.3
 
-notifications:
-    email:
-        on_success: change
-        on_failure: always
+cache:
+  directories:
+  - $HOME/.composer/cache
 
-before_script:
-  - composer install --no-interaction --no-suggest --ignore-platform-reqs
+notifications:
+  email:
+    on_success: change
+    on_failure: always
+
+before_install:
+- sudo apt-get update
+- travis_retry composer self-update
+
+install:
+- yes | pecl install imagick
+- travis_retry composer install --no-interaction --no-suggest
 
 script:
- - ./vendor/bin/phpunit
- - cat ./storage/logs/laravel.log
+- phpunit
+- cat ./storage/logs/laravel.log
 

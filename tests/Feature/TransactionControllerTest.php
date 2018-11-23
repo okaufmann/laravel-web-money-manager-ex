@@ -13,9 +13,7 @@ use Tests\Features\FeatureTestCase;
 
 class TransactionControllerTest extends FeatureTestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function it_can_create_a_transaction_with_all_properties()
     {
         // Arrange
@@ -66,9 +64,7 @@ class TransactionControllerTest extends FeatureTestCase
         //Storage::disk('media')->assertExists($lastTransaction->id.'/'.$filename);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_can_edit_an_existing_transaction()
     {
         // Arrange
@@ -123,9 +119,7 @@ class TransactionControllerTest extends FeatureTestCase
         //Storage::disk('media')->assertExists($lastTransaction->id.'/'.$filename);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_stores_last_used_category_by_payee_in_payees_table_on_create()
     {
         // Arrange
@@ -151,9 +145,7 @@ class TransactionControllerTest extends FeatureTestCase
         $this->assertDatabaseHas('payees', ['user_id' => $this->user->id, 'id' => $payee->id, 'last_category_id' => $category->id]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_stores_last_used_category_by_payee_in_payees_table_on_update()
     {
         // Arrange
@@ -181,9 +173,7 @@ class TransactionControllerTest extends FeatureTestCase
         $this->assertDatabaseHas('payees', ['user_id' => $this->user->id, 'id' => $payee->id, 'last_category_id' => $category->id]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_stores_last_used_subcategory_by_payee_in_payees_table_on_create()
     {
         // Arrange
@@ -211,9 +201,7 @@ class TransactionControllerTest extends FeatureTestCase
         $this->assertDatabaseHas('payees', ['user_id' => $this->user->id, 'id' => $payee->id, 'last_category_id' => $subcategory->id]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_stores_last_used_subcategory_by_payee_in_payees_table_on_update()
     {
         // Arrange
@@ -243,9 +231,7 @@ class TransactionControllerTest extends FeatureTestCase
         $this->assertDatabaseHas('payees', ['user_id' => $this->user->id, 'id' => $payee->id, 'last_category_id' => $subcategory->id]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_stores_account_to_on_transfer_transactions()
     {
         // Arrange
@@ -283,9 +269,7 @@ class TransactionControllerTest extends FeatureTestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_stores_last_used_date_by_payee_in_payees_table_on_create()
     {
         // Arrange
@@ -316,9 +300,7 @@ class TransactionControllerTest extends FeatureTestCase
         $this->assertDatabaseHas('payees', ['user_id' => $this->user->id, 'id' => $payee->id, 'last_used_at' => Carbon::now()->toDateTimeString()]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_stores_last_used_date_by_payee_in_payees_table_on_update()
     {
         // Arrange

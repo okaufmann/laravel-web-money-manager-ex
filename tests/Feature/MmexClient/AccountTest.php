@@ -6,7 +6,8 @@ use App\Models\Account;
 
 class AccountTest extends MmexTestCase
 {
-    public function testDeleteAllAccounts()
+    /** @test */
+    public function it_can_delete_all_accounts()
     {
         // Arrange
         $account = factory(Account::class)->create(['user_id' => $this->user->id]);
@@ -20,7 +21,8 @@ class AccountTest extends MmexTestCase
         $this->assertDatabaseMissing('accounts', ['user_id' => $this->user->id, 'name' => $account->name]);
     }
 
-    public function testImportAccounts()
+    /** @test */
+    public function it_can_import_accounts()
     {
         // Arrange
         $data = ['MMEX_Post' => '{ "Accounts" : [ { "AccountName" : "Creditcard" }, { "AccountName" : "Private Account" } ] }'];

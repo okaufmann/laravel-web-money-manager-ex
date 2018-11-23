@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Log;
 use Auth;
 use Closure;
 use App\Models\User;
@@ -22,7 +23,7 @@ class MmexEnsureGuid
         $guid = $request->input('guid');
         $user = User::where('mmex_guid', $guid)->first();
 
-        if ($user && $guid == $user->mmex_guid) {
+        if (! empty($guid) && $user && $guid == $user->mmex_guid) {
             // login user on api guard (simple alternative login method)
             Auth::guard('api')->setUser($user);
 
