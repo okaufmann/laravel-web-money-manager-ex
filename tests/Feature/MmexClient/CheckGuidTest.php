@@ -6,7 +6,8 @@ use App\Services\Mmex\MmexConstants;
 
 class CheckGuidTest extends MmexTestCase
 {
-    public function testCorrectGuidLogin()
+    /** @test */
+    public function it_can_allow_correct_guids()
     {
         $this->get('/services.php?check_guid&guid='.$this->user->mmex_guid)
             ->assertSee(MmexConstants::$operation_succeded)
@@ -14,7 +15,8 @@ class CheckGuidTest extends MmexTestCase
             ->assertStatus(200);
     }
 
-    public function testIncorrectGuidLogin()
+    /** @test */
+    public function it_can_deny_incorrect_guids()
     {
         $incorrectGuid = '{DE43-D62C-A609-UIFSDDFUISF}';
 
