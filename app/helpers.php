@@ -12,14 +12,13 @@ if (! function_exists('mmex_guid')) {
     function mmex_guid()
     {
         $uuid = Uuid::uuid4();
-        if (!$uuid) {
+        if (! $uuid) {
             throw new \Exception('could not generate new guid!');
         }
 
         $guid = mb_strtoupper($uuid);
 
         $guid = sprintf('{%s}', $guid);
-
 
         return $guid;
     }
