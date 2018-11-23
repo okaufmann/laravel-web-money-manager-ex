@@ -28,4 +28,15 @@ class CheckGuidTest extends MmexTestCase
             ->assertHeader('Content-Type', 'text/plain; charset=UTF-8')
             ->assertStatus(200); // need to be 200 cause client otherwise crash..
     }
+
+    /** @test */
+    public function it_can_deny_empty_guids()
+    {
+        $emptyGuid = '';
+
+        $this->get('/services.php?check_guid&guid='.$emptyGuid)
+            ->assertSee(MmexConstants::$wrong_guid)
+            ->assertHeader('Content-Type', 'text/plain; charset=UTF-8')
+            ->assertStatus(200); // need to be 200 cause client otherwise crash..
+    }
 }

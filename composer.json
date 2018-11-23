@@ -22,8 +22,7 @@
         "sentry/sentry-laravel": "^0.8.0",
         "spatie/laravel-blade-javascript": "^2.0",
         "spatie/laravel-fractal": "^5.0",
-        "spatie/laravel-medialibrary": "^6.0",
-        "webpatser/laravel-uuid": "^3.0"
+        "spatie/laravel-medialibrary": "^6.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.0",
