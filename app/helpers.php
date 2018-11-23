@@ -12,9 +12,9 @@ if (! function_exists('mmex_guid')) {
     function mmex_guid()
     {
         $uuid = Uuid::uuid4();
-        $guid = strtoupper($uuid);
+        $guid = mb_strtoupper($uuid);
 
-        $guid = sprintf('{%s}', mb_strtoupper($guid));
+        $guid = sprintf('{%s}', $guid);
 
         if (! $guid) {
             throw new \Exception('could not generate new guid!');
