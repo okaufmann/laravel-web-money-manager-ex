@@ -1,4 +1,5 @@
 <?php
+
 namespace Tests\Feature\MmexClient;
 
 use App\Services\Mmex\MmexConstants;

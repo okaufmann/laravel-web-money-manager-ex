@@ -1,7 +1,7 @@
 <?php
+
 namespace Tests\Feature\MmexClient;
 
-use App\Models\User;
 use Tests\Features\FeatureTestCase;
 use Illuminate\Foundation\Testing\TestResponse;
 
