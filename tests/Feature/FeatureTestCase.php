@@ -32,7 +32,7 @@ abstract class FeatureTestCase extends \Tests\TestCase
         if (! $this->user) {
             $this->user = factory(User::class)->create($properties);
         }
-        Log::debug('user set: ', ['user' => $this->user]);
+        Log::debug('user set: ', ['user' => $this->user, 'mmex_guid' => $this->user->mmex_guid]);
     }
 
     protected function ensureAuthenticated()

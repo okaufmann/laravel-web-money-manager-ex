@@ -9,6 +9,8 @@ class CheckGuidTest extends MmexTestCase
     /** @test */
     public function it_can_allow_correct_guids()
     {
+        Log::debug('current user is', ['user' => $this->user]);
+
         $this->get('/services.php?check_guid&guid='.$this->user->mmex_guid)
             ->assertSee(MmexConstants::$operation_succeded)
             ->assertHeader('Content-Type', 'text/plain; charset=UTF-8')
