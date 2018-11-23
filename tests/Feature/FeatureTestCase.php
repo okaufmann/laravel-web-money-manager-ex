@@ -3,6 +3,7 @@
 namespace Tests\Features;
 
 use App\Models\User;
+use Log;
 use Tests\utils\DbUtils;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -19,6 +20,7 @@ abstract class FeatureTestCase extends \Tests\TestCase
         parent::setUp();
 
         $this->ensureUser();
+
     }
 
     /**
@@ -28,9 +30,10 @@ abstract class FeatureTestCase extends \Tests\TestCase
      */
     protected function ensureUser($properties = [])
     {
-        if (! $this->user) {
+        if (!$this->user) {
             $this->user = factory(User::class)->create($properties);
         }
+        Log::debug('user set: ', ['user' => $this->user]);
     }
 
     protected function ensureAuthenticated()
