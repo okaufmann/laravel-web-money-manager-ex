@@ -17,6 +17,7 @@ class LocalEnvironmentServiceProvider extends ServiceProvider
         \Barryvdh\Debugbar\ServiceProvider::class,
         \Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         \Laravel\Tinker\TinkerServiceProvider::class,
+        \Themsaid\MailPreview\MailPreviewServiceProvider::class
     ];
 
     /**

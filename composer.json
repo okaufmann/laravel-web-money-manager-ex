@@ -59,7 +59,8 @@
             "dont-discover": [
                 "laravel/tinker",
                 "barryvdh/laravel-debugbar",
-                "barryvdh/laravel-ide-helper"
+                "barryvdh/laravel-ide-helper",
+                "themsaid/laravel-mail-preview"
             ]
         }
     },
