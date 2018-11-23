@@ -3,6 +3,7 @@
 namespace Tests\Feature\MmexClient;
 
 use App\Services\Mmex\MmexConstants;
+use Log;
 
 class CheckGuidTest extends MmexTestCase
 {
