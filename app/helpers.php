@@ -19,6 +19,8 @@ if (! function_exists('mmex_guid')) {
         if (! $guid) {
             throw new \Exception('could not generate new guid!');
         }
+
+        return $guid;
     }
 }
 
