@@ -23,14 +23,14 @@ class HasInDatabaseOnce extends HasInDatabase
      *
      * @return bool
      */
-    public function matches($table)
+    public function matches($table): bool
     {
         $query = $this->database->table($table)->where($this->data);
 
         $entries = $query->take(2)->get();
         $this->entry = $entries->first();
 
-        return $entries->count() == 1;
+        return $entries->count() === 1;
     }
 
     /**

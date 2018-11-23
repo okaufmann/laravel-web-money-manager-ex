@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: okaufmann
- * Date: 28.10.2016
- * Time: 01:42.
- */
 
 namespace Tests\Feature\MmexClient;
 
