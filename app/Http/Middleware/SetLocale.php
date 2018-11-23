@@ -20,7 +20,7 @@ class SetLocale
         /** @var App\Models\User $user */
         if ($user = $request->user()) {
             if ($user->locale) {
-                App::setLocale($user->locale);
+                App::setLocale(array_first(explode('_', $user->locale)));
             }
         }
 
