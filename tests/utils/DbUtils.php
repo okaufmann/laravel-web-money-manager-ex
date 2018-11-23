@@ -37,7 +37,9 @@ trait DbUtils
             ->count();
 
         $this->assertGreaterThan(0, $count, sprintf(
-            'Found unexpected records in database table [%s] that matched attributes [%s].', $table, json_encode($data)
+            'Found unexpected records in database table [%s] that matched attributes [%s].',
+            $table,
+            json_encode($data)
         ));
 
         return $this;
@@ -66,7 +68,9 @@ trait DbUtils
             ->count();
 
         $this->assertGreaterThan(0, $count, sprintf(
-            'Found unexpected records in database table [%s] that matched attributes [%s].', $table, json_encode($data)
+            'Found unexpected records in database table [%s] that matched attributes [%s].',
+            $table,
+            json_encode($data)
         ));
 
         return $this;
@@ -85,7 +89,8 @@ trait DbUtils
     {
         $constraint = new HasInDatabaseOnce($this->getConnection($connection), $data);
         $this->assertThat(
-            $table, $constraint
+            $table,
+            $constraint
         );
 
         $entry = $constraint->getEntry();

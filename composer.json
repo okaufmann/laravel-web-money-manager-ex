@@ -11,7 +11,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "^7.0",
+        "php": ">=7.0.0",
         "doctrine/dbal": "~2.3",
         "laravel/framework": "5.5.*",
         "mariuzzo/laravel-js-localization": "^1.4",
