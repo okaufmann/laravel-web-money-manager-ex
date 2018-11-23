@@ -13,7 +13,7 @@ class TransactionRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->check();
     }
 
     /**
@@ -23,10 +23,11 @@ class TransactionRequest extends FormRequest
      */
     public function rules()
     {
+        $dateFormat = auth()->user()->localeDateFormat;
         $size = $this->getMaxFileUploadSizeInKb();
 
         return [
-            'transaction_date'   => 'date_format:'.locale_dateformat().'|nullable',
+            'transaction_date'   => 'date_format:'.$dateFormat.'|nullable',
             'transaction_status' => 'integer',
             'transaction_type'   => 'required|integer',
             'account'            => 'required|integer',

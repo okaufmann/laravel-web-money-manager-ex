@@ -21,13 +21,13 @@ if (! function_exists('locale_dateformat')) {
      *
      * @return string
      */
-    function locale_dateformat()
+    function locale_dateformat($locale)
     {
-        if (starts_with(App::getLocale(), 'de')) {
+        if (starts_with($locale, 'de')) {
             $format = 'd.m.Y';
-        } elseif (App::getLocale() == 'en_US') {
+        } elseif ($locale == 'en_US') {
             $format = 'm/d/Y';
-        } elseif (App::getLocale() == 'en_GB') {
+        } elseif ($locale == 'en_GB') {
             $format = 'd/m/Y';
         }
 

@@ -96,7 +96,7 @@ class TransactionService
      */
     public function createTransaction(User $user, Collection $data, array $files = null, $jsonRequest = false)
     {
-        $this->parseTransactionDate($data, $jsonRequest);
+        $this->parseTransactionDate($user, $data, $jsonRequest);
 
         $transaction = new Transaction($data->all());
 
@@ -135,7 +135,7 @@ class TransactionService
 
     public function updateTransaction(User $user, $id, Collection $data, array $files = null)
     {
-        $this->parseTransactionDate($data);
+        $this->parseTransactionDate($user, $data);
 
         $transaction = $user->transactions()->findOrFail($id);
 
@@ -250,7 +250,7 @@ class TransactionService
         }
     }
 
-    private function parseTransactionDate($data, $jsonRequest = false)
+    private function parseTransactionDate(User $user, $data, $jsonRequest = false)
     {
         $date = null;
         $transactionDate = $data->pull('transaction_date');
@@ -259,7 +259,7 @@ class TransactionService
             return;
         }
 
-        $format = $jsonRequest ? Carbon::ATOM : locale_dateformat();
+        $format = $jsonRequest ? Carbon::ATOM : $user->localeDateFormat;
 
         $date = Carbon::createFromFormat($format, $transactionDate);
         $date->hour(0);
