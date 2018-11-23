@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use Log;
 use Auth;
 use Closure;
 use App\Models\User;
