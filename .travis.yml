@@ -15,9 +15,6 @@ notifications:
         on_failure: always
 
 before_script:
-  - phpenv config-rm xdebug.ini
-  #  TODO
-  #  - pecl install imagick
   - composer install --no-interaction --no-suggest --ignore-platform-reqs
   - nvm install node
   - npm install -g yarn
