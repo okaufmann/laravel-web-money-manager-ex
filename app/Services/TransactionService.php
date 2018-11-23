@@ -10,14 +10,14 @@
 
 namespace App\Services;
 
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Payee;
 use App\Models\Account;
 use App\Models\Category;
-use App\Models\Payee;
 use App\Models\Transaction;
-use App\Models\TransactionStatus;
 use App\Models\TransactionType;
-use App\Models\User;
-use Carbon\Carbon;
+use App\Models\TransactionStatus;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 
@@ -34,8 +34,8 @@ class TransactionService
     {
         $transaction = $user->transactions()->find($id);
 
-        if (!$transaction) {
-            return null;
+        if (! $transaction) {
+            return;
         }
 
         $account = $user->accounts()->where('name', $transaction->account_name)->first();
@@ -255,7 +255,7 @@ class TransactionService
         $date = null;
         $transactionDate = $data->pull('transaction_date');
 
-        if (!$transactionDate) {
+        if (! $transactionDate) {
             return;
         }
 

@@ -3,9 +3,9 @@
 namespace Tests\Features;
 
 use App\Models\User;
+use UsersTableSeeder;
 use Tests\UsesDatabase;
 use Tests\utils\DbUtils;
-use UsersTableSeeder;
 
 abstract class FeatureTestCase extends \Tests\TestCase
 {
@@ -39,7 +39,7 @@ abstract class FeatureTestCase extends \Tests\TestCase
      */
     protected function ensureUser($properties = [])
     {
-        if (!$this->user) {
+        if (! $this->user) {
             $this->user = factory(User::class)->create($properties);
         }
     }

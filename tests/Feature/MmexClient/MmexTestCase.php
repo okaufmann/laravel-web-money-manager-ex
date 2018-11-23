@@ -9,8 +9,8 @@
 namespace Tests\Feature\MmexClient;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\TestResponse;
 use Tests\Features\FeatureTestCase;
+use Illuminate\Foundation\Testing\TestResponse;
 
 abstract class MmexTestCase extends FeatureTestCase
 {

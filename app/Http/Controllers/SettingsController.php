@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SettingsRequest;
-use App\Services\VersionInfoService;
 use Auth;
+use App\Services\VersionInfoService;
+use App\Http\Requests\SettingsRequest;
 use Tremby\LaravelGitVersion\GitVersionHelper;
 
 class SettingsController extends Controller

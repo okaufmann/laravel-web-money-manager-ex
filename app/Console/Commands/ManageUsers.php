@@ -46,7 +46,7 @@ class ManageUsers extends Command
         $user = User::whereEmail($email)->first();
 
         if ($delete) {
-            if (!$user) {
+            if (! $user) {
                 $this->error(sprintf('User %s does not exist!', $email));
             } else {
                 $user->delete();
@@ -69,7 +69,7 @@ class ManageUsers extends Command
             return;
         }
 
-        if (!$user) {
+        if (! $user) {
             $name = $this->ask('Name of user?');
             $user = User::create([
                 'name'     => $name,
@@ -88,7 +88,7 @@ class ManageUsers extends Command
         }
 
         if ($admin || $noadmin) {
-            if (!$user) {
+            if (! $user) {
                 $this->error(sprintf('User %s does not exist!', $email));
             } else {
                 $user->is_admin = $admin || $noadmin;

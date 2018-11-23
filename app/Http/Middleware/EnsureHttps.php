@@ -16,7 +16,7 @@ class EnsureHttps
      */
     public function handle($request, Closure $next)
     {
-        if (!$request->secure() && config('money-manager.https')) {
+        if (! $request->secure() && config('money-manager.https')) {
             return redirect()->secure($request->getRequestUri());
         }
 

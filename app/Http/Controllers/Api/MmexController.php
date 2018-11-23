@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Serializers\MmexArraySerializer;
-use App\Services\Mmex\ClientApiService;
-use App\Services\Mmex\Functions;
-use App\Services\Mmex\MmexConstants;
-use App\Transformers\Mmex\TransactionTransformer;
+use Log;
 use Auth;
 use Illuminate\Http\Request;
-use Log;
+use App\Services\Mmex\Functions;
+use App\Http\Controllers\Controller;
+use App\Services\Mmex\MmexConstants;
+use App\Services\Mmex\ClientApiService;
+use App\Serializers\MmexArraySerializer;
+use App\Transformers\Mmex\TransactionTransformer;
 
 /**
  * API endpoint for client https://github.com/moneymanagerex/moneymanagerex/blob/master/src/webapp.cpp.

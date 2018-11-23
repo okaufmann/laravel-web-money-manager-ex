@@ -2,13 +2,13 @@
 
 namespace Tests\Feature;
 
+use Carbon\Carbon;
+use App\Models\Payee;
 use App\Models\Account;
 use App\Models\Category;
-use App\Models\Payee;
 use App\Models\Transaction;
-use App\Models\TransactionStatus;
 use App\Models\TransactionType;
-use Carbon\Carbon;
+use App\Models\TransactionStatus;
 use Tests\Features\FeatureTestCase;
 
 class TransactionControllerTest extends FeatureTestCase
