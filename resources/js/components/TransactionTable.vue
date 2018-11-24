@@ -7,8 +7,7 @@
                   :noDataTemplate="noData()"
                   pagination-path="meta.pagination"
                   :sort-order="sortOrder"
-                  @vuetable:pagination-data="onPaginationData"
-        >
+                  @vuetable:pagination-data="onPaginationData">
             <template slot="actions" slot-scope="props">
                 <div class="form-inline">
                     <a class="btn btn-success btn-raised btn-sm"
@@ -30,7 +29,7 @@
     </div>
 </template>
 
-<script lang="ts">
+<script>
     let Vuetable = require('vuetable-2/src/components/Vuetable');
     let VuetablePaginationBootstrap = require('./VuetablePaginationBootstrap');
     let VuetablePaginationInfo = require('vuetable-2/src/components/VuetablePaginationInfo');
@@ -46,7 +45,7 @@
         data() {
             return {
                 // Hack api token to url cause axios is not using global config
-                url: "/api/v1/transactions?api_token=" + Laravel.apiToken,
+                url: "/api/v1/transactions?api_token=" + App.apiToken,
                 sortOrder: [{field: "transaction_date", sortField: "transaction_date", direction: "desc"}],
                 fields: [
                     {
@@ -128,10 +127,6 @@
                     }
                 }
             },
-//            getSortParam(sortOrder) {
-//                console.log("getSortParam() : sortOrder:=", sortOrder);
-//                return this.$refs.vuetable.getDefaultSortParam();
-//            },
             hasAttachments(value) {
                 if (!value) {
                     return '';

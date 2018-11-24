@@ -9,15 +9,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /**
  * Sett global authorization headers for js libraries
  */
-window.axios.defaults.headers.common['Authorization'] = "Bearer " + Laravel.apiToken;
+window.axios.defaults.headers.common['Authorization'] = "Bearer " + App.apiToken;
 $.ajaxSetup({
     beforeSend: function (xhr) {
-        xhr.setRequestHeader("Authorization", "Bearer " + Laravel.apiToken);
+        xhr.setRequestHeader("Authorization", "Bearer " + App.apiToken);
     }
 });
 kendo.jQuery.ajaxSetup({
     beforeSend: function (xhr) {
-        xhr.setRequestHeader("Authorization", "Bearer " + Laravel.apiToken);
+        xhr.setRequestHeader("Authorization", "Bearer " + App.apiToken);
     }
 });
 
@@ -34,17 +34,6 @@ if (token) {
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
-
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: 'your-pusher-key'
-// });
 
 // Material Buttons
 $(() => {
@@ -97,10 +86,10 @@ $(() => {
     });
 
     $('textarea, input').keyup(function (e) {
-        if (e.which == 17) isCtrl = false;
+        if (e.which === 17) isCtrl = false;
     }).keydown(function (e) {
-        if (e.which == 17) isCtrl = true;
-        if (e.which == 13 && isCtrl === true) {
+        if (e.which === 17) isCtrl = true;
+        if (e.which === 13 && isCtrl === true) {
             $(this).closest('form').submit();
             return false;
         }
