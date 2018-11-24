@@ -45,7 +45,7 @@
         data() {
             return {
                 // Hack api token to url cause axios is not using global config
-                url: "/api/v1/transactions?api_token=" + Laravel.apiToken,
+                url: "/api/v1/transactions?api_token=" + App.apiToken,
                 sortOrder: [{field: "transaction_date", sortField: "transaction_date", direction: "desc"}],
                 fields: [
                     {

@@ -9,15 +9,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /**
  * Sett global authorization headers for js libraries
  */
-window.axios.defaults.headers.common['Authorization'] = "Bearer " + Laravel.apiToken;
+window.axios.defaults.headers.common['Authorization'] = "Bearer " + App.apiToken;
 $.ajaxSetup({
     beforeSend: function (xhr) {
-        xhr.setRequestHeader("Authorization", "Bearer " + Laravel.apiToken);
+        xhr.setRequestHeader("Authorization", "Bearer " + App.apiToken);
     }
 });
 kendo.jQuery.ajaxSetup({
     beforeSend: function (xhr) {
-        xhr.setRequestHeader("Authorization", "Bearer " + Laravel.apiToken);
+        xhr.setRequestHeader("Authorization", "Bearer " + App.apiToken);
     }
 });
 
