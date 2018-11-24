@@ -30,10 +30,10 @@
 
 <!-- Scripts -->
     <script>
-        window.App = <?php echo json_encode([
+        window.App =@json([
             'csrfToken' => csrf_token(),
             'apiToken'  => Auth::check() ? Auth::user()->api_token : ""
-        ]); ?>
+        ])
 
     </script>
 </head>
