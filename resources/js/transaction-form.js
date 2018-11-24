@@ -106,7 +106,7 @@ $(function() {
         change: (e) => {
             let id = e.sender.value();
             let accounts = _.reject(mmex.dropDownOptions.accounts, (a) => a["id"] === parseInt(id));
-            let dataSource = $("#to_account").data("kendoDropDownList").dataSource as any;
+            let dataSource = $("#to_account").data("kendoDropDownList").dataSource;
             dataSource.transport.data = accounts;
             dataSource.read();
         }

@@ -30,7 +30,7 @@
     </div>
 </template>
 
-<script lang="ts">
+<script>
     let Vuetable = require('vuetable-2/src/components/Vuetable');
     let VuetablePaginationBootstrap = require('./VuetablePaginationBootstrap');
     let VuetablePaginationInfo = require('vuetable-2/src/components/VuetablePaginationInfo');
