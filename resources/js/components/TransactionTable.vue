@@ -7,8 +7,7 @@
                   :noDataTemplate="noData()"
                   pagination-path="meta.pagination"
                   :sort-order="sortOrder"
-                  @vuetable:pagination-data="onPaginationData"
-        >
+                  @vuetable:pagination-data="onPaginationData">
             <template slot="actions" slot-scope="props">
                 <div class="form-inline">
                     <a class="btn btn-success btn-raised btn-sm"
@@ -128,10 +127,6 @@
                     }
                 }
             },
-//            getSortParam(sortOrder) {
-//                console.log("getSortParam() : sortOrder:=", sortOrder);
-//                return this.$refs.vuetable.getDefaultSortParam();
-//            },
             hasAttachments(value) {
                 if (!value) {
                     return '';

@@ -19,24 +19,11 @@ require('bootstrap-material-design');
 
 window.axios = require('axios');
 
-/**
- * Setup moment.js
- */
 window.moment = require('moment');
 
-/**
- * Kendo UI
- */
 require('kendo-ui-core');
 
-/**
- * Autosize
- */
 window.autosize = require('autosize');
 
 import Vue from 'vue';
 window.Vue = Vue;
-
-// import Echo from 'laravel-echo'
-
-// window.Pusher = require('pusher-js');

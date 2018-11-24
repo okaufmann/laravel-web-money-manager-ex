@@ -35,17 +35,6 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: 'your-pusher-key'
-// });
-
 // Material Buttons
 $(() => {
     window['mmex'] = window['mmex'] || {};
@@ -97,10 +86,10 @@ $(() => {
     });
 
     $('textarea, input').keyup(function (e) {
-        if (e.which == 17) isCtrl = false;
+        if (e.which === 17) isCtrl = false;
     }).keydown(function (e) {
-        if (e.which == 17) isCtrl = true;
-        if (e.which == 13 && isCtrl === true) {
+        if (e.which === 17) isCtrl = true;
+        if (e.which === 13 && isCtrl === true) {
             $(this).closest('form').submit();
             return false;
         }

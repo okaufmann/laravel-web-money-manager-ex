@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
     kendo.ui.DropDownList.prototype.options =
         $.extend(kendo.ui.DropDownList.prototype.options, {
             noDataTemplate: Lang.get('mmex.no-data-found'),
