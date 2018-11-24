@@ -10,6 +10,7 @@ php:
 cache:
   directories:
   - $HOME/.composer/cache
+  - $HOME/.yarn-cache
 
 notifications:
   email:
@@ -23,6 +24,8 @@ before_install:
 install:
 - yes | pecl install imagick
 - travis_retry composer install --no-interaction --no-suggest
+- travis_retry yarn install --pure-lockfile
+- yarn run prod
 
 script:
 - phpunit
