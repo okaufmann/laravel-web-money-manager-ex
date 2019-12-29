@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use Auth;
-use App\Models\TransactionType;
-use App\Models\TransactionStatus;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\TransactionRequest;
+use App\Models\TransactionStatus;
+use App\Models\TransactionType;
 use App\Services\TransactionService;
 use App\Transformers\TransactionTransfomer;
-use App\Http\Requests\Api\TransactionRequest;
+use Auth;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 
 class TransactionController extends Controller

@@ -3,8 +3,8 @@
 namespace App\Transformers\Mmex;
 
 use App\Models\Transaction;
-use Spatie\MediaLibrary\Media;
 use League\Fractal\TransformerAbstract;
+use Spatie\MediaLibrary\Media;
 
 class TransactionTransformer extends TransformerAbstract
 {

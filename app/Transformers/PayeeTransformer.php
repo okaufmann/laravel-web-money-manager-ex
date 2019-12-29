@@ -2,8 +2,8 @@
 
 namespace App\Transformers;
 
-use App\Models\Payee;
 use App\Models\Category;
+use App\Models\Payee;
 use League\Fractal\TransformerAbstract;
 
 class PayeeTransformer extends TransformerAbstract

@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\MmexClient;
 
-use App\Models\Payee;
 use App\Models\Category;
+use App\Models\Payee;
 
 class CategoryTest extends MmexTestCase
 {

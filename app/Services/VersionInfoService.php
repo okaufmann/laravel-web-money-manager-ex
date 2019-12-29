@@ -10,8 +10,8 @@
 
 namespace App\Services;
 
-use Log;
 use Cache;
+use Log;
 use Symfony\Component\Process\Process;
 
 class VersionInfoService

@@ -3,8 +3,8 @@
 namespace Tests\Features;
 
 use App\Models\User;
-use Tests\utils\DbUtils;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\utils\DbUtils;
 
 abstract class FeatureTestCase extends \Tests\TestCase
 {
