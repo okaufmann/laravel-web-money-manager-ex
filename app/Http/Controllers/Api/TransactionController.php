@@ -36,7 +36,7 @@ class TransactionController extends Controller
         // add support for sorting in vuetable-2
         $sort = request()->get('sort');
         if ($sort) {
-            list($column, $direction) = explode('|', $sort);
+            [$column, $direction] = explode('|', $sort);
         }
 
         $paginator = Auth::user()->transactions()
