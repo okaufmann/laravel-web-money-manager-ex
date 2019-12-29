@@ -3,10 +3,10 @@
 namespace Tests;
 
 use Closure;
-use Illuminate\Support\Fluent;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\SQLiteConnection;
 use Illuminate\Database\Schema\SQLiteBuilder;
+use Illuminate\Database\SQLiteConnection;
+use Illuminate\Support\Fluent;
 
 trait SqliteForeignHotfix
 {

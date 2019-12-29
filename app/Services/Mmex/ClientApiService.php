@@ -2,9 +2,9 @@
 
 namespace App\Services\Mmex;
 
-use Log;
-use App\Models\User;
 use App\Models\Category;
+use App\Models\User;
+use Log;
 use Spatie\MediaLibrary\Media;
 
 class ClientApiService

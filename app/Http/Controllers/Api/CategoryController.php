@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use Auth;
-use App\Models\Category;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Transformers\CategoryTransformer;
+use Auth;
 
 class CategoryController extends Controller
 {

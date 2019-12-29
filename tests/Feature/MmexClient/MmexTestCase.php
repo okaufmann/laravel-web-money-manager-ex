@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\MmexClient;
 
-use Tests\Features\FeatureTestCase;
 use App\Services\Mmex\MmexConstants;
 use Illuminate\Foundation\Testing\TestResponse;
+use Tests\Features\FeatureTestCase;
 
 abstract class MmexTestCase extends FeatureTestCase
 {
